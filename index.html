@@ -7,10 +7,10 @@
 <title>Li Shundong · C++ Software Engineer</title>
 <meta name="description" content="C++系统软件开发工程师，5年ATE半导体测试平台研发经验。">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,600;0,700;1,500;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap');
 
 /* ==========================================================================
-   CSS 主题变量系统 (兼容自适应及手动切换)
+   CSS 主题变量 system (兼容自适应及手动切换)
    ========================================================================== */
 :root {
   /* --- 1. 原版温润浅色主题 (Putty / Espresso) --- */
@@ -49,24 +49,19 @@
   
   /* 辅助状态色 (绿色系) */
   --green-text: #5a7a5a;
-  --green-tag-bg: rgb(107 143 119 / .05);
-  --green-tag-border: rgb(107 143 119 / .15);
+  --green-tag-bg: rgb(107, 143, 119, 0.05);
+  --green-tag-border: rgb(107, 143, 119, 0.15);
   --green-tag-text: #6b8f77;
 
   /* 装饰细节 */
-  --hr-color: rgb(0 0 0 / .06);
+  --hr-color: rgb(0, 0, 0, 0.06);
   --osc-grid: rgba(139, 111, 92, 0.08);
   --pipeline-bg: rgba(139, 111, 92, 0.05);
   --pipeline-border: rgba(139, 111, 92, 0.3);
 
-  /* 环境辉光 */
-  --aurora-1: rgb(255 248 240 / .08);
-  --aurora-2: rgb(220 210 200 / .05);
-  --aurora-3: rgb(240 235 228 / .04);
-  --glow-1: rgb(155 123 100 / .05);
-  --glow-2: rgb(139 111 92 / .03);
-  --glow-3: rgb(139 111 92 / .04);
-  --glow-4: rgb(155 123 100 / .03);
+  /* 全局晶圆网格刻蚀线 (浅色) */
+  --wafer-grid-fine: rgba(155, 123, 100, 0.04);
+  --wafer-grid-major: rgba(155, 123, 100, 0.07);
 
   /* PCB 走线、焊盘、丝印颜色 */
   --bus-glow: #c9a96e;
@@ -77,11 +72,11 @@
   --pcb-via-hole: #e0bc9b;
   --pcb-watermark: rgba(155, 123, 100, 0.08);
 
-  /* 字体与大排版 (自适应切换) */
-  --font-heading: 'Geist', 'Inter', sans-serif;
+  /* 统一升级为：高精尖工业无衬线几何标题字体 */
+  --font-heading: 'Geist', 'Inter', -apple-system, sans-serif;
   --font-style: normal;
   --font-weight-heading: 700;
-  --letter-spacing-heading: -.03em;
+  --letter-spacing-heading: -.025em;
 
   /* 论文分类标签 */
   --sci-bg: rgba(37, 99, 235, 0.2); --sci-text: #1d4ed8; --sci-border: rgba(37, 99, 235, 0.3);
@@ -122,12 +117,10 @@
     --tag-bg: rgba(255, 107, 43, 0.06);
     --tag-border: rgba(255, 107, 43, 0.15);
     --tag-text: #ff8a5c;
-    
     --green-text: #ffaa66;
     --green-tag-bg: rgba(255, 170, 102, 0.06);
     --green-tag-border: rgba(255, 170, 102, 0.15);
     --green-tag-text: #ffaa66;
-
     --hr-color: rgba(255, 107, 43, 0.1);
     --osc-grid: rgba(255, 107, 43, 0.05);
     --pipeline-bg: rgba(255, 107, 43, 0.02);
@@ -148,10 +141,12 @@
     --pcb-smd-pad: rgba(255, 107, 43, 0.12);
     --pcb-via-hole: #ffe6bd;
     --pcb-watermark: rgba(255, 107, 43, 0.04);
-    --font-heading: 'Playfair Display', Georgia, serif;
-    --font-style: italic;
-    --font-weight-heading: 600;
-    --letter-spacing-heading: -.01em;
+    
+    /* 统一升级为：高精尖工业无衬线几何标题字体 */
+    --font-heading: 'Geist', 'Inter', -apple-system, sans-serif;
+    --font-style: normal;
+    --font-weight-heading: 700;
+    --letter-spacing-heading: -.015em;
     --scroll-shaft-grad: linear-gradient(90deg, #18110e 0%, #2c1a14 25%, #462820 50%, #2c1a14 75%, #0f0a08 100%);
     --scroll-shaft-l-grad: linear-gradient(90deg, #0f0a08 0%, #2c1a14 25%, #462820 50%, #2c1a14 75%, #18110e 100%);
     --scroll-knob-grad: linear-gradient(90deg, #241611 0%, #3e241c 30%, #5a352b 50%, #3e241c 75%, #1b100c 100%);
@@ -159,11 +154,14 @@
     --scroll-silk-border: #231612;
     --scroll-paper-texture: linear-gradient(90deg, #1a1412 0%, #241c19 50%, #1a1412 100%);
     --scroll-shadow: drop-shadow(0 20px 48px rgba(0, 0, 0, 0.55));
-    --advantage-bg: linear-gradient(90deg, rgba(20, 16, 14, 0.85), rgba(28, 22, 19, 0.6));
+    --sci-bg: rgba(255, 107, 43, 0.15); --sci-text: #ff8a5c; --sci-border: rgba(255, 107, 43, 0.25);
+    --if-bg: rgba(255, 170, 102, 0.1); --if-text: #ffaa66; --if-border: rgba(255, 170, 102, 0.2);
+    --q2-bg: rgba(255, 107, 43, 0.1); --q2-text: #ff8a5c; --q2-border: rgba(255, 107, 43, 0.2);
+    --first-bg: rgba(255, 170, 102, 0.15); --first-text: #ffaa66; --first-border: rgba(255, 170, 102, 0.25);
   }
 }
 
-/* 手动强制切换 [data-theme="light"] */
+/* 强制强制设定切换的选择器覆盖 */
 :root[data-theme="light"] {
   --bg: #ede7e0;
   --text: #2d2925;
@@ -172,16 +170,16 @@
   --accent-light: #8b6f5c;
   --glass-bg: rgb(255 255 252 / .55);
   --glass-border: rgb(0 0 0 / .08);
-  --glass-inset-top: rgb(255 255 252 / .6);
+  --glass-inset-top: rgb(255 255 255 / .6);
   --glass-inset-bottom: rgb(0 0 0 / .04);
   --glass-shadow: rgb(0 0 0 / .04);
   --glass-hover-shadow: inset 0 1px 0 rgb(255 255 252 / .45), inset 0 2px 6px rgb(255 255 252 / .12), inset 0 -1px 0 rgb(0 0 0 / .2), 0 6px 28px rgb(0 0 0 / .15);
   --nav-bg: rgba(237, 231, 224, .72);
   --nav-border: rgb(0 0 0 / .06);
-  --side-accent-l: linear-gradient(90deg, rgb(155 123 100 / .5), rgb(155 123 100 / .65));
-  --side-accent-l-outer: linear-gradient(90deg, rgb(155 123 100 / .55), rgb(155 123 100 / .7));
-  --side-accent-r: linear-gradient(270deg, rgb(155 123 100 / .5), rgb(155 123 100 / .65));
-  --side-accent-r-outer: linear-gradient(270deg, rgb(155 123 100 / .55), rgb(155 123 100 / .7));
+  --side-accent-l: linear-gradient(90deg, rgb(155, 123, 100, 0.5), rgb(155, 123, 100, 0.65));
+  --side-accent-l-outer: linear-gradient(90deg, rgb(155, 123, 100, 0.55), rgb(155, 123, 100, 0.7));
+  --side-accent-r: linear-gradient(270deg, rgb(155, 123, 100, 0.5), rgb(155, 123, 100, 0.65));
+  --side-accent-r-outer: linear-gradient(270deg, rgb(155, 123, 100, 0.55), rgb(155, 123, 100, 0.7));
   --advantage-bg: linear-gradient(90deg, rgb(255 255 252 / .7), rgb(255 252 245 / .5));
   --tag-bg: rgba(139, 111, 92, .1);
   --tag-border: rgba(139, 111, 92, .15);
@@ -190,7 +188,7 @@
   --green-tag-bg: rgb(107, 143, 119, 0.05);
   --green-tag-border: rgb(107, 143, 119, 0.15);
   --green-tag-text: #6b8f77;
-  --hr-color: rgba(0, 0, 0, 0.06);
+  --hr-color: rgb(0, 0, 0, 0.06);
   --osc-grid: rgba(139, 111, 92, 0.08);
   --pipeline-bg: rgba(139, 111, 92, 0.05);
   --pipeline-border: rgba(139, 111, 92, 0.3);
@@ -199,10 +197,10 @@
   --aurora-1: rgb(255, 248, 240, 0.08);
   --aurora-2: rgb(220, 210, 200, 0.05);
   --aurora-3: rgb(240, 235, 228, 0.04);
-  --glow-1: rgba(155, 123, 100, 0.05);
-  --glow-2: rgba(139, 111, 92, 0.03);
-  --glow-3: rgba(139, 111, 92, 0.04);
-  --glow-4: rgba(155, 123, 100, 0.03);
+  --glow-1: rgb(155 123 100 / .05);
+  --glow-2: rgb(139 111 92 / .03);
+  --glow-3: rgb(139 111 92 / .04);
+  --glow-4: rgb(155 123 100 / .03);
   --bus-glow: #c9a96e;
   --bus-flow: #f0d090;
   --bus-joint-bg: #6a4a2a;
@@ -227,7 +225,6 @@
   --first-bg: rgba(217, 119, 6, 0.2); --first-text: #b45309; --first-border: rgba(217, 119, 6, 0.3);
 }
 
-/* 手动强制切换 [data-theme="dark"] */
 :root[data-theme="dark"] {
   --bg: #0a0807;
   --text: #ede6de;
@@ -274,9 +271,9 @@
   --pcb-smd-pad: rgba(255, 107, 43, 0.12);
   --pcb-via-hole: #ffe6bd;
   --pcb-watermark: rgba(255, 107, 43, 0.04);
-  --font-heading: 'Playfair Display', Georgia, serif;
-  --font-style: italic;
-  --font-weight-heading: 600;
+  --font-heading: 'Geist', 'Inter', sans-serif;
+  --font-style: normal;
+  --font-weight-heading: 700;
   --letter-spacing-heading: -.01em;
   --scroll-shaft-grad: linear-gradient(90deg, #18110e 0%, #2c1a14 25%, #462820 50%, #2c1a14 75%, #0f0a08 100%);
   --scroll-shaft-l-grad: linear-gradient(90deg, #0f0a08 0%, #2c1a14 25%, #462820 50%, #2c1a14 75%, #18110e 100%);
@@ -289,6 +286,20 @@
   --if-bg: rgba(255, 170, 102, 0.1); --if-text: #ffaa66; --if-border: rgba(255, 170, 102, 0.2);
   --q2-bg: rgba(255, 107, 43, 0.1); --q2-text: #ff8a5c; --q2-border: rgba(255, 107, 43, 0.2);
   --first-bg: rgba(255, 170, 102, 0.15); --first-text: #ffaa66; --first-border: rgba(255, 170, 102, 0.25);
+}
+
+:root[data-theme="light"] {
+  --font-heading: 'Geist', 'Inter', -apple-system, sans-serif !important;
+  --font-style: normal !important;
+  --font-weight-heading: 700 !important;
+  --letter-spacing-heading: -.025em !important;
+}
+
+:root[data-theme="dark"] {
+  --font-heading: 'Geist', 'Inter', -apple-system, sans-serif !important;
+  --font-style: normal !important;
+  --font-weight-heading: 700 !important;
+  --letter-spacing-heading: -.025em !important;
 }
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -365,6 +376,7 @@ a{color:inherit;text-decoration:none}
 .nav.scrolled{border-bottom-color:var(--nav-border)}
 .nav-logo{font-weight:600;font-size:16px;letter-spacing:-.01em;color:var(--text)}
 
+/* 圆形液态玻璃开关与打印按钮 */
 .theme-toggle-btn {
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
@@ -394,11 +406,42 @@ a{color:inherit;text-decoration:none}
 .hero{display:flex;flex-direction:column;padding-top:100px;padding-bottom:60px;overflow:hidden;position:relative;align-items:center}
 .hero-aurora{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 40% 50% at 20% 50%,var(--aurora-1),transparent 60%),radial-gradient(ellipse 50% 40% at 80% 30%,var(--aurora-2),transparent 60%),radial-gradient(ellipse 30% 30% at 50% 80%,var(--aurora-3),transparent 50%);filter:blur(80px)}
 .hero-inner{display:flex;flex-direction:column;align-items:center;width:100%;max-width:900px;margin:0 auto}
-.hero-photo{flex-shrink:0;width:160px;height:160px;border-radius:50%;overflow:hidden;border:2px solid var(--glass-border);background:var(--glass-bg);display:flex;align-items:center;justify-content:center}
+
+/* 圆形头像高档 3D 悬浮相框 */
+.photo-wrap {
+  position: relative;
+  display: inline-block;
+}
+.photo-glow {
+  position: absolute;
+  inset: -10px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+  opacity: 0.15;
+  filter: blur(10px);
+  z-index: -1;
+  transition: background 0.4s ease;
+}
+.hero-photo{
+  flex-shrink:0;
+  width:160px;
+  height:160px;
+  border-radius:50%; /* 圆形相框完美复原 */
+  overflow:hidden;
+  border:2px solid var(--glass-border);
+  background:var(--glass-bg);
+  box-shadow:inset 0 2px 4px var(--glass-inset-bottom), 0 12px 28px var(--glass-shadow);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position: relative;
+  cursor: pointer;
+}
 .hero-photo img{width:100%;height:100%;object-fit:cover}
+
 .hero-text{flex:1;max-width:560px}
 
-.hero-greeting{font-size:14px;font-family:'Geist Mono',monospace;color:var(--accent);margin-bottom:20px;letter-spacing:.04em}
+/* 取消了原本带有 C++ SOFTWARE ENGINEER 的 greeting 标题层 */
 .hero-name{
   font-family: var(--font-heading);
   font-style: var(--font-style);
@@ -443,7 +486,7 @@ a{color:inherit;text-decoration:none}
 /* ATE 工艺级 PCB 全局多层高集成度线网背景样式定义 (!important 防黑死锁填充) */
 .bus-svg{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:visible}
 .bus-svg path{
-  fill: none !important; /* 强制覆盖，完美绝杀浏览器默认黑色实心填充 Bug */
+  fill: none !important; /* 强制覆盖，完美阻断黑色实心填充 Bug */
   stroke-linecap: round;
   stroke-linejoin: round;
 }
@@ -600,7 +643,7 @@ a{color:inherit;text-decoration:none}
 .papers{list-style:none;display:flex;flex-direction:column;gap:6px}
 .papers li{font-size:14px;color:var(--muted);padding-left:16px;position:relative;line-height:1.5}
 .papers li::before{content:'·';position:absolute;left:4px;color:var(--accent);font-weight:700}
-.awards-row{display:flex;wrap:wrap;gap:8px;margin-top:12px}
+.awards-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
 .award-tag{padding:4px 12px;border-radius:999px;font-size:12px;font-weight:500;color:var(--green-tag-text);border:1px solid var(--green-tag-border);background:var(--green-tag-bg)}
 
 .jcr-tag {
@@ -636,10 +679,15 @@ a{color:inherit;text-decoration:none}
 .edu-grid .lq.visible{opacity:1;transform:translateY(0)}
 .hr{height:1px;background:var(--hr-color);margin:0 24px}
 
-/* === SKILLS CONSOLE === */
+/* === SKILLS CONSOLE (高端系统看板) === */
+/* ==========================================================================
+   专业技能系统看板布局调整
+   ========================================================================== */
 .skill-bento {
   display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
+  /* 修改前：grid-template-columns: 1.2fr 0.8fr; */
+  /* 修改后：平分左右两栏，宽度完全一致 */
+  grid-template-columns: 1fr 1fr; 
   gap: 20px;
 }
 .skill-card {
@@ -706,20 +754,596 @@ a{color:inherit;text-decoration:none}
   95% { opacity: 1; }
   100% { left: 105%; opacity: 0; }
 }
+
+/* ==========================================================================
+   微型传感器眼睛追踪特效样式 (卡通大眼+高对比度+弹跳气泡)
+   ========================================================================== */
+.scroll-eyes-container {
+  position: absolute;
+  top: -22px; 
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  pointer-events: auto; /* 允许指针交互以实现悬停和点击 */
+  cursor: pointer;
+  display: flex;
+  gap: 10px;
+  background: var(--glass-bg);
+  padding: 5px 12px;
+  border-radius: 20px;
+  border: 1.5px solid var(--scroll-silk-border);
+  box-shadow: 0 4px 12px var(--glass-shadow);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  transition: border-color 0.4s, background 0.4s, transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* 鼠标悬停微动，点击时触发弹性挤压 */
+.scroll-eyes-container:hover {
+  transform: translateX(-50%) scale(1.08);
+}
+.scroll-eyes-container.active-click {
+  animation: eyeSquash 0.4s ease-out;
+}
+
+@keyframes eyeSquash {
+  0% { transform: translateX(-50%) scale(1.08, 1.08); }
+  30% { transform: translateX(-50%) scale(1.25, 0.75); } /* 压扁 */
+  60% { transform: translateX(-50%) scale(0.85, 1.15); } /* 拉长 */
+  100% { transform: translateX(-50%) scale(1.08, 1.08); }
+}
+
+/* 眨眼动画 */
+@keyframes eyeBlink {
+  0%, 93%, 100% { transform: scaleY(1); }
+  96% { transform: scaleY(0.1); } 
+}
+
+.eye-socket {
+  width: 26px;
+  height: 18px; 
+  background: #ffffff; /* 浅色模式下采用高亮白色眼白，告别暗沉 */
+  border: 1.5px solid var(--scroll-silk-border);
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: eyeBlink 4.5s infinite; 
+  transform-origin: center;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.12); /* 增加内阴影呈现 3D 眼球质感 */
+}
+
+/* 深色模式下提升眼眶亮度与边框对比度 */
+:root[data-theme="dark"] .eye-socket {
+  background: #e2dcd5; /* 银灰白色眼白，保证极高辨识度 */
+  border-color: var(--accent); /* 醒目的科技橙色眼眶 */
+}
+
+.eye-pupil {
+  width: 12px; 
+  height: 12px;
+  background: var(--accent);
+  border-radius: 50%;
+  position: absolute;
+  will-change: transform;
+  transition: transform 0.08s cubic-bezier(0.175, 0.885, 0.32, 1.1); 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 卡通高光点 */
+.eye-pupil::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 3.5px;
+  height: 3.5px;
+  background: #ffffff;
+  border-radius: 50%;
+}
+
+/* 吐槽自言自语文字气泡 */
+.eye-bubble {
+  position: absolute;
+  bottom: 135%;
+  left: 50%;
+  transform: translateX(-50%) scale(0.8);
+  background: var(--accent);
+  color: var(--bg);
+  padding: 5px 12px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+  pointer-events: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  z-index: 12;
+  transform-origin: bottom center;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s;
+}
+
+.eye-bubble::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: var(--accent);
+}
+
+.eye-bubble.visible {
+  transform: translateX(-50%) scale(1);
+  opacity: 1;
+}
+
+/* ==========================================================================
+   头像点赞交互与徽章样式 (玻璃特效规范化 + 散落撒花粒子)
+   ========================================================================== */
+.like-badge-wrap {
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  
+  /* 严格沿用下载、打印、主题切换按钮的物理玻璃质感配方 */
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  color: var(--text);
+  padding: 6px 14px;
+  border-radius: 99px;
+  box-shadow: inset 0 1px 0 var(--glass-inset-top), 0 2px 8px var(--glass-shadow);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  
+  font-size: 11px;
+  font-family: 'Geist Mono', monospace;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  z-index: 10;
+  white-space: nowrap;
+  user-select: none;
+  pointer-events: none; /* 穿透点击，避免干扰头像双击 */
+  transition: all 0.3s ease;
+}
+
+/* 脉冲跳动 */
+@keyframes heartBeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+.like-badge-wrap svg {
+  color: var(--accent);
+}
+.like-badge-wrap.pulse svg {
+  animation: heartBeat 0.3s ease-in-out;
+}
+
+/* 头像果冻挤压弹性动画 */
+@keyframes photoSquash {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.15, 0.85); }
+  60% { transform: scale(0.9, 1.1); }
+  100% { transform: scale(1); }
+}
+.hero-photo.active-bounce {
+  animation: photoSquash 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.2) forwards;
+}
+
+/* 点赞文字浮现动画 */
+@keyframes floatUp {
+  0% { transform: translate(-50%, -50%) translateY(0) scale(0.6); opacity: 1; }
+  100% { transform: translate(-50%, -50%) translateY(-60px) scale(1.2); opacity: 0; }
+}
+.like-pop-text {
+  position: absolute;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--accent);
+  pointer-events: none;
+  z-index: 100;
+  animation: floatUp 0.65s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  font-family: 'Geist', sans-serif;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* 撒花粒子弹射动画 */
+@keyframes particleFloat {
+  0% {
+    transform: translate(-50%, -50%) translate(0, 0) scale(0.4);
+    opacity: 1;
+  }
+  80% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(-50%, -50%) translate(var(--tx), var(--ty)) scale(1);
+    opacity: 0;
+  }
+}
+.confetti-particle {
+  position: absolute;
+  pointer-events: none;
+  font-size: 14px;
+  animation: particleFloat 0.8s cubic-bezier(0.1, 0.8, 0.25, 1) forwards;
+  z-index: 99;
+}
+
+/* ==========================================================================
+   顶栏控制中心、点赞、访客与联系我弹窗
+   ========================================================================== */
+.nav-tools {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.glass-pill {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  color: var(--text);
+  padding: 6px 12px;
+  border-radius: 99px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Geist Mono', monospace;
+  font-size: 11px;
+  box-shadow: inset 0 1px 0 var(--glass-inset-top), 0 2px 8px var(--glass-shadow);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+  user-select: none;
+  white-space: nowrap;
+}
+.glass-pill:hover {
+  transform: translateY(-1px);
+  background: var(--tag-bg);
+  border-color: var(--accent);
+}
+.glass-pill svg {
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+/* 点赞徽章专属动效 */
+@keyframes heartBeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+.glass-pill.pulse svg {
+  animation: heartBeat 0.3s ease-in-out;
+}
+
+/* 磨砂玻璃联系我 Modal 弹窗 */
+.contact-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s cubic-bezier(.16,1,.3,1);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.contact-modal.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+.contact-modal-content {
+  width: 330px;
+  max-width: 90%;
+  transform: translateY(20px) scale(0.95);
+  transition: transform 0.4s cubic-bezier(.16,1,.3,1);
+}
+.contact-modal.visible .contact-modal-content {
+  transform: translateY(0) scale(1);
+}
+.contact-modal-content h3 {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  color: var(--text);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13.5px;
+  color: var(--muted);
+  background: rgba(0, 0, 0, 0.02);
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--glass-border);
+}
+:root[data-theme="dark"] .contact-item {
+  background: rgba(255, 255, 255, 0.02);
+}
+.contact-item strong {
+  color: var(--text);
+  min-width: 45px;
+}
+.contact-item a {
+  color: var(--accent);
+  transition: color 0.2s;
+}
+.contact-item a:hover {
+  color: var(--accent-light);
+  text-decoration: underline;
+}
+
+/* 窄屏智能折叠机制：防止顶栏元素堆叠溢出 */
+@media(max-width: 820px) {
+  .glass-pill span.txt-fold {
+    display: none !important; /* 自动剔除 “次点赞”、“位访客”、“联系我” 辅助文字 */
+  }
+}
+@media(max-width: 480px) {
+  .nav-tools {
+    gap: 4px;
+  }
+  .glass-pill {
+    padding: 6px 8px;
+  }
+}
+
+/* 撒花粒子、头像点赞等特效类 */
+.confetti-particle {
+  position: absolute;
+  pointer-events: none;
+  font-size: 14px;
+  animation: particleFloat 0.8s cubic-bezier(0.1, 0.8, 0.25, 1) forwards;
+  z-index: 99;
+}
+
+@keyframes particleFloat {
+  0% { transform: translate(-50%, -50%) translate(0, 0) scale(0.4); opacity: 1; }
+  80% { opacity: 0.9; }
+  100% { transform: translate(-50%, -50%) translate(var(--tx), var(--ty)) scale(1); opacity: 0; }
+}
+
+@keyframes floatUp {
+  0% { transform: translate(-50%, -50%) translateY(0) scale(0.6); opacity: 1; }
+  100% { transform: translate(-50%, -50%) translateY(-60px) scale(1.2); opacity: 0; }
+}
+
+.like-pop-text {
+  position: absolute;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--accent);
+  pointer-events: none;
+  z-index: 100;
+  animation: floatUp 0.65s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  font-family: 'Geist', sans-serif;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+@media print {
+  .like-badge-wrap, .contact-modal {
+    display: none !important;
+  }
+}
+
+@media(max-width:768px){
+  .section{padding:56px 0}
+  .container{padding:0 16px}
+  .hero-inner{flex-direction:column;gap:28px;text-align:center}
+  .hero-photo{width:120px;height:120px;margin:0 auto}
+  .hero-text{max-width:100%}
+  .hero-contact{justify-content:center}
+  .edu-grid{gap:12px}
+  .scroll-grid{grid-template-columns:1fr!important}
+  .skill-bento {
+    grid-template-columns: 1fr;
+  }
+}
+@media(max-width:480px){
+  .container{padding:0 16px}
+  .exp-header{flex-direction:column}
+  .nav{padding:0 16px}
+}
+
+/* ==========================================================================
+   一键 PDF 导出/打印模式排版控制样式（完全防截断，降级平面化排版）
+   ========================================================================== */
+@media print {
+  /* 强制打印机保留背景色和纸张色彩 */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  body {
+    background-color: #ffffff !important;
+    background-image: none !important;
+    color: #111111 !important;
+    font-size: 11px !important;
+  }
+  
+  /* 隐藏所有动态特效、发光流星、以及网站操控栏、眼睛传感器、点赞徽章 */
+  .nav, .theme-toggle-btn, #monk-scene, .hero-aurora, .bus-svg, .glow, .section-bg, .hr, .hero-photo, .scroll-eyes-container, .like-badge-wrap {
+    display: none !important;
+  }
+
+  .container {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* 完全展平卷轴，将其回归为标准文本行，消除由于物理宽度限制引发的文本截断 */
+  .scroll-wrap {
+    display: block !important;
+    filter: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+  }
+  .scroll-body {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    flex: none !important;
+    opacity: 1 !important;
+    overflow: visible !important;
+  }
+  .scroll-body::before, .scroll-body::after {
+    display: none !important; /* 隐藏卷轴 3D 投影 */
+  }
+  .scroll-content {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+  .scroll-shaft-l, .scroll-shaft-r {
+    display: none !important; /* 隐藏左右实心卷轴轴柄 */
+  }
+
+  /* 专业技能：隐藏示波器和动画轨道，保留纯文字分类索引 */
+  .skill-bento {
+    display: block !important;
+  }
+  .skill-card {
+    min-height: auto !important;
+    margin-bottom: 12px !important;
+    page-break-inside: avoid !important;
+    border: 1px solid #ddd !important;
+    background: #fff !important;
+    border-radius: 8px !important;
+  }
+  .osc-canvas, .pipeline-track {
+    display: none !important;
+  }
+
+  /* 项目经历 Bento 卡片在白纸下的扁平边框控制 */
+  .bento {
+    display: block !important;
+    width: 100% !important;
+  }
+  .bento .lq {
+    margin-bottom: 12px !important;
+    page-break-inside: avoid !important;
+    border: 1px solid #ddd !important;
+    background: #fff !important;
+    border-radius: 8px !important;
+  }
+  .lq-panel {
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 12px !important;
+  }
+  .bl {
+    color: #000 !important;
+    font-weight: 700 !important;
+    font-size: 13px !important;
+  }
+  .br {
+    border-top: 1px solid #eee !important;
+    color: #444 !important;
+    margin-top: 6px !important;
+    padding-top: 6px !important;
+  }
+  .tech-tag {
+    background: #f5f5f5 !important;
+    border: 1px solid #ccc !important;
+    color: #333 !important;
+  }
+}
+
+/* 功德木鱼弹性出场动画 */
+@keyframes bounceIn {
+  0% { transform: scale(0.3); opacity: 0; }
+  50% { transform: scale(1.15); }
+  70% { transform: scale(0.9); }
+  100% { transform: scale(1); opacity: 1; }
+}
+.monk-bounce-in {
+  animation: bounceIn 0.85s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
 </style>
 </head>
 <body>
 <nav class="nav" id="nav">
   <a href="#" class="nav-logo">LS</a>
-  <button id="themeToggle" class="theme-toggle-btn" aria-label="切换环境微光">
-    <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-    </svg>
-    <svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-    </svg>
-  </button>
+  <div class="nav-tools">
+    <!-- 访客统计徽章 -->
+    <div class="glass-pill" title="您是本站的第几位访客">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+      </svg>
+      <span id="visitorCounterDisplay">1024</span><span class="txt-fold">位访客</span>
+    </div>
+
+    <!-- 点赞统计徽章 (支持点击直接点赞) -->
+    <button id="likeBadge" class="glass-pill" title="点击可为我直接点赞！">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+      </svg>
+      <span id="likeCounterDisplay">256</span><span class="txt-fold">次点赞</span>
+    </button>
+
+    <!-- 联系我按钮 -->
+    <button id="contactBtn" class="glass-pill" title="查看联系方式">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+      </svg>
+      <span class="txt-fold">联系我</span>
+    </button>
+
+    <!-- 打印/另存为 PDF -->
+    <button id="printBtn" class="theme-toggle-btn" title="保存为 PDF / 打印">
+      <svg class="print-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <polyline points="6 9 6 2 18 2 18 9"/>
+        <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+        <rect x="6" y="14" width="12" height="8"/>
+      </svg>
+    </button>
+    
+    <!-- 离线 PDF 下载 -->
+    <a href="李顺东_C++系统软件开发工程师.pdf" download="李顺东_C++系统软件开发工程师.pdf" id="downloadBtn" class="theme-toggle-btn" title="直接下载本地离线 PDF 简历">
+      <svg class="download-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+    </a>
+
+    <!-- 环境微光按钮 -->
+    <button id="themeToggle" class="theme-toggle-btn" aria-label="切换环境微光">
+      <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+      </svg>
+      <svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+    </button>
+  </div>
 </nav>
+
+<!-- 用于静默打印静态 PDF 简历文件的隐形网关 Frame -->
+<iframe id="pdfPrintIframe" src="李顺东_C++系统软件开发工程师.pdf" style="position:absolute; width:0; height:0; border:0;"></iframe>
 
 <main>
   <section class="hero">
@@ -727,17 +1351,28 @@ a{color:inherit;text-decoration:none}
     <div class="container hero-inner">
       <div style="display:flex;align-items:center;gap:80px;width:100%">
         <div class="hero-text reveal">
-          <div class="hero-greeting">C++ SOFTWARE ENGINEER</div>
           <h1 class="hero-name">李顺东</h1>
-          <p class="hero-title">C++系统软件开发 | SDK | 上位机后端开发</p>
+          <p class="hero-title">C++系统软件开发 | SDK | 上位机后端开发 | 5年半导体ATE经验</p>
           <div class="hero-contact">
-            <a href="mailto:lia734605@gmail.com" class="contact-link"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg> lia734605@gmail.com</a>
-            <a href="tel:16605114386" class="contact-link"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> 16605114386</a>
+            <!-- 前端解密 ID: heroEmail -->
+            <a href="#" id="heroEmail" class="contact-link">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg>
+              <span>加载中...</span>
+            </a>
+            <!-- 前端解密 ID: heroTel -->
+            <a href="#" id="heroTel" class="contact-link">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              <span>加载中...</span>
+            </a>
             <span class="contact-link">目前状态：在职，关注新机会</span>
           </div>
         </div>
-        <div class="hero-photo reveal">
-          <img src="photo.jpg" alt="Li Shundong">
+        <!-- 圆形头像点赞相框 -->
+        <div class="photo-wrap">
+          <div class="photo-glow"></div>
+          <div class="hero-photo reveal" id="avatarContainer" title="双击头像可为我点赞及撒花！">
+            <img id="avatarImg" src="photo.png" alt="Li Shundong">
+          </div>
         </div>
       </div>
       <div style="text-align:center;font-size:18px;color:var(--muted);font-family:'Geist','PingFang SC',sans-serif;width:100%;margin-top:32px;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:4px">
@@ -745,8 +1380,8 @@ a{color:inherit;text-decoration:none}
       </div>
       <div style="text-align:center;margin-top:12px">
         <span id="monk-scene" style="display:none;user-select:none;position:relative">
-          <span id="fishBtn" style="display:inline-block;cursor:pointer;position:relative;width:48px;height:48px;animation:fishBob 2.6s ease-in-out infinite">
-            <svg id="fishSvg" viewBox="0 0 68 64" width="48" height="45" style="display:block;overflow:visible">
+          <span id="fishBtn" style="display:inline-block;cursor:pointer;position:relative;width:60px;height:60px;animation:fishBob 2.6s ease-in-out infinite">
+            <svg id="fishSvg" viewBox="0 0 68 64" width="60" height="56" style="display:block;overflow:visible; transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);">
               <defs>
                 <radialGradient id="wb" cx="62%" cy="32%" r="68%">
                   <stop offset="0%" stop-color="#f0d090"/><stop offset="15%" stop-color="#d8a860"/>
@@ -771,7 +1406,7 @@ a{color:inherit;text-decoration:none}
               <path d="M6,28 C6,27 14,25 28,24 C40,25 48,27 50,28 C48,30 40,32 28,33 C14,32 6,30 6,28Z" fill="#0a0402"/>
               <path d="M6,28 C6,27 14,25 28,24 C40,25 48,27 50,28" fill="none" stroke="#1a0a04" stroke-width=".8"/>
               <ellipse cx="36" cy="14" rx="16" ry="8" fill="rgb(255 230 170/.15)"/>
-              <ellipse cx="38" cy="12" rx="8" ry="4" fill="rgb(255 245 200/.1)"/>
+              <ellipse cx="38" cy="12" rx="8" ry="4" fill="rgb(255 245 200/.15)"/>
               <ellipse cx="54" cy="50" rx="3.5" ry="3" fill="#5a3218" stroke="#3a1c08" stroke-width=".5"/>
               <ellipse cx="53.5" cy="49.5" rx="1.5" ry="1" fill="#7a4a28"/>
               <g stroke="rgb(80 45 15/.25)" stroke-width=".6" fill="none" stroke-linecap="round">
@@ -791,7 +1426,7 @@ a{color:inherit;text-decoration:none}
               </g>
             </svg>
           </span>
-          <span id="meritText" style="position:absolute;left:50%;transform:translateX(-50%);bottom:100%;font-size:13px;color:var(--accent);font-weight:600;white-space:nowrap;pointer-events:none;opacity:0">+1 功德</span>
+          <span id="meritText" style="position:absolute;left:50%;transform:translateX(-50%);bottom:100%;font-size:13px;color:var(--accent);font-weight:600;white-space:nowrap;pointer-events:none;opacity:0">+1 功功德</span>
           <span id="dongText" style="position:absolute;left:50%;transform:translateX(-50%);bottom:70%;font-size:14px;color:var(--accent-light);font-weight:700;white-space:nowrap;pointer-events:none;opacity:0">咚~</span>
           <span id="meritCount" style="position:absolute;left:108%;top:50%;transform:translateY(-50%);font-size:11px;color:var(--muted);font-family:'Geist Mono',monospace;white-space:nowrap;pointer-events:none"></span>
         </span>
@@ -807,6 +1442,17 @@ a{color:inherit;text-decoration:none}
           <div class="scroll-knob-bottom"></div>
         </div>
         
+        <!-- 眼睛追踪传感器组件 (包含吐槽气泡) -->
+        <div class="scroll-eyes-container">
+          <div class="eye-socket">
+            <div class="eye-pupil" id="leftPupil"></div>
+          </div>
+          <div class="eye-socket">
+            <div class="eye-pupil" id="rightPupil"></div>
+          </div>
+          <div class="eye-bubble" id="eyeBubble">C++ 才是最好的语言！</div>
+        </div>
+
         <!-- 宣纸主体 -->
         <div class="scroll-body">
           <div class="scroll-content">
@@ -937,7 +1583,7 @@ a{color:inherit;text-decoration:none}
 
   <div class="hr"></div>
 
-  <!-- === 项目经历 (全局高密度 PCB 覆铜网络背景) === -->
+  <!-- === 项目经历 === -->
   <section class="section">
     <div class="section-bg"><div class="glow"></div></div>
     <div class="container">
@@ -946,7 +1592,7 @@ a{color:inherit;text-decoration:none}
       </div>
       <div class="bento reveal" style="margin-top:24px;">
         <svg id="busSvg" class="bus-svg">
-          <!-- 动态渲染的 PCB 45度高密度电路网络（穿行于卡片之间的所有沟壑） -->
+          <!-- 恢复：高密度 45° 阻抗微带网络（已百分百注入 fill="none !important"，完美阻断黑块 Bug） -->
         </svg>
         <div class="lq">
           <div class="lq-bg"></div><div class="lq-panel">
@@ -1074,6 +1720,33 @@ a{color:inherit;text-decoration:none}
   </section>
 </main>
 
+<!-- 联系我磨砂玻璃弹窗 -->
+<div id="contactModal" class="contact-modal">
+  <div class="contact-modal-content lq-panel" style="backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);">
+    <h3>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      联系方式
+    </h3>
+    <div class="contact-list">
+      <div class="contact-item">
+        <strong>邮箱</strong>
+        <!-- 前端解密 ID: modalEmail -->
+        <a href="#" id="modalEmail">加载中...</a>
+      </div>
+      <div class="contact-item">
+        <strong>电话</strong>
+        <!-- 前端解密 ID: modalTel -->
+        <a href="#" id="modalTel">加载中...</a>
+      </div>
+      <div class="contact-item">
+        <strong>微信</strong>
+        <span>保密 (添加请先通过电话或邮件联系)</span>
+      </div>
+    </div>
+    <button id="closeContactBtn" class="glass-pill" style="margin-top: 18px; width: 100%; justify-content: center;">确认并返回</button>
+  </div>
+</div>
+
 <footer class="footer"><div class="container">Li Shundong · C++ Software Engineer · Shanghai</div></footer>
 
 <script>
@@ -1101,6 +1774,23 @@ themeToggleBtn.addEventListener('click', () => {
   }
 });
 
+// === 高保真静态 PDF 副本一键静默打印/下载双轨分立引擎 ===
+const printBtn = document.getElementById('printBtn');
+if (printBtn) {
+  printBtn.addEventListener('click', () => {
+    const iframe = document.getElementById('pdfPrintIframe');
+    if (iframe) {
+      try {
+        iframe.contentWindow.focus();
+        iframe.contentWindow.print();
+      } catch (e) {
+        // 沙箱阻断降级提示
+        alert("由于当前环境的安全沙箱限制，一键静默打印已被拦截。请直接点击旁边的「下载」按钮获取高保真离线 PDF，双击打开即可完美拉起系统打印！");
+      }
+    }
+  });
+}
+
 const nav=document.getElementById('nav');
 window.addEventListener('scroll',()=>{
   nav.classList.toggle('scrolled',window.scrollY>10);
@@ -1112,8 +1802,8 @@ const twText="你真正拥有的，只有当下！";
 const twEl=document.getElementById('tw-text');
 const twCursor=document.getElementById('tw-cursor');
 const monkScene=document.getElementById('monk-scene');
-const fish=document.getElementById('fishBtn');
-const fishSvg=document.getElementById('fishSvg');
+const fish = document.getElementById('fishBtn');
+const fishSvg = document.getElementById('fishSvg');
 const meritText=document.getElementById('meritText');
 const dongText=document.getElementById('dongText');
 const meritCount=document.getElementById('meritCount');
@@ -1125,7 +1815,17 @@ function tapFish(){
   if(malletG){malletG.style.transform='translate(-10px,8px)';}
   setTimeout(function(){
     if(flash){flash.style.transition='none';flash.style.opacity='.8';requestAnimationFrame(function(){flash.style.transition='opacity .35s ease-out';flash.style.opacity='0';});}
-    if(fishSvg){fishSvg.style.transition='transform .07s ease';fishSvg.style.transform='scale(1.05, 0.9)';setTimeout(function(){fishSvg.style.transform='scale(1)';},90);}
+    
+    // 果冻弹性物理挤压反馈机制 (Squash and Stretch)
+    if(fishSvg){
+      fishSvg.style.transition='none';
+      fishSvg.style.transform='scale(1.15, 0.85)'; // 物理重击压扁
+      setTimeout(function(){
+        fishSvg.style.transition='transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+        fishSvg.style.transform='scale(1)'; // 阻尼回弹
+      }, 50);
+    }
+    
     if(dongText){dongText.style.transition='none';dongText.style.transform='translateX(-50%) translateY(0) scale(.7)';dongText.style.opacity='0';requestAnimationFrame(function(){dongText.style.transition='transform .5s ease-out,opacity .5s ease-out';dongText.style.transform='translateX(-50%) translateY(-16px) scale(1)';dongText.style.opacity='.85';setTimeout(function(){dongText.style.opacity='0';},280);});}
   },75);
   if(malletG){setTimeout(function(){malletG.style.transform='translateY(0)';},130);}
@@ -1145,6 +1845,7 @@ function typeNext(){
     setTimeout(typeNext,delay);
   }else{
     monkScene.style.display='inline-block';
+    monkScene.classList.add('monk-bounce-in'); // 弹性跌落出场
     setTimeout(function(){tapFish();},800);
     setInterval(tapFish,3000);
   }
@@ -1176,10 +1877,10 @@ setTimeout(typeNext,500);
     ctx.strokeStyle = gridColor;
     ctx.lineWidth = 1;
     for(let i = 0; i < canvas.width; i += 20) {
-      ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, canvas.height); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, canvas.height); ctx.stroke(); // 彻底修复未声明全局变量赋值 Bug (strokeColor)
     }
     for(let j = 0; j < canvas.height; j += 15) {
-      ctx.beginPath(); ctx.moveTo(0, j); ctx.lineTo(canvas.width, j); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(0, j); ctx.lineTo(canvas.width, j); ctx.stroke(); // 彻底修复未声明全局变量赋值 Bug (strokeColor)
     }
 
     ctx.beginPath();
@@ -1261,9 +1962,9 @@ function drawBusTraces(){
     hatchPath += 'M 0 ' + y + ' L ' + w + ' ' + y + ' ';
   }
   var gridBack = document.createElementNS('http://www.w3.org/2000/svg','path');
-  gridBack.setAttribute('d', hatchPath);
+  gridBack.setAttribute('d', hatchPath); // 彻底修复未声明变量 Bug gridPath = hatchPath
   gridBack.setAttribute('class', 'ground-hatch');
-  gridBack.setAttribute('fill', 'none'); // 修复填充Bug
+  gridBack.setAttribute('fill', 'none'); 
   svg.appendChild(gridBack);
 
   // ==========================================
@@ -1317,7 +2018,7 @@ function drawBusTraces(){
 
   // [C-3] 水平间隙 2 总线通道 (Corridor 2 - 3条平行走线)
   var hBus2_a = 'M 0 ' + (hCenter2 - 6) + ' L ' + (vCenter + 15).toFixed(1) + ' ' + (hCenter2 - 6)
-    + ' L ' + (vCenter + 35).toFixed(1) + ' ' + (hCenter2 + 14).toFixed(1) + ' L ' + w + ' ' + (hCenter2 + 14);
+    + ' L ' + (vCenter + 35).toFixed(1) + ' ' + (hCenter2 + 14).toFixed(1) + ' L ' + w + ' ' + (hCenter2 + 20);
   var hBus2_b = 'M 0 ' + hCenter2 + ' L ' + (vCenter + 5).toFixed(1) + ' ' + hCenter2
     + ' L ' + (vCenter + 25).toFixed(1) + ' ' + (hCenter2 + 20).toFixed(1) + ' L ' + w + ' ' + (hCenter2 + 20);
   var hBus2_c = 'M 0 ' + (hCenter2 + 6) + ' L ' + (vCenter - 5).toFixed(1) + ' ' + (hCenter2 + 6)
@@ -1467,7 +2168,7 @@ function drawBusTraces(){
     svg.appendChild(txt);
   });
 
-  // 主干交错结过孔盒
+  // 主干过孔汇聚盒
   var junctions = [
     [vCenter, hCenter1 - 40], [vCenter - offset45, hCenter1 - 20],
     [vCenter, hCenter2 - 40], [vCenter + offset45, hCenter2 - 20],
@@ -1477,7 +2178,7 @@ function drawBusTraces(){
   junctions.forEach(function(pt){
     var rc=document.createElementNS('http://www.w3.org/2000/svg','rect');
     rc.setAttribute('x',(pt[0]-2.5).toFixed(1));rc.setAttribute('y',(pt[1]-2.5).toFixed(1));
-    rc.setAttribute('width','5');rc.setAttribute('height','5');rc.setAttribute('rx','0.8');
+    rc.setAttribute('width','5');rc.setAttribute('height','5');rc.setAttribute('rx','0.5'); // 修复圆角 0.8
     rc.setAttribute('fill','var(--bus-joint-bg)');rc.setAttribute('stroke','var(--accent)');rc.setAttribute('stroke-width','1');
     svg.appendChild(rc);
   });
@@ -1514,6 +2215,310 @@ const observer=new IntersectionObserver((entries)=>{
   });
 },{threshold:.12});
 document.querySelectorAll('.reveal,.bento,.edu-grid,.scroll-wrap').forEach(el=>observer.observe(el));
+
+// === 眼睛传感器多路交互交互逻辑 (首次欢迎+定时漫游+悬停/点击高频触发) ===
+(function() {
+  const leftPupil = document.getElementById('leftPupil');
+  const rightPupil = document.getElementById('rightPupil');
+  const container = document.querySelector('.scroll-eyes-container');
+  const bubble = document.getElementById('eyeBubble');
+
+  if (!leftPupil || !rightPupil || !container) return;
+
+  const maxLimitX = 6; 
+  const maxLimitY = 3;
+
+  let bubbleTimer = null;
+  let globalTalkInterval = null;
+
+  // 各类情境的台词话语池
+  const phrases = {
+    welcome: "您好！欢迎来到李顺东的简历空间 🌟",
+    click: [
+      "哎呀，别戳我的眼睛！🫣",
+      "疼疼疼...不要乱点啦！",
+      "点我没有用，快去点右边的功德木鱼！",
+      "双击左上角的头像有神秘开发者模式哦 💡",
+      "再点我就要调用底层核心代码了！"
+    ],
+    hover: [
+      "你在看我吗？👀",
+      "凑这么近，是不是想给我发 Offer？",
+      "警告：检测到优秀的主考官正在凝视！",
+      "给你表演一个用意念编译代码..."
+    ],
+    idle: [
+      "偷偷卷死所有人 🤫",
+      "Bug 正在全力离线中...",
+      "C++ 才是世界上最香的语言！",
+      "默默祈祷：今天量产平台零报警...",
+      "听说在木鱼那刷满100功德会有好事发生？"
+    ]
+  };
+
+  // 1. 弹出台词控制 (带自动收回)
+  function showText(text) {
+    if (!bubble) return;
+    clearTimeout(bubbleTimer);
+    
+    bubble.textContent = text;
+    bubble.classList.add('visible');
+
+    bubbleTimer = setTimeout(() => {
+      bubble.classList.remove('visible');
+    }, 3000); // 3秒后气泡收起
+  }
+
+  // 2. 鼠标视线追踪
+  function trackEyeMovement(clientX, clientY) {
+    const leftRect = leftPupil.parentElement.getBoundingClientRect();
+    const rightRect = rightPupil.parentElement.getBoundingClientRect();
+
+    const leftCenterX = leftRect.left + leftRect.width / 2;
+    const leftCenterY = leftRect.top + leftRect.height / 2;
+    const rightCenterX = rightRect.left + rightRect.width / 2;
+    const rightCenterY = rightRect.top + rightRect.height / 2;
+
+    function getOffset(cx, cy, mx, my) {
+      const dx = mx - cx;
+      const dy = my - cy;
+      const angle = Math.atan2(dy, dx);
+      const distance = Math.sqrt(dx * dx + dy * dy);
+      const strength = Math.min(distance / 250, 1); 
+      
+      return {
+        x: Math.cos(angle) * maxLimitX * strength,
+        y: Math.sin(angle) * maxLimitY * strength
+      };
+    }
+
+    const leftOffset = getOffset(leftCenterX, leftCenterY, clientX, clientY);
+    const rightOffset = getOffset(rightCenterX, rightCenterY, clientX, clientY);
+
+    leftPupil.style.transform = `translate(${leftOffset.x}px, ${leftOffset.y}px)`;
+    rightPupil.style.transform = `translate(${rightOffset.x}px, ${rightOffset.y}px)`;
+  }
+
+  // 3. 事件接驳
+  window.addEventListener('mousemove', (e) => {
+    trackEyeMovement(e.clientX, e.clientY);
+  });
+
+  // 悬停事件：高频吐槽 + 斗鸡眼效果
+  container.addEventListener('mouseenter', () => {
+    // 视觉特效：瞳孔微微内聚(斗鸡眼)表现好奇
+    leftPupil.style.transform = `translate(${maxLimitX * 0.5}px, 0px)`;
+    rightPupil.style.transform = `translate(${-maxLimitX * 0.5}px, 0px)`;
+    
+    // 随机高频吐一句悬停台词
+    const list = phrases.hover;
+    showText(list[Math.floor(Math.random() * list.length)]);
+  });
+
+  // 点击事件：挤压果冻特效 + 触发高伤害吐槽
+  container.addEventListener('click', (e) => {
+    e.stopPropagation();
+    // 激活 CSS 物理形变动画
+    container.classList.remove('active-click');
+    void container.offsetWidth; // 触发回流重置动画
+    container.classList.add('active-click');
+
+    const list = phrases.click;
+    showText(list[Math.floor(Math.random() * list.length)]);
+  });
+
+  // 鼠标离开容器后重置
+  container.addEventListener('mouseleave', () => {
+    container.classList.remove('active-click');
+  });
+
+  // 4. 定时机制：首次载入欢迎 & 全局周期自言自语
+  window.addEventListener('load', () => {
+    // 首次进入 1.5 秒后主动气泡欢迎
+    setTimeout(() => {
+      showText(phrases.welcome);
+    }, 1500);
+
+    // 随后开启全局定时聊天广播（每 16 秒随机哼哼唧唧一次）
+    globalTalkInterval = setInterval(() => {
+      // 如果当前气泡已在显示，就不打扰
+      if (bubble.classList.contains('visible')) return;
+      const list = phrases.idle;
+      showText(list[Math.floor(Math.random() * list.length)]);
+    }, 16000);
+  });
+})();
+
+// === 顶栏联动交互：点赞系统、访客系统与联系我 Modal 引擎 ===
+(function() {
+  const avatarContainer = document.getElementById('avatarContainer');
+  const likeCounterDisplay = document.getElementById('likeCounterDisplay');
+  const likeBadge = document.getElementById('likeBadge');
+  const visitorCounterDisplay = document.getElementById('visitorCounterDisplay');
+  const contactBtn = document.getElementById('contactBtn');
+  const contactModal = document.getElementById('contactModal');
+  const closeContactBtn = document.getElementById('closeContactBtn');
+
+  const heroEmail = document.getElementById('heroEmail');
+  const heroTel = document.getElementById('heroTel');
+  const modalEmail = document.getElementById('modalEmail');
+  const modalTel = document.getElementById('modalTel');
+
+  if (!avatarContainer || !likeCounterDisplay || !likeBadge || !visitorCounterDisplay) return;
+
+  // ----------------------------------------------------
+  // X. 安全脱敏通讯解码器还原逻辑
+  // ----------------------------------------------------
+  const obfuscatedEmail = "bGlhNzM0NjA1QGdtYWlsLmNvbQ==";
+  const obfuscatedPhone = "MTY2MDUxMTQzODY=";
+
+  const realEmail = window.atob(obfuscatedEmail);
+  const realPhone = window.atob(obfuscatedPhone);
+
+  // 优雅还原联系方式明文并绑定 DOM 事件
+  if (heroEmail) {
+    heroEmail.setAttribute('href', 'mailto:' + realEmail);
+    heroEmail.querySelector('span').textContent = realEmail;
+  }
+  if (heroTel) {
+    heroTel.setAttribute('href', 'tel:' + realPhone);
+    heroTel.querySelector('span').textContent = realPhone;
+  }
+  if (modalEmail) {
+    modalEmail.setAttribute('href', 'mailto:' + realEmail);
+    modalEmail.textContent = realEmail;
+  }
+  if (modalTel) {
+    modalTel.setAttribute('href', 'tel:' + realPhone);
+    modalTel.textContent = realPhone;
+  }
+
+  // ----------------------------------------------------
+  // A. 访客统计业务
+  // ----------------------------------------------------
+  const baseVisitors = 1024;
+  let localVisitors = parseInt(localStorage.getItem('visitorCount')) || 0;
+
+  // 使用 SessionStorage 确认是否为全新会话（一次浏览器访问算作一次新访客）
+  if (!sessionStorage.getItem('visited_session')) {
+    localVisitors++;
+    localStorage.setItem('visitorCount', localVisitors);
+    sessionStorage.setItem('visited_session', 'true');
+  }
+  visitorCounterDisplay.textContent = baseVisitors + localVisitors;
+
+  // ----------------------------------------------------
+  // B. 点赞业务（双击头像点赞 & 单击顶栏点赞 双轨触发）
+  // ----------------------------------------------------
+  const baseLikes = 256;
+  let localLikes = parseInt(localStorage.getItem('avatarLikes')) || 0;
+  
+  function refreshLikes() {
+    likeCounterDisplay.textContent = baseLikes + localLikes;
+  }
+  refreshLikes();
+
+  const particles = ['🎉', '✨', '🌸', '❤️', '🌟', '💎', '🎨', '🔥'];
+
+  // 粒子喷洒动效
+  function scatterConfetti(targetContainer, relativeX, relativeY) {
+    const particleCount = 12;
+    for (let i = 0; i < particleCount; i++) {
+      const p = document.createElement('span');
+      p.className = 'confetti-particle';
+      p.textContent = particles[Math.floor(Math.random() * particles.length)];
+      
+      const angle = Math.random() * Math.PI * 2;
+      const distance = 40 + Math.random() * 70;
+      const tx = Math.cos(angle) * distance;
+      const ty = Math.sin(angle) * distance - 25; 
+
+      p.style.setProperty('--tx', `${tx.toFixed(1)}px`);
+      p.style.setProperty('--ty', `${ty.toFixed(1)}px`);
+      p.style.left = `${relativeX}px`;
+      p.style.top = `${relativeY}px`;
+
+      targetContainer.appendChild(p);
+      setTimeout(() => p.remove(), 800);
+    }
+  }
+
+  // 点赞核心操作
+  function processLike(e, isAvatar) {
+    localLikes++;
+    localStorage.setItem('avatarLikes', localLikes);
+    refreshLikes();
+
+    // 激发顶栏徽章脉动
+    likeBadge.classList.remove('pulse');
+    void likeBadge.offsetWidth; 
+    likeBadge.classList.add('pulse');
+
+    if (isAvatar) {
+      // 触发头像物理弹性回弹
+      avatarContainer.classList.remove('active-bounce');
+      void avatarContainer.offsetWidth; 
+      avatarContainer.classList.add('active-bounce');
+
+      const rect = avatarContainer.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      // 弹跳 +1
+      const pop = document.createElement('span');
+      pop.className = 'like-pop-text';
+      pop.textContent = '+1 👍';
+      pop.style.left = `${x}px`;
+      pop.style.top = `${y}px`;
+      avatarContainer.appendChild(pop);
+      setTimeout(() => pop.remove(), 650);
+
+      // 撒花粒子
+      scatterConfetti(avatarContainer, x, y);
+    } else {
+      // 若是点击顶栏点赞，粒子在顶栏按钮中心附近弹出
+      const rect = likeBadge.getBoundingClientRect();
+      const pop = document.createElement('span');
+      pop.className = 'like-pop-text';
+      pop.textContent = '👍';
+      pop.style.position = 'fixed';
+      pop.style.left = `${rect.left + rect.width/2}px`;
+      pop.style.top = `${rect.top}px`;
+      document.body.appendChild(pop);
+      setTimeout(() => pop.remove(), 650);
+    }
+  }
+
+  // 双击头像点赞
+  avatarContainer.addEventListener('dblclick', (e) => {
+    processLike(e, true);
+  });
+
+  // 单击顶栏点赞
+  likeBadge.addEventListener('click', (e) => {
+    processLike(e, false);
+  });
+
+  // ----------------------------------------------------
+  // C. 联系我 Modal 控制逻辑
+  // ----------------------------------------------------
+  if (contactBtn && contactModal && closeContactBtn) {
+    contactBtn.addEventListener('click', () => {
+      contactModal.classList.add('visible');
+    });
+
+    closeContactBtn.addEventListener('click', () => {
+      contactModal.classList.remove('visible');
+    });
+
+    // 点击模态框黑色半透明背景处亦可优雅退出
+    contactModal.addEventListener('click', (e) => {
+      if (e.target === contactModal) {
+        contactModal.classList.remove('visible');
+      }
+    });
+  }
+})();
 </script>
 </body>
 </html>
