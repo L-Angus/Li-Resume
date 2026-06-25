@@ -7,116 +7,622 @@
 <title>Li Shundong · C++ Software Engineer</title>
 <meta name="description" content="C++系统软件开发工程师，5年ATE半导体测试平台研发经验。">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,600;0,700;1,500;1,600;1,700&display=swap');
+
+/* ==========================================================================
+   CSS 主题变量系统 (兼容自适应及手动切换)
+   ========================================================================== */
+:root {
+  /* --- 1. 原版温润浅色主题 (Putty / Espresso) --- */
+  --bg: #ede7e0;
+  --text: #2d2925;
+  --muted: #8a8279;
+  --accent: #9b7b64;
+  --accent-light: #8b6f5c;
+  
+  /* 液态玻璃卡片 */
+  --glass-bg: rgb(255 255 252 / .55);
+  --glass-border: rgb(0 0 0 / .08);
+  --glass-inset-top: rgb(255 255 255 / .6);
+  --glass-inset-bottom: rgb(0 0 0 / .04);
+  --glass-shadow: rgb(0 0 0 / .04);
+  --glass-hover-shadow: inset 0 1px 0 rgb(255 255 252 / .45), inset 0 2px 6px rgb(255 255 252 / .12), inset 0 -1px 0 rgb(0 0 0 / .2), 0 6px 28px rgb(0 0 0 / .15);
+  
+  /* 导航栏 */
+  --nav-bg: rgba(237, 231, 224, .72);
+  --nav-border: rgb(0 0 0 / .06);
+
+  /* 写实卷轴核心配方 (浅色：经典檀木与金丝绫边) */
+  --scroll-shaft-grad: linear-gradient(90deg, #42281a 0%, #6e4028 25%, #925333 50%, #6e4028 75%, #351a10 100%);
+  --scroll-shaft-l-grad: linear-gradient(90deg, #351a10 0%, #6e4028 25%, #925333 50%, #6e4028 75%, #42281a 100%);
+  --scroll-knob-grad: linear-gradient(90deg, #502e1d 0%, #8b5235 30%, #b5704d 50%, #8b5235 75%, #3e1f12 100%);
+  --scroll-knob-collar: linear-gradient(90deg, #a38059 0%, #dec29b 50%, #a38059 100%);
+  --scroll-silk-border: #8b6f5c;
+  --scroll-paper-texture: radial-gradient(circle at 50% 50%, #fbf9f5 0%, #f1e9df 100%);
+  --scroll-shadow: drop-shadow(0 16px 38px rgba(45, 41, 37, 0.16));
+  --advantage-bg: linear-gradient(90deg, rgb(255 255 252 / .7), rgb(255 252 245 / .5));
+
+  /* 标签 */
+  --tag-bg: rgba(139, 111, 92, .1);
+  --tag-border: rgba(139, 111, 92, .15);
+  --tag-text: #2d2925;
+  
+  /* 辅助状态色 (绿色系) */
+  --green-text: #5a7a5a;
+  --green-tag-bg: rgb(107 143 119 / .05);
+  --green-tag-border: rgb(107 143 119 / .15);
+  --green-tag-text: #6b8f77;
+
+  /* 装饰细节 */
+  --hr-color: rgb(0 0 0 / .06);
+  --osc-grid: rgba(139, 111, 92, 0.08);
+  --pipeline-bg: rgba(139, 111, 92, 0.05);
+  --pipeline-border: rgba(139, 111, 92, 0.3);
+
+  /* 环境辉光 */
+  --aurora-1: rgb(255 248 240 / .08);
+  --aurora-2: rgb(220 210 200 / .05);
+  --aurora-3: rgb(240 235 228 / .04);
+  --glow-1: rgb(155 123 100 / .05);
+  --glow-2: rgb(139 111 92 / .03);
+  --glow-3: rgb(139 111 92 / .04);
+  --glow-4: rgb(155 123 100 / .03);
+
+  /* PCB 走线、焊盘、丝印颜色 */
+  --bus-glow: #c9a96e;
+  --bus-flow: #f0d090;
+  --bus-joint-bg: #6a4a2a;
+  --pcb-silkscreen: rgba(45, 41, 37, 0.22);
+  --pcb-smd-pad: rgba(155, 123, 100, 0.25);
+  --pcb-via-hole: #e0bc9b;
+  --pcb-watermark: rgba(155, 123, 100, 0.08);
+
+  /* 字体与大排版 (自适应切换) */
+  --font-heading: 'Geist', 'Inter', sans-serif;
+  --font-style: normal;
+  --font-weight-heading: 700;
+  --letter-spacing-heading: -.03em;
+
+  /* 论文分类标签 */
+  --sci-bg: rgba(37, 99, 235, 0.2); --sci-text: #1d4ed8; --sci-border: rgba(37, 99, 235, 0.3);
+  --if-bg: rgba(8, 145, 178, 0.2); --if-text: #0e7490; --if-border: rgba(8, 145, 178, 0.3);
+  --q2-bg: rgba(22, 163, 74, 0.2); --q2-text: #15803d; --q2-border: rgba(22, 163, 74, 0.3);
+  --first-bg: rgba(217, 119, 6, 0.2); --first-text: #b45309; --first-border: rgba(217, 119, 6, 0.3);
+}
+
+/* --- 2. 科技琥珀暗黑主题 (Cyber Amber) --- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0a0807;
+    --text: #ede6de;
+    --muted: #8e857e;
+    --accent: #ff6b2b;
+    --accent-light: #e05315;
+    
+    --glass-bg: rgba(18, 14, 12, 0.78);
+    --glass-border: rgba(255, 107, 43, 0.12);
+    --glass-inset-top: rgba(255, 255, 255, 0.05);
+    --glass-inset-bottom: rgba(0, 0, 0, 0.6);
+    --glass-shadow: rgba(0, 0, 0, 0.6);
+    --glass-hover-shadow: 0 8px 32px rgba(255, 107, 43, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    
+    --nav-bg: rgba(10, 8, 7, 0.85);
+    --nav-border: rgba(255, 107, 43, 0.1);
+
+    /* 写实卷轴核心配方 */
+    --scroll-shaft-grad: linear-gradient(90deg, #18110e 0%, #2c1a14 25%, #462820 50%, #2c1a14 75%, #0f0a08 100%);
+    --scroll-shaft-l-grad: linear-gradient(90deg, #0f0a08 0%, #2c1a14 25%, #462820 50%, #2c1a14 75%, #18110e 100%);
+    --scroll-knob-grad: linear-gradient(90deg, #241611 0%, #3e241c 30%, #5a352b 50%, #3e241c 75%, #1b100c 100%);
+    --scroll-knob-collar: linear-gradient(90deg, #7a5435 0%, #af7c52 50%, #7a5435 100%);
+    --scroll-silk-border: #231612;
+    --scroll-paper-texture: linear-gradient(90deg, #1a1412 0%, #241c19 50%, #1a1412 100%);
+    --scroll-shadow: drop-shadow(0 20px 48px rgba(0, 0, 0, 0.55));
+    --advantage-bg: linear-gradient(90deg, rgba(20, 16, 14, 0.85), rgba(28, 22, 19, 0.6));
+
+    --tag-bg: rgba(255, 107, 43, 0.06);
+    --tag-border: rgba(255, 107, 43, 0.15);
+    --tag-text: #ff8a5c;
+    
+    --green-text: #ffaa66;
+    --green-tag-bg: rgba(255, 170, 102, 0.06);
+    --green-tag-border: rgba(255, 170, 102, 0.15);
+    --green-tag-text: #ffaa66;
+
+    --hr-color: rgba(255, 107, 43, 0.1);
+    --osc-grid: rgba(255, 107, 43, 0.05);
+    --pipeline-bg: rgba(255, 107, 43, 0.02);
+    --pipeline-border: rgba(255, 107, 43, 0.2);
+    --wafer-grid-fine: rgba(255, 107, 43, 0.02);
+    --wafer-grid-major: rgba(255, 107, 43, 0.045);
+    --aurora-1: rgba(255, 107, 43, 0.03);
+    --aurora-2: rgba(0, 0, 0, 0.85);
+    --aurora-3: rgba(255, 255, 255, 0.005);
+    --glow-1: rgba(255, 107, 43, 0.02);
+    --glow-2: rgba(255, 107, 43, 0.01);
+    --glow-3: rgba(255, 107, 43, 0.015);
+    --glow-4: rgba(255, 107, 43, 0.01);
+    --bus-glow: #ff6b2b;
+    --bus-flow: #ffb088;
+    --bus-joint-bg: #280f05;
+    --pcb-silkscreen: rgba(255, 107, 43, 0.22);
+    --pcb-smd-pad: rgba(255, 107, 43, 0.12);
+    --pcb-via-hole: #ffe6bd;
+    --pcb-watermark: rgba(255, 107, 43, 0.04);
+    --font-heading: 'Playfair Display', Georgia, serif;
+    --font-style: italic;
+    --font-weight-heading: 600;
+    --letter-spacing-heading: -.01em;
+    --scroll-shaft-grad: linear-gradient(90deg, #18110e 0%, #2c1a14 25%, #462820 50%, #2c1a14 75%, #0f0a08 100%);
+    --scroll-shaft-l-grad: linear-gradient(90deg, #0f0a08 0%, #2c1a14 25%, #462820 50%, #2c1a14 75%, #18110e 100%);
+    --scroll-knob-grad: linear-gradient(90deg, #241611 0%, #3e241c 30%, #5a352b 50%, #3e241c 75%, #1b100c 100%);
+    --scroll-knob-collar: linear-gradient(90deg, #7a5435 0%, #af7c52 50%, #7a5435 100%);
+    --scroll-silk-border: #231612;
+    --scroll-paper-texture: linear-gradient(90deg, #1a1412 0%, #241c19 50%, #1a1412 100%);
+    --scroll-shadow: drop-shadow(0 20px 48px rgba(0, 0, 0, 0.55));
+    --advantage-bg: linear-gradient(90deg, rgba(20, 16, 14, 0.85), rgba(28, 22, 19, 0.6));
+  }
+}
+
+/* 手动强制切换 [data-theme="light"] */
+:root[data-theme="light"] {
+  --bg: #ede7e0;
+  --text: #2d2925;
+  --muted: #8a8279;
+  --accent: #9b7b64;
+  --accent-light: #8b6f5c;
+  --glass-bg: rgb(255 255 252 / .55);
+  --glass-border: rgb(0 0 0 / .08);
+  --glass-inset-top: rgb(255 255 252 / .6);
+  --glass-inset-bottom: rgb(0 0 0 / .04);
+  --glass-shadow: rgb(0 0 0 / .04);
+  --glass-hover-shadow: inset 0 1px 0 rgb(255 255 252 / .45), inset 0 2px 6px rgb(255 255 252 / .12), inset 0 -1px 0 rgb(0 0 0 / .2), 0 6px 28px rgb(0 0 0 / .15);
+  --nav-bg: rgba(237, 231, 224, .72);
+  --nav-border: rgb(0 0 0 / .06);
+  --side-accent-l: linear-gradient(90deg, rgb(155 123 100 / .5), rgb(155 123 100 / .65));
+  --side-accent-l-outer: linear-gradient(90deg, rgb(155 123 100 / .55), rgb(155 123 100 / .7));
+  --side-accent-r: linear-gradient(270deg, rgb(155 123 100 / .5), rgb(155 123 100 / .65));
+  --side-accent-r-outer: linear-gradient(270deg, rgb(155 123 100 / .55), rgb(155 123 100 / .7));
+  --advantage-bg: linear-gradient(90deg, rgb(255 255 252 / .7), rgb(255 252 245 / .5));
+  --tag-bg: rgba(139, 111, 92, .1);
+  --tag-border: rgba(139, 111, 92, .15);
+  --tag-text: #2d2925;
+  --green-text: #5a7a5a;
+  --green-tag-bg: rgb(107, 143, 119, 0.05);
+  --green-tag-border: rgb(107, 143, 119, 0.15);
+  --green-tag-text: #6b8f77;
+  --hr-color: rgba(0, 0, 0, 0.06);
+  --osc-grid: rgba(139, 111, 92, 0.08);
+  --pipeline-bg: rgba(139, 111, 92, 0.05);
+  --pipeline-border: rgba(139, 111, 92, 0.3);
+  --wafer-grid-fine: rgba(155, 123, 100, 0.04);
+  --wafer-grid-major: rgba(155, 123, 100, 0.07);
+  --aurora-1: rgb(255, 248, 240, 0.08);
+  --aurora-2: rgb(220, 210, 200, 0.05);
+  --aurora-3: rgb(240, 235, 228, 0.04);
+  --glow-1: rgba(155, 123, 100, 0.05);
+  --glow-2: rgba(139, 111, 92, 0.03);
+  --glow-3: rgba(139, 111, 92, 0.04);
+  --glow-4: rgba(155, 123, 100, 0.03);
+  --bus-glow: #c9a96e;
+  --bus-flow: #f0d090;
+  --bus-joint-bg: #6a4a2a;
+  --pcb-silkscreen: rgba(45, 41, 37, 0.22);
+  --pcb-smd-pad: rgba(155, 123, 100, 0.25);
+  --pcb-via-hole: #e0bc9b;
+  --pcb-watermark: rgba(155, 123, 100, 0.08);
+  --font-heading: 'Geist', 'Inter', sans-serif;
+  --font-style: normal;
+  --font-weight-heading: 700;
+  --letter-spacing-heading: -.03em;
+  --scroll-shaft-grad: linear-gradient(90deg, #42281a 0%, #6e4028 25%, #925333 50%, #6e4028 75%, #351a10 100%);
+  --scroll-shaft-l-grad: linear-gradient(90deg, #351a10 0%, #6e4028 25%, #925333 50%, #6e4028 75%, #42281a 100%);
+  --scroll-knob-grad: linear-gradient(90deg, #502e1d 0%, #8b5235 30%, #b5704d 50%, #8b5235 75%, #3e1f12 100%);
+  --scroll-knob-collar: linear-gradient(90deg, #a38059 0%, #dec29b 50%, #a38059 100%);
+  --scroll-silk-border: #8b6f5c;
+  --scroll-paper-texture: radial-gradient(circle at 50% 50%, #fbf9f5 0%, #f1e9df 100%);
+  --scroll-shadow: drop-shadow(0 16px 38px rgba(45, 41, 37, 0.16));
+  --sci-bg: rgba(37, 99, 235, 0.2); --sci-text: #1d4ed8; --sci-border: rgba(37, 99, 235, 0.3);
+  --if-bg: rgba(8, 145, 178, 0.2); --if-text: #0e7490; --if-border: rgba(8, 145, 178, 0.3);
+  --q2-bg: rgba(22, 163, 74, 0.2); --q2-text: #15803d; --q2-border: rgba(22, 163, 74, 0.3);
+  --first-bg: rgba(217, 119, 6, 0.2); --first-text: #b45309; --first-border: rgba(217, 119, 6, 0.3);
+}
+
+/* 手动强制切换 [data-theme="dark"] */
+:root[data-theme="dark"] {
+  --bg: #0a0807;
+  --text: #ede6de;
+  --muted: #8e857e;
+  --accent: #ff6b2b;
+  --accent-light: #e05315;
+  --glass-bg: rgba(18, 14, 12, 0.78);
+  --glass-border: rgba(255, 107, 43, 0.12);
+  --glass-inset-top: rgba(255, 255, 255, 0.05);
+  --glass-inset-bottom: rgba(0, 0, 0, 0.6);
+  --glass-shadow: rgba(0, 0, 0, 0.6);
+  --glass-hover-shadow: 0 8px 32px rgba(255, 107, 43, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  --nav-bg: rgba(10, 8, 7, 0.85);
+  --nav-border: rgba(255, 107, 43, 0.1);
+  --side-accent-l: linear-gradient(90deg, rgba(255, 107, 43, 0.25), rgba(255, 107, 43, 0.45));
+  --side-accent-l-outer: linear-gradient(90deg, rgba(255, 107, 43, 0.3), rgba(255, 107, 43, 0.5));
+  --side-accent-r: linear-gradient(270deg, rgba(255, 107, 43, 0.25), rgba(255, 107, 43, 0.45));
+  --side-accent-r-outer: linear-gradient(270deg, rgba(255, 107, 43, 0.3), rgba(255, 107, 43, 0.5));
+  --advantage-bg: linear-gradient(90deg, rgba(20, 16, 14, 0.85), rgba(28, 22, 19, 0.6));
+  --tag-bg: rgba(255, 107, 43, 0.06);
+  --tag-border: rgba(255, 107, 43, 0.15);
+  --tag-text: #ff8a5c;
+  --green-text: #ffaa66;
+  --green-tag-bg: rgba(255, 170, 102, 0.06);
+  --green-tag-border: rgba(255, 170, 102, 0.15);
+  --green-tag-text: #ffaa66;
+  --hr-color: rgba(255, 107, 43, 0.1);
+  --osc-grid: rgba(255, 107, 43, 0.05);
+  --pipeline-bg: rgba(255, 107, 43, 0.02);
+  --pipeline-border: rgba(255, 107, 43, 0.2);
+  --wafer-grid-fine: rgba(255, 107, 43, 0.02);
+  --wafer-grid-major: rgba(255, 107, 43, 0.045);
+  --aurora-1: rgba(255, 107, 43, 0.03);
+  --aurora-2: rgba(0, 0, 0, 0.85);
+  --aurora-3: rgba(255, 255, 255, 0.005);
+  --glow-1: rgba(255, 107, 43, 0.02);
+  --glow-2: rgba(255, 107, 43, 0.01);
+  --glow-3: rgba(255, 107, 43, 0.015);
+  --glow-4: rgba(255, 107, 43, 0.01);
+  --bus-glow: #ff6b2b;
+  --bus-flow: #ffb088;
+  --bus-joint-bg: #280f05;
+  --pcb-silkscreen: rgba(255, 107, 43, 0.22);
+  --pcb-smd-pad: rgba(255, 107, 43, 0.12);
+  --pcb-via-hole: #ffe6bd;
+  --pcb-watermark: rgba(255, 107, 43, 0.04);
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-style: italic;
+  --font-weight-heading: 600;
+  --letter-spacing-heading: -.01em;
+  --scroll-shaft-grad: linear-gradient(90deg, #18110e 0%, #2c1a14 25%, #462820 50%, #2c1a14 75%, #0f0a08 100%);
+  --scroll-shaft-l-grad: linear-gradient(90deg, #0f0a08 0%, #2c1a14 25%, #462820 50%, #2c1a14 75%, #18110e 100%);
+  --scroll-knob-grad: linear-gradient(90deg, #241611 0%, #3e241c 30%, #5a352b 50%, #3e241c 75%, #1b100c 100%);
+  --scroll-knob-collar: linear-gradient(90deg, #7a5435 0%, #af7c52 50%, #7a5435 100%);
+  --scroll-silk-border: #231612;
+  --scroll-paper-texture: linear-gradient(90deg, #1a1412 0%, #241c19 50%, #1a1412 100%);
+  --scroll-shadow: drop-shadow(0 20px 48px rgba(0, 0, 0, 0.55));
+  --sci-bg: rgba(255, 107, 43, 0.15); --sci-text: #ff8a5c; --sci-border: rgba(255, 107, 43, 0.25);
+  --if-bg: rgba(255, 170, 102, 0.1); --if-text: #ffaa66; --if-border: rgba(255, 170, 102, 0.2);
+  --q2-bg: rgba(255, 107, 43, 0.1); --q2-text: #ff8a5c; --q2-border: rgba(255, 107, 43, 0.2);
+  --first-bg: rgba(255, 170, 102, 0.15); --first-text: #ffaa66; --first-border: rgba(255, 170, 102, 0.25);
+}
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{font-family:'Geist','Inter',-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;line-height:1.6;color:#2d2925;background:#ede7e0}
+
+/* === 芯片/半导体晶圆全局背景刻蚀设计 (WAFER WORKSTATION) === */
+body{
+  font-family:'Geist','Inter',-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;
+  line-height:1.6;
+  color:var(--text);
+  background-color:var(--bg);
+  
+  /* 双重精密交叉刻蚀，模拟半导体 Wafer 晶圆网格 */
+  background-image: 
+    linear-gradient(var(--wafer-grid-fine) 1px, transparent 1px),
+    linear-gradient(90deg, var(--wafer-grid-fine) 1px, transparent 1px),
+    linear-gradient(var(--wafer-grid-major) 1px, transparent 1px),
+    linear-gradient(90deg, var(--wafer-grid-major) 1px, transparent 1px);
+  background-size: 25px 20px, 25px 20px, 125px 100px, 125px 100px;
+  background-attachment: fixed;
+  
+  transition: background-color 0.4s cubic-bezier(.16,1,.3,1), color 0.4s cubic-bezier(.16,1,.3,1);
+}
 img,svg{display:block;max-width:100%}
 a{color:inherit;text-decoration:none}
 
-/* === COLOR PALETTE ===
-   Background: #ede7e0 warm putty
-   Text:       #2d2925 espresso
-   Muted:      #8a8279 warm stone
-   Accent:     #8b6f5c camel bronze
-   Glass:      warm translucent
-================================== */
 /* === LAYOUT === */
 .container{max-width:1200px;margin:0 auto;padding:0 24px}
 .section{padding:80px 0;position:relative}
 .section-bg{position:absolute;inset:0;pointer-events:none;overflow:hidden}
 .glow{position:absolute;width:100%;height:100%}
-.section:nth-child(even) .glow{background:radial-gradient(ellipse 60% 50% at 20% 50%,rgb(155 123 100/.05),transparent 70%),radial-gradient(ellipse 40% 40% at 80% 30%,rgb(139 111 92/.03),transparent 60%)}
-.section:nth-child(odd) .glow{background:radial-gradient(ellipse 50% 40% at 70% 60%,rgb(139 111 92/.04),transparent 70%),radial-gradient(ellipse 30% 50% at 30% 80%,rgb(155 123 100/.03),transparent 60%)}
+.section:nth-child(even) .glow{background:radial-gradient(ellipse 60% 50% at 20% 50%,var(--glow-1),transparent 70%),radial-gradient(ellipse 40% 40% at 80% 30%,var(--glow-2),transparent 60%)}
+.section:nth-child(odd) .glow{background:radial-gradient(ellipse 50% 40% at 70% 60%,var(--glow-3),transparent 70%),radial-gradient(ellipse 30% 50% at 30% 80%,var(--glow-4),transparent 60%)}
 
-/* === LIQUID GLASS (凸面折射感 · 顶高光 + 底暗影 + 边缘色散) === */
+/* === LIQUID GLASS === */
 .lq{position:relative;border-radius:16px;overflow:hidden}
-/* 底衬 — 暖调渐变模拟折射光路 */
 .lq-bg{position:absolute;inset:0;border-radius:inherit}
-.lq-bg::before{content:'';position:absolute;inset:-16px;background:radial-gradient(ellipse 60% 40% at 35% 15%,rgb(255 250 242/.35) 0%,transparent 50%),radial-gradient(ellipse 50% 35% at 72% 58%,rgb(240 225 205/.15) 0%,transparent 45%),radial-gradient(ellipse 80% 25% at 50% 95%,rgb(255 248 238/.08) 0%,transparent 35%);filter:blur(22px)}
-/* 玻璃面板 — 亮基底 + 顶高光(凸面反射) + 底暗影(曲面遮挡) + 边缘微光 */
-.lq-panel{position:relative;z-index:1;border-radius:inherit;border:1px solid rgb(0 0 0/.08);background:rgb(255 255 252/.55);backdrop-filter:blur(20px) saturate(120%);-webkit-backdrop-filter:blur(20px) saturate(120%);box-shadow:inset 0 1px 0 rgb(255 255 255/.6),inset 0 -1px 0 rgb(0 0 0/.04),0 2px 16px rgb(0 0 0/.04);padding:24px;transition:border .3s,transform .3s,box-shadow .3s}
-.lq-panel:hover{transform:translateY(-2px);box-shadow:inset 0 1px 0 rgb(255 255 255/.45),inset 0 2px 6px rgb(255 255 255/.12),inset 0 -1px 0 rgb(0 0 0/.2),0 6px 28px rgb(0 0 0/.15)}
-/* === NAV === */
-.nav{position:fixed;top:0;left:0;right:0;z-index:100;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:rgba(237,231,224,.72);backdrop-filter:blur(24px) saturate(120%);-webkit-backdrop-filter:blur(24px) saturate(120%);border-bottom:1px solid transparent;transition:border-color .3s}
-.nav.scrolled{border-bottom-color:rgb(0 0 0/.06)}
-.nav-logo{font-weight:600;font-size:16px;letter-spacing:-.01em;color:#2d2925}
+.lq-bg::before{content:'';position:absolute;inset:-16px;background:radial-gradient(ellipse 60% 40% at 35% 15%,rgba(255, 107, 43, 0.05) 0%,transparent 50%),radial-gradient(ellipse 50% 35% at 72% 58%,rgba(255, 107, 43, 0.02) 0%,transparent 45%);filter:blur(22px)}
+.lq-panel{
+  position:relative;
+  z-index:1;
+  border-radius:inherit;
+  border:1px solid var(--glass-border);
+  background:var(--glass-bg);
+  backdrop-filter:blur(20px) saturate(120%);
+  -webkit-backdrop-filter:blur(20px) saturate(120%);
+  box-shadow:inset 0 1px 0 var(--glass-inset-top),inset 0 -1px 0 var(--glass-inset-bottom),0 2px 16px var(--glass-shadow);
+  padding:24px;
+  transition:border .4s, transform .3s, box-shadow .4s, background .4s;
+}
+.lq-panel:hover{
+  transform:translateY(-2px);
+  box-shadow:var(--glass-hover-shadow);
+}
+
+/* === NAV & THEME TOGGLE === */
+.nav{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  z-index:100;
+  height:64px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 24px;
+  background:var(--nav-bg);
+  backdrop-filter:blur(24px) saturate(120%);
+  -webkit-backdrop-filter:blur(24px) saturate(120%);
+  border-bottom:1px solid transparent;
+  transition:border-color .4s, background .4s;
+}
+.nav.scrolled{border-bottom-color:var(--nav-border)}
+.nav-logo{font-weight:600;font-size:16px;letter-spacing:-.01em;color:var(--text)}
+
+.theme-toggle-btn {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  color: var(--text);
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 1px 0 var(--glass-inset-top), 0 2px 8px var(--glass-shadow);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.theme-toggle-btn:hover {
+  transform: scale(1.05);
+  background: var(--tag-bg);
+  border-color: var(--accent);
+}
+.sun-icon { display: none; }
+.moon-icon { display: block; }
+:root[data-theme="dark"] .sun-icon { display: block; }
+:root[data-theme="dark"] .moon-icon { display: none; }
 
 /* === HERO === */
 .hero{display:flex;flex-direction:column;padding-top:100px;padding-bottom:60px;overflow:hidden;position:relative;align-items:center}
-.hero-aurora{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 40% 50% at 20% 50%,rgb(255 248 240/.08),transparent 60%),radial-gradient(ellipse 50% 40% at 80% 30%,rgb(220 210 200/.05),transparent 60%),radial-gradient(ellipse 30% 30% at 50% 80%,rgb(240 235 228/.04),transparent 50%);filter:blur(80px)}
+.hero-aurora{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 40% 50% at 20% 50%,var(--aurora-1),transparent 60%),radial-gradient(ellipse 50% 40% at 80% 30%,var(--aurora-2),transparent 60%),radial-gradient(ellipse 30% 30% at 50% 80%,var(--aurora-3),transparent 50%);filter:blur(80px)}
 .hero-inner{display:flex;flex-direction:column;align-items:center;width:100%;max-width:900px;margin:0 auto}
-.hero-photo{flex-shrink:0;width:160px;height:160px;border-radius:50%;overflow:hidden;border:2px solid rgb(0 0 0/.08);background:rgb(255 255 252/.4);display:flex;align-items:center;justify-content:center}
+.hero-photo{flex-shrink:0;width:160px;height:160px;border-radius:50%;overflow:hidden;border:2px solid var(--glass-border);background:var(--glass-bg);display:flex;align-items:center;justify-content:center}
 .hero-photo img{width:100%;height:100%;object-fit:cover}
 .hero-text{flex:1;max-width:560px}
 
-.hero-greeting{font-size:14px;font-family:'Geist Mono',monospace;color:#9b7b64;margin-bottom:20px;letter-spacing:.04em}
-.hero-name{font-size:clamp(40px,6vw,64px);font-weight:700;letter-spacing:-.03em;line-height:1.05;margin-bottom:16px;color:#2d2925}
-.hero-title{font-size:clamp(16px,2vw,20px);color:#6b635a;margin-bottom:24px;font-weight:400}
+.hero-greeting{font-size:14px;font-family:'Geist Mono',monospace;color:var(--accent);margin-bottom:20px;letter-spacing:.04em}
+.hero-name{
+  font-family: var(--font-heading);
+  font-style: var(--font-style);
+  font-weight: var(--font-weight-heading);
+  letter-spacing: var(--letter-spacing-heading);
+  font-size: clamp(40px,6vw,64px);
+  line-height: 1.1;
+  margin-bottom: 16px;
+  color: var(--text);
+  transition: font-family 0.4s ease, font-style 0.4s ease;
+}
+.hero-title{font-size:clamp(16px,2vw,20px);color:var(--muted);margin-bottom:24px;font-weight:400}
 .hero-contact{display:flex;gap:20px;flex-wrap:wrap}
-.contact-link{font-size:14px;color:#6b635a;display:flex;align-items:center;gap:8px;transition:color .2s}
-.contact-link:hover{color:#9b7b64}
+.contact-link{font-size:14px;color:var(--muted);display:flex;align-items:center;gap:8px;transition:color .2s}
+.contact-link:hover{color:var(--accent)}
 
 /* === EXPERIENCE === */
 .timeline{position:relative;padding-left:32px}
-.timeline-line{position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:rgb(0 0 0/.06)}
+.timeline-line{position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:var(--nav-border)}
 .exp-item{position:relative;margin-bottom:56px}
 .exp-item:last-child{margin-bottom:0}
-.exp-dot{position:absolute;left:-28px;top:6px;width:10px;height:10px;background:#9b7b64;border-radius:50%;border:2px solid #ede7e0}
+.exp-dot{position:absolute;left:-28px;top:6px;width:10px;height:10px;background:var(--accent);border-radius:50%;border:2px solid var(--bg);transition:border-color .4s}
 .exp-header{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:12px;margin-bottom:12px}
-.exp-company{font-size:18px;font-weight:600;color:#2d2925;letter-spacing:-.01em}
-.exp-date{font-size:14px;color:#8a8279;font-family:'Geist Mono',monospace}
-.exp-role{font-size:15px;color:#9b7b64;margin-bottom:16px;font-weight:500}
+.exp-company{font-size:18px;font-weight:600;color:var(--text);letter-spacing:-.01em}
+.exp-date{font-size:14px;color:var(--muted);font-family:'Geist Mono',monospace}
+.exp-role{font-size:15px;color:var(--accent);margin-bottom:16px;font-weight:500}
 .exp-list{list-style:none;display:flex;flex-direction:column;gap:8px}
-.exp-list li{font-size:14px;color:#6b635a;padding-left:20px;position:relative;line-height:1.7}
-.exp-list li::before{content:'';position:absolute;left:0;top:10px;width:5px;height:5px;background:#9b7b64;border-radius:50%}
-.achi-label{font-size:14px;font-weight:600;color:#6b8f77;margin-bottom:12px;letter-spacing:.02em}
+.exp-list li{font-size:14px;color:var(--muted);padding-left:20px;position:relative;line-height:1.7}
+.exp-list li::before{content:'';position:absolute;left:0;top:10px;width:5px;height:5px;background:var(--accent);border-radius:50%}
+.achi-label{font-size:14px;font-weight:600;color:var(--green-tag-text);margin-bottom:12px;letter-spacing:.02em}
 .achi ul{list-style:none;display:flex;flex-direction:column;gap:6px}
-.achi ul li{font-size:14px;color:#6b8f77;padding-left:18px;position:relative;line-height:1.6}
+.achi ul li{font-size:14px;color:var(--green-tag-text);padding-left:18px;position:relative;line-height:1.6}
 .achi ul li::before{content:'✓';position:absolute;left:0;font-weight:700;font-size:11px}
 
 /* === BENTO === */
-.bento{display:grid;grid-template-columns:repeat(2,1fr);grid-auto-rows:1fr;gap:16px;position:relative}
+.bento{display:grid;grid-template-columns:repeat(2,1fr);grid-auto-rows:1fr;gap:16px;position:relative;z-index:1;}
 .scroll-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.bl{font-family:'Geist Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.05em;color:#9b7b64;margin-bottom:10px}
-.bento ul li::before{content:'';position:absolute;left:0;top:9px;width:5px;height:5px;background:#9b7b64;border-radius:50%}
-.br{margin-top:12px;padding-top:12px;border-top:1px solid rgb(0 0 0/.06);font-size:12px;color:#5a7a5a;font-weight:500}
+.bl{font-family:'Geist Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.05em;color:var(--accent);margin-bottom:10px}
+.bento ul li::before{content:'';position:absolute;left:0;top:9px;width:5px;height:5px;background:var(--accent);border-radius:50%}
+.br{margin-top:12px;padding-top:12px;border-top:1px solid var(--nav-border);font-size:12px;color:var(--green-text);font-weight:500}
 
-/* PCB总线走线 */
+/* ATE 工艺级 PCB 全局多层高集成度线网背景样式定义 (!important 防黑死锁填充) */
 .bus-svg{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:visible}
-.bus-svg path{fill:none;stroke-linecap:round;stroke-linejoin:round}
-.bus-svg .trace-main{stroke:#9b7b64;stroke-width:2;opacity:.45}
-.bus-svg .trace-glow{stroke:#c9a96e;stroke-width:5;opacity:.12}
-.bus-svg .trace-flow{stroke:#f0d090;stroke-width:3;stroke-dasharray:12 40;opacity:.7;animation:traceFlow 3s linear infinite}
+.bus-svg path{
+  fill: none !important; /* 强制覆盖，完美绝杀浏览器默认黑色实心填充 Bug */
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* 走线基本骨架与流星发光 */
+.bus-svg .trace-main{stroke:var(--accent);stroke-width:1.5;opacity:.28}
+.bus-svg .trace-glow{stroke:var(--bus-glow);stroke-width:4;opacity:.06}
+.bus-svg .trace-flow{stroke:var(--bus-flow);stroke-width:2.2;stroke-dasharray:12 40;opacity:.45;animation:traceFlow 3s linear infinite}
 @keyframes traceFlow{0%{stroke-dashoffset:0}100%{stroke-dashoffset:-52}}
-.bus-svg .trace-dot{fill:#c9a96e;filter:url(#busGlow)}
-.bus-svg .trace-dot-pulse{fill:#f0d090;filter:url(#busGlow)}
-.bus-svg .trace-dot-pulse circle{animation:dotPulse 2s ease-in-out infinite}
-@keyframes dotPulse{0%,100%{r:3.5}50%{r:5}}
-.bus-svg .trace-joint{fill:#6a4a2a;stroke:#9b7b64;stroke-width:1.5}
+.bus-svg .trace-dot{fill:var(--bus-glow);filter:url(#busGlow)}
+
+/* ATE 元器件及网络引脚丝印文本 */
+.bus-svg .pcb-text {
+  font-family: 'Geist Mono', monospace;
+  font-size: 7.5px;
+  font-weight: 500;
+  fill: var(--pcb-silkscreen);
+  letter-spacing: 0.05em;
+  user-select: none;
+}
+.bus-svg .smd-pad {
+  fill: var(--pcb-smd-pad);
+  stroke: var(--accent);
+  stroke-width: 0.4;
+}
+.bus-svg .via-annular-ring {
+  fill: none !important;
+  stroke: var(--bus-glow);
+  stroke-width: 0.6;
+  opacity: 0.45;
+}
+.bus-svg .via-hole {
+  fill: var(--pcb-via-hole);
+}
+/* 全局多层大面积覆铜接地网格 */
+.bus-svg .ground-hatch {
+  stroke: var(--pcb-watermark);
+  stroke-width: 0.5;
+  opacity: 0.6;
+}
+
+/* === INTERACTIVE SCROLL === */
+.scroll-wrap {
+  display: flex;
+  align-items: stretch;
+  max-width: 920px;
+  margin: 24px auto 0;
+  position: relative;
+  overflow: visible;
+  width: 100%;
+  filter: var(--scroll-shadow);
+  transition: filter 0.4s;
+}
+.scroll-body {
+  flex: 0;
+  min-width: 0;
+  opacity: 0;
+  overflow: hidden;
+  border-top: 8px solid var(--scroll-silk-border);
+  border-bottom: 8px solid var(--scroll-silk-border);
+  background: var(--scroll-paper-texture);
+  box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.08), inset 0 -4px 10px rgba(0, 0, 0, 0.08);
+  position: relative;
+  transition: flex 1.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease, background 0.4s, border-color 0.4s;
+}
+.scroll-wrap.visible .scroll-body {
+  flex: 1;
+  opacity: 1;
+}
+.scroll-body::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 18px;
+  background: linear-gradient(90deg, rgba(0,0,0,0.15), transparent);
+  z-index: 5;
+  pointer-events: none;
+}
+.scroll-body::after {
+  content: '';
+  position: absolute;
+  right: 0; top: 0; bottom: 0;
+  width: 18px;
+  background: linear-gradient(270deg, rgba(0,0,0,0.15), transparent);
+  z-index: 5;
+  pointer-events: none;
+}
+.scroll-content {
+  width: 860px;
+  padding: 24px 20px;
+  flex-shrink: 0;
+}
+@media (max-width: 920px) {
+  .scroll-content {
+    width: calc(100vw - 80px);
+  }
+}
+.scroll-shaft-l, .scroll-shaft-r {
+  width: 16px;
+  position: relative;
+  flex-shrink: 0;
+  border-radius: 2px;
+  z-index: 2;
+  box-shadow: 2px 0 6px rgba(0,0,0,0.25), -2px 0 6px rgba(0,0,0,0.25);
+  transition: background 0.4s;
+}
+.scroll-shaft-l {
+  background: var(--scroll-shaft-l-grad);
+}
+.scroll-shaft-r {
+  background: var(--scroll-shaft-grad);
+}
+.scroll-knob-top, .scroll-knob-bottom {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 22px;
+  background: var(--scroll-knob-grad);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.15);
+  transition: background 0.4s;
+}
+.scroll-knob-top::after, .scroll-knob-bottom::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 28px;
+  height: 5px;
+  background: var(--scroll-knob-collar);
+  border-radius: 1px;
+  transition: background 0.4s;
+}
+.scroll-knob-top { 
+  top: -22px; 
+  border-radius: 5px 5px 2px 2px; 
+}
+.scroll-knob-top::after {
+  bottom: -1px;
+}
+.scroll-knob-bottom { 
+  bottom: -22px; 
+  border-radius: 2px 2px 5px 5px; 
+}
+.scroll-knob-bottom::after {
+  top: -1px;
+}
 
 /* === EDUCATION === */
 .edu-grid{display:flex;flex-direction:column;gap:16px}
-.es{font-size:18px;font-weight:600;color:#2d2925;margin-bottom:4px;letter-spacing:-.01em}
-.em{font-size:14px;color:#9b7b64;margin-bottom:6px}
-.ed{font-size:14px;color:#8a8279;font-family:'Geist Mono',monospace;margin-bottom:16px}
+.es{font-size:18px;font-weight:600;color:var(--text);margin-bottom:4px;letter-spacing:-.01em}
+.em{font-size:14px;color:var(--accent);margin-bottom:6px}
+.ed{font-size:14px;color:var(--muted);font-family:'Geist Mono',monospace;margin-bottom:16px}
 .papers{list-style:none;display:flex;flex-direction:column;gap:6px}
-.papers li{font-size:14px;color:#6b635a;padding-left:16px;position:relative;line-height:1.5}
-.papers li::before{content:'·';position:absolute;left:4px;color:#9b7b64;font-weight:700}
-.awards-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-.award-tag{padding:4px 12px;border-radius:999px;font-size:12px;font-weight:500;color:#6b8f77;border:1px solid rgb(107 143 119/.15);background:rgb(107 143 119/.05)}
+.papers li{font-size:14px;color:var(--muted);padding-left:16px;position:relative;line-height:1.5}
+.papers li::before{content:'·';position:absolute;left:4px;color:var(--accent);font-weight:700}
+.awards-row{display:flex;wrap:wrap;gap:8px;margin-top:12px}
+.award-tag{padding:4px 12px;border-radius:999px;font-size:12px;font-weight:500;color:var(--green-tag-text);border:1px solid var(--green-tag-border);background:var(--green-tag-bg)}
+
+.jcr-tag {
+  display: inline-block;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  transition: all 0.4s ease;
+}
+.jcr-tag-sci { background: var(--sci-bg); color: var(--sci-text); border: 1px solid var(--sci-border); }
+.jcr-tag-if { background: var(--if-bg); color: var(--if-text); border: 1px solid var(--if-border); }
+.jcr-tag-q2 { background: var(--q2-bg); color: var(--q2-text); border: 1px solid var(--q2-border); }
+.jcr-tag-first { background: var(--first-bg); color: var(--first-text); border: 1px solid var(--first-border); }
 
 /* === FOOTER === */
-.footer{padding:32px 0;border-top:1px solid rgb(0 0 0/.06);text-align:center;font-size:14px;color:#8a8279}
+.footer{padding:32px 0;border-top:1px solid var(--nav-border);text-align:center;font-size:14px;color:var(--muted)}
 
-/* === REVEAL + ENTRANCE ANIMATIONS === */
+/* === REVEAL ANIMATIONS === */
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
 .reveal.visible{opacity:1;transform:translateY(0)}
 @keyframes blink{50%{opacity:0}}
-@keyframes hang-1{0%,100%{transform:rotate(0deg)}25%{transform:rotate(.4deg)}75%{transform:rotate(-.3deg)}}
-@keyframes hang-2{0%,100%{transform:rotate(0deg)}20%{transform:rotate(-.5deg)}80%{transform:rotate(.3deg)}}
-@keyframes hang-3{0%,100%{transform:rotate(0deg)}30%{transform:rotate(.3deg)}70%{transform:rotate(-.4deg)}}
 @keyframes fishBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
 .reveal-delay-1{transition-delay:.05s}
 .reveal-delay-2{transition-delay:.12s}
@@ -124,15 +630,13 @@ a{color:inherit;text-decoration:none}
 .reveal-delay-4{transition-delay:.26s}
 .reveal-delay-5{transition-delay:.33s}
 .reveal-delay-6{transition-delay:.4s}
-/* 液态玻璃卡片独立入场 — 缩放 + 浮起 */
-.bento .lq{opacity:0;transform:translateY(30px) scale(.96);transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1)}
+.bento .lq{opacity:0;transform:translateY(30px) scale(.96);transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1), background .4s}
 .bento .lq.visible{opacity:1;transform:translateY(0) scale(1)}
-/* education 卡片 */
-.edu-grid .lq{opacity:0;transform:translateY(24px);transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1)}
+.edu-grid .lq{opacity:0;transform:translateY(24px);transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1), background .4s}
 .edu-grid .lq.visible{opacity:1;transform:translateY(0)}
-.hr{height:1px;background:rgb(0 0 0/.06);margin:0 24px}
+.hr{height:1px;background:var(--hr-color);margin:0 24px}
 
-/* === SKILLS CONSOLE (极简自研硬件看板特有样式) === */
+/* === SKILLS CONSOLE === */
 .skill-bento {
   display: grid;
   grid-template-columns: 1.2fr 0.8fr;
@@ -155,44 +659,42 @@ a{color:inherit;text-decoration:none}
   border-radius: 6px;
   font-size: 12px;
   font-weight: 500;
-  color: #2d2925;
-  background: rgba(139, 111, 92, 0.1);
-  border: 1px solid rgba(139, 111, 92, 0.15);
+  color: var(--tag-text);
+  background: var(--tag-bg);
+  border: 1px solid var(--tag-border);
   font-family: 'Geist Mono', monospace;
   transition: all 0.3s;
 }
 .tech-tag:hover {
-  background: #9b7b64;
-  color: #fff;
-  border-color: #9b7b64;
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
 }
-
-/* 动感微型硬件示波器 */
 .osc-canvas {
   width: 100%;
   height: 60px;
-  background: rgba(45, 41, 37, 0.05);
+  background: var(--osc-grid);
   border-radius: 8px;
-  border: 1px solid rgba(0,0,0,0.06);
+  border: 1px solid var(--nav-border);
+  transition: border-color .4s, background .4s;
 }
-
-/* 并行流水线动画效果 */
 .pipeline-track {
   width: 100%;
   height: 24px;
-  background: rgba(139, 111, 92, 0.05);
+  background: var(--pipeline-bg);
   border-radius: 12px;
   position: relative;
   overflow: hidden;
-  border: 1px dashed rgba(139, 111, 92, 0.3);
+  border: 1px dashed var(--pipeline-border);
   margin-top: 10px;
+  transition: border-color .4s, background .4s;
 }
 .pipeline-packet {
   position: absolute;
   top: 4px;
   width: 14px;
   height: 14px;
-  background: #9b7b64;
+  background: var(--accent);
   border-radius: 50%;
   animation: flowForward 3s infinite linear;
 }
@@ -204,30 +706,19 @@ a{color:inherit;text-decoration:none}
   95% { opacity: 1; }
   100% { left: 105%; opacity: 0; }
 }
-
-@media(max-width:768px){
-  .section{padding:56px 0}
-  .container{padding:0 16px}
-  .hero-inner{flex-direction:column;gap:28px;text-align:center}
-  .hero-photo{width:120px;height:120px;margin:0 auto}
-  .hero-text{max-width:100%}
-  .hero-contact{justify-content:center}
-  .edu-grid{gap:12px}
-  .scroll-grid{grid-template-columns:1fr!important}
-  .skill-bento {
-    grid-template-columns: 1fr;
-  }
-}
-@media(max-width:480px){
-  .container{padding:0 16px}
-  .exp-header{flex-direction:column}
-  .nav{padding:0 16px}
-}
 </style>
 </head>
 <body>
 <nav class="nav" id="nav">
   <a href="#" class="nav-logo">LS</a>
+  <button id="themeToggle" class="theme-toggle-btn" aria-label="切换环境微光">
+    <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+    </svg>
+    <svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </svg>
+  </button>
 </nav>
 
 <main>
@@ -240,17 +731,17 @@ a{color:inherit;text-decoration:none}
           <h1 class="hero-name">李顺东</h1>
           <p class="hero-title">C++系统软件开发 | SDK | 上位机后端开发</p>
           <div class="hero-contact">
-            <a href="mailto:lia734605@gmail.com" class="contact-link"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9b7b64" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg> lia734605@gmail.com</a>
-            <a href="tel:16605114386" class="contact-link"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9b7b64" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> 16605114386</a>
-            <span class="contact-link">目前状态：在职</span>
+            <a href="mailto:lia734605@gmail.com" class="contact-link"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg> lia734605@gmail.com</a>
+            <a href="tel:16605114386" class="contact-link"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> 16605114386</a>
+            <span class="contact-link">目前状态：在职，关注新机会</span>
           </div>
         </div>
         <div class="hero-photo reveal">
           <img src="photo.jpg" alt="Li Shundong">
         </div>
       </div>
-      <div style="text-align:center;font-size:18px;color:#8a8279;font-family:'Geist','PingFang SC',sans-serif;width:100%;margin-top:32px;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:4px">
-        <span id="tw-text" style="letter-spacing:.06em"></span><span id="tw-cursor" style="display:inline-block;width:2px;height:1.1em;background:#8a8279;margin-left:2px;vertical-align:text-bottom;animation:blink .8s step-end infinite"> </span>
+      <div style="text-align:center;font-size:18px;color:var(--muted);font-family:'Geist','PingFang SC',sans-serif;width:100%;margin-top:32px;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:4px">
+        <span id="tw-text" style="letter-spacing:.06em"></span><span id="tw-cursor" style="display:inline-block;width:2px;height:1.1em;background:var(--muted);margin-left:2px;vertical-align:text-bottom;animation:blink .8s step-end infinite"> </span>
       </div>
       <div style="text-align:center;margin-top:12px">
         <span id="monk-scene" style="display:none;user-select:none;position:relative">
@@ -300,50 +791,58 @@ a{color:inherit;text-decoration:none}
               </g>
             </svg>
           </span>
-          <span id="meritText" style="position:absolute;left:50%;transform:translateX(-50%);bottom:100%;font-size:13px;color:#9b7b64;font-weight:600;white-space:nowrap;pointer-events:none;opacity:0">+1 功德</span>
-          <span id="dongText" style="position:absolute;left:50%;transform:translateX(-50%);bottom:70%;font-size:14px;color:#b8845a;font-weight:700;white-space:nowrap;pointer-events:none;opacity:0">咚~</span>
-          <span id="meritCount" style="position:absolute;left:108%;top:50%;transform:translateY(-50%);font-size:11px;color:#8a8279;font-family:'Geist Mono',monospace;white-space:nowrap;pointer-events:none"></span>
+          <span id="meritText" style="position:absolute;left:50%;transform:translateX(-50%);bottom:100%;font-size:13px;color:var(--accent);font-weight:600;white-space:nowrap;pointer-events:none;opacity:0">+1 功德</span>
+          <span id="dongText" style="position:absolute;left:50%;transform:translateX(-50%);bottom:70%;font-size:14px;color:var(--accent-light);font-weight:700;white-space:nowrap;pointer-events:none;opacity:0">咚~</span>
+          <span id="meritCount" style="position:absolute;left:108%;top:50%;transform:translateY(-50%);font-size:11px;color:var(--muted);font-family:'Geist Mono',monospace;white-space:nowrap;pointer-events:none"></span>
         </span>
       </div>
     </div>
-    <div style="position:relative;max-width:920px;margin:32px auto 0;padding:0">
-<div style="display:flex;align-items:stretch;max-width:920px;margin:24px auto 0">
-  <div style="width:14px;border-radius:7px;background:linear-gradient(90deg,rgb(155 123 100/.5),rgb(155 123 100/.65));position:relative;flex-shrink:0">
-    <div style="position:absolute;top:-5px;left:-5px;width:24px;height:16px;border-radius:4px;background:linear-gradient(90deg,rgb(155 123 100/.55),rgb(155 123 100/.7))"></div>
-    <div style="position:absolute;bottom:-5px;left:-5px;width:24px;height:16px;border-radius:4px;background:linear-gradient(90deg,rgb(155 123 100/.55),rgb(155 123 100/.7))"></div>
-  </div>
-  <div style="flex:1;background:linear-gradient(90deg,rgb(255 255 252/.7),rgb(255 252 245/.5));border-top:1px solid rgb(0 0 0/.05);border-bottom:1px solid rgb(0 0 0/.05);padding:20px 16px">
-    <div style="text-align:center;font-size:clamp(18px,2.5vw,26px);font-weight:600;color:#2d2925;letter-spacing:-.02em;margin-bottom:18px">个人优势</div>
-    <div class="scroll-grid">
-      <div class="lq" style="position:relative">
-        <div class="lq-bg"></div>
-        <div class="lq-panel">
-          <div class="bl">独立交付与全栈攻坚</div>
-          <div class="bd" style="margin-top:6px">深耕半导体封测5年，具备从0到1的项目落地经验。在K8860项目团队变动后独立承担后端核心架构演进与全模块交付，支撑数字/射频/混合信号三大领域全覆盖，助力打破国外技术封锁、解决「卡脖子」问题</div>
+    
+    <div style="position:relative;max-width:920px;margin:32px auto 0;padding:0;width:100%">
+      <!-- 拟物写实级弹性卷轴 -->
+      <div class="scroll-wrap" id="advantageScroll">
+        <!-- 左侧立体实木轴杆 -->
+        <div class="scroll-shaft-l">
+          <div class="scroll-knob-top"></div>
+          <div class="scroll-knob-bottom"></div>
         </div>
-      </div>
-      <div class="lq" style="position:relative">
-        <div class="lq-bg"></div>
-        <div class="lq-panel">
-          <div class="bl">C++ 架构与高性能编程</div>
-          <div class="bd" style="margin-top:6px">深耕 Modern C++(14/17)，运用模板元编程、动态反射与设计模式(PImpl/Factory/Strategy)构建高扩展性SDK；通过异步I/O、对象池及无锁编程优化，自研高性能RPC与数据记录系统，解决海量吞吐瓶颈</div>
+        
+        <!-- 宣纸主体 -->
+        <div class="scroll-body">
+          <div class="scroll-content">
+            <div style="text-align:center;font-size:clamp(18px,2.5vw,26px);font-weight:600;color:var(--text);letter-spacing:-.02em;margin-bottom:18px">个人优势</div>
+            <div class="scroll-grid">
+              <div class="lq" style="position:relative">
+                <div class="lq-bg"></div>
+                <div class="lq-panel">
+                  <div class="bl">独立交付与全栈攻坚</div>
+                  <div class="bd" style="margin-top:6px">深耕半导体封测5年，具备从0到1的项目落地经验。在K8860项目团队变动后独立承担后端核心架构演进与全模块交付，支撑数字/射频/混合信号三大领域全覆盖，助力打破国外技术封锁、解决「卡盒子」问题</div>
+                </div>
+              </div>
+              <div class="lq" style="position:relative">
+                <div class="lq-bg"></div>
+                <div class="lq-panel">
+                  <div class="bl">C++ 架构与高性能编程</div>
+                  <div class="bd" style="margin-top:6px">深耕 Modern C++(14/17)，运用模板元编程、动态反射与设计模式(PImpl/Factory/Strategy)构建高扩展性SDK；通过异步I/O、对象池及无锁编程优化，自研高性能RPC与数据记录系统，解决海量吞吐瓶颈</div>
+                </div>
+              </div>
+              <div class="lq" style="position:relative">
+                <div class="lq-panel">
+                  <div class="bl">核心技术自主可控</div>
+                  <div class="bd" style="margin-top:6px">具备从编译器到算法库的底层开发能力，独立实现基于ANTLR4的DSL编译器及高精度DSP算法库(FFT/DNL/INL)，解调精度对标国际标杆(误差＜0.01dBm)，实现核心技术完全自主可控</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="lq" style="position:relative">
-        <div class="lq-bg"></div>
-        <div class="lq-panel">
-          <div class="bl">核心技术自主可控</div>
-          <div class="bd" style="margin-top:6px">具备从编译器到算法库的底层开发能力，独立实现基于ANTLR4的DSL编译器及高精度DSP算法库(FFT/DNL/INL)，解调精度对标国际标杆(误差＜0.01dBm)，实现核心技术完全自主可控</div>
+        
+        <!-- 右侧立体实木轴杆 -->
+        <div class="scroll-shaft-r">
+          <div class="scroll-knob-top"></div>
+          <div class="scroll-knob-bottom"></div>
         </div>
       </div>
     </div>
-  </div>
-  <div style="width:14px;border-radius:7px;background:linear-gradient(270deg,rgb(155 123 100/.5),rgb(155 123 100/.65));position:relative;flex-shrink:0">
-    <div style="position:absolute;top:-5px;right:-5px;width:24px;height:16px;border-radius:4px;background:linear-gradient(270deg,rgb(155 123 100/.55),rgb(155 123 100/.7))"></div>
-    <div style="position:absolute;bottom:-5px;right:-5px;width:24px;height:16px;border-radius:4px;background:linear-gradient(270deg,rgb(155 123 100/.55),rgb(155 123 100/.7))"></div>
-  </div>
-</div>
-</div>
   </section>
   <div class="hr"></div>
 
@@ -361,7 +860,7 @@ a{color:inherit;text-decoration:none}
           <div class="lq-panel" style="height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
             <div>
               <div class="bl">CORE SYSTEMS | C++ 核心 & 并发调度</div>
-              <p style="font-size: 13.5px; color: #6b635a; margin-top: 10px;">熟练掌握 Modern C++(14/17)，深度遵循 RAII 资源托管。设计了多 DUT 并行任务流调度引擎，利用无锁环形队列消灭堆分配竞争死锁。</p>
+              <p style="font-size: 13.5px; color: var(--muted); margin-top: 10px;">熟练掌握 Modern C++(14/17)，深度遵循 RAII 资源托管。设计了多 DUT 并行任务流调度引擎，利用无锁环形队列消灭堆分配竞争死锁。</p>
             </div>
             <div>
               <div class="tech-tag-row">
@@ -385,7 +884,7 @@ a{color:inherit;text-decoration:none}
           <div class="lq-panel" style="height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
             <div>
               <div class="bl">ALGORITHMS | 信号分析与高精度 DSP</div>
-              <p style="font-size: 13.5px; color: #6b635a; margin-top: 10px;">自研高精度数字信号处理(DSP)算法库。通过 Cooley-Tukey 架构实现高性能 FFT，针对窗函数引入 ENBW 数学补偿，频谱分析精度对标 Keysight 商业方案。</p>
+              <p style="font-size: 13.5px; color: var(--muted); margin-top: 10px;">自研高精度数字信号处理(DSP)算法库。通过 Cooley-Tukey 架构实现高性能 FFT，针对窗函数引入 ENBW 数学补偿，频谱分析精度对标 Keysight 商业方案。</p>
             </div>
             <div>
               <div class="tech-tag-row">
@@ -404,7 +903,7 @@ a{color:inherit;text-decoration:none}
           <div class="lq-panel" style="height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
             <div>
               <div class="bl">COMPILER | 自研语法编译器 (DSL)</div>
-              <p style="font-size: 13.5px; color: #6b635a; margin-top: 10px;">基于 ANTLR4 开发声明式芯片测试领域语言（ATPL）。自主编写词法/语法树遍历器，增加静态语义安全推导、编译期类型推导及引脚冲突边界校验。</p>
+              <p style="font-size: 13.5px; color: var(--muted); margin-top: 10px;">基于 ANTLR4 开发声明式芯片测试领域语言（ATPL）。自主编写词法/语法树遍历器，增加静态语义安全推导、编译期类型推导及引脚冲突边界校验。</p>
             </div>
             <div class="tech-tag-row">
               <span class="tech-tag">ANTLR4</span>
@@ -421,7 +920,7 @@ a{color:inherit;text-decoration:none}
           <div class="lq-panel" style="height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
             <div>
               <div class="bl">DATA PIPELINE | 异步 STDF 数据系统</div>
-              <p style="font-size: 13.5px; color: #6b635a; margin-top: 10px;">实现 STDFv4 协议，搭建 ATE 核心高速数据管道。设计高吞吐双缓冲 ObjectPool 零阻塞写盘 Worker 线程，支撑 7x24h 工业级量产实绩落盘需求。</p>
+              <p style="font-size: 13.5px; color: var(--muted); margin-top: 10px;">实现 STDFv4 协议，搭建 ATE 核心高速数据管道。设计高吞吐双缓冲 ObjectPool 零阻塞写盘 Worker 线程，支撑 7x24h 工业级量产实绩落盘需求。</p>
             </div>
             <div class="tech-tag-row">
               <span class="tech-tag">STDF V4</span>
@@ -438,25 +937,24 @@ a{color:inherit;text-decoration:none}
 
   <div class="hr"></div>
 
+  <!-- === 项目经历 (全局高密度 PCB 覆铜网络背景) === -->
   <section class="section">
     <div class="section-bg"><div class="glow"></div></div>
     <div class="container">
       <div class="reveal">
         <h2 class="section-heading">项目经历<br>K8860 ATEStudio 核心模块</h2>
       </div>
-      <div class="bento reveal">
+      <div class="bento reveal" style="margin-top:24px;">
         <svg id="busSvg" class="bus-svg">
-          <defs>
-            <filter id="busGlow"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-          </defs>
+          <!-- 动态渲染的 PCB 45度高密度电路网络（穿行于卡片之间的所有沟壑） -->
         </svg>
         <div class="lq">
           <div class="lq-bg"></div><div class="lq-panel">
             <div class="bl">语言层 | ATPL DSL编译器</div>
-            <ul style="font-size:14px;color:#6b635a;line-height:1.7;padding-left:0;list-style:none">
+            <ul style="font-size:14px;color:var(--muted);line-height:1.7;padding-left:0;list-style:none">
               <li style="padding-left:16px;position:relative;margin-bottom:4px">基于ANTLR4自研ATPL领域语言，将测试流程从C++硬编码解耦为声明式配置</li>
-              <li style="padding-left:16px;position:relative;margin-bottom:4px">词法→语法→语义三阶段分析，类型推推导+值域校验，编译期拦截配置错误</li>
-              <li style="padding-left:16px;position:relative;margin-bottom:4px">ATE语法颗粒度细(引脚/电平/时序)，配置错误可能误测损坏芯片</li>
+              <li style="padding-left:16px;position:relative;margin-bottom:4px">词法→语法→语义三阶段分析，类型推导+值域校验，编译期拦截配置错误</li>
+              <li style="padding-left:16px;position:relative;margin-bottom:4px">ATE语法配置颗粒度细(引脚/电平/时序)，配置错误可能误测损坏芯片</li>
             </ul>
             <div class="br">硬件损坏风险降低90%，测试人员无需掌握C++</div>
           </div>
@@ -464,7 +962,7 @@ a{color:inherit;text-decoration:none}
         <div class="lq">
           <div class="lq-bg"></div><div class="lq-panel">
             <div class="bl">调度层 | 多DUT并行测试流调度引擎</div>
-            <ul style="font-size:14px;color:#6b635a;line-height:1.7;padding-left:0;list-style:none">
+            <ul style="font-size:14px;color:var(--muted);line-height:1.7;padding-left:0;list-style:none">
               <li style="padding-left:16px;position:relative;margin-bottom:4px">将ATPL测试流转化为有向图，驱动多DUT并行测试执行</li>
               <li style="padding-left:16px;position:relative;margin-bottom:4px">DFS构图+三色环检测，状态机分发任务，result_map+pushResult实时归并</li>
               <li style="padding-left:16px;position:relative;margin-bottom:4px">子流程嵌套+GOTO致拓扑复杂，多DUT并行需平衡吞吐与一致性</li>
@@ -475,7 +973,7 @@ a{color:inherit;text-decoration:none}
         <div class="lq">
           <div class="lq-bg"></div><div class="lq-panel">
             <div class="bl">接口层 | SDK架构分层和模块化设计</div>
-            <ul style="font-size:14px;color:#6b635a;line-height:1.7;padding-left:0;list-style:none">
+            <ul style="font-size:14px;color:var(--muted);line-height:1.7;padding-left:0;list-style:none">
               <li style="padding-left:16px;position:relative;margin-bottom:4px">四层架构(RPC→SDK→Impl→HAL)解耦前端与底层硬件</li>
               <li style="padding-left:16px;position:relative;margin-bottom:4px">ZMQ+MsgPack通信，PImpl隔离，反射工厂动态加载，libhv统一传输</li>
               <li style="padding-left:16px;position:relative;margin-bottom:4px">多硬件类型(DGT/RF/MIX)接口不一致，抽象层需兼顾通用性与实时性</li>
@@ -486,7 +984,7 @@ a{color:inherit;text-decoration:none}
         <div class="lq">
           <div class="lq-bg"></div><div class="lq-panel">
             <div class="bl">算法层 | 高精度DSP信号分析系统</div>
-            <ul style="font-size:14px;color:#6b635a;line-height:1.7;padding-left:0;list-style:none">
+            <ul style="font-size:14px;color:var(--muted);line-height:1.7;padding-left:0;list-style:none">
               <li style="padding-left:16px;position:relative;margin-bottom:4px">自研FFT信号分析系统，实现射频/混合信号测试能力</li>
               <li style="padding-left:16px;position:relative;margin-bottom:4px">CG/ENBW补偿频率泄露，FFT→频谱→SNR/THD/SFDR/SND全链路，多量纲输出</li>
               <li style="padding-left:16px;position:relative;margin-bottom:4px">频谱泄露需精确数学补偿，精度对标Keysight VSA商业软件</li>
@@ -497,9 +995,9 @@ a{color:inherit;text-decoration:none}
         <div class="lq">
           <div class="lq-bg"></div><div class="lq-panel">
             <div class="bl">数据层 | 异步STDF数据记录系统</div>
-            <ul style="font-size:14px;color:#6b635a;line-height:1.7;padding-left:0;list-style:none">
+            <ul style="font-size:14px;color:var(--muted);line-height:1.7;padding-left:0;list-style:none">
               <li style="padding-left:16px;position:relative;margin-bottom:4px">实现STDFv4协议，提供测试数据全周期追溯</li>
-              <li style="padding-left:16px;position:relative;margin-bottom:4px">异步Worker零阻塞写盘，ObjectPool复用+原子状态机+CAS+熔断机制</li>
+              <li style="padding-left:16px;position:relative;margin-bottom:4px">异步Worker zero-block写盘，ObjectPool复用+原子状态机+CAS+熔断机制</li>
               <li style="padding-left:16px;position:relative;margin-bottom:4px">高吞吐不阻塞测试线程，千万级数据完整性保证与异常恢复</li>
             </ul>
             <div class="br">7×24h零故障运行，千万级记录写入无丢失</div>
@@ -508,7 +1006,7 @@ a{color:inherit;text-decoration:none}
         <div class="lq">
           <div class="lq-bg"></div><div class="lq-panel">
             <div class="bl">配置层 | 高性能CSV解析库</div>
-            <ul style="font-size:14px;color:#6b635a;line-height:1.7;padding-left:0;list-style:none">
+            <ul style="font-size:14px;color:var(--muted);line-height:1.7;padding-left:0;list-style:none">
               <li style="padding-left:16px;position:relative;margin-bottom:4px">高性能CSV引擎，支撑量产配置快速加载</li>
               <li style="padding-left:16px;position:relative;margin-bottom:4px">string_view零拷贝+atomic取号机并行+策略模式切换解析</li>
               <li style="padding-left:16px;position:relative;margin-bottom:4px">千万行秒级加载，多核行边界对齐与无锁线程安全</li>
@@ -522,6 +1020,7 @@ a{color:inherit;text-decoration:none}
 
   <div class="hr"></div>
 
+  <!-- === 教育经历 === -->
   <section class="section">
     <div class="section-bg"><div class="glow"></div></div>
     <div class="container">
@@ -534,28 +1033,28 @@ a{color:inherit;text-decoration:none}
               <li>
                 <div>Multiple ant colony optimization using both novel LSTM network and adaptive Tanimoto communication strategy, Applied Intelligence, 2021</div>
                 <div style="margin-top:4px;display:flex;gap:5px;flex-wrap:wrap">
-                  <span class="jcr-tag" style="display:inline-block;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600;background:rgb(37 99 235/.2);color:#1d4ed8;border:1px solid rgb(37 99 235/.3)">SCI</span>
-                  <span class="jcr-tag" style="display:inline-block;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600;background:rgb(8 145 178/.2);color:#0e7490;border:1px solid rgb(8 145 178/.3)">IF 5.086</span>
-                  <span class="jcr-tag" style="display:inline-block;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600;background:rgb(22 163 74/.2);color:#15803d;border:1px solid rgb(22 163 74/.3)">JCR Q2</span>
-                  <span class="jcr-tag" style="display:inline-block;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600;background:rgb(22 163 74/.18);color:#15803d;border:1px solid rgb(22 163 74/.25)">中科院2区</span>
-                  <span class="jcr-tag" style="display:inline-block;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600;background:rgb(217 119 6/.2);color:#b45309;border:1px solid rgb(217 119 6/.3)">一作</span>
+                  <span class="jcr-tag jcr-tag-sci">SCI</span>
+                  <span class="jcr-tag jcr-tag-if">IF 5.086</span>
+                  <span class="jcr-tag jcr-tag-q2">JCR Q2</span>
+                  <span class="jcr-tag jcr-tag-q2">中科院2区</span>
+                  <span class="jcr-tag jcr-tag-first">一作</span>
                 </div>
               </li>
               <li>
                 <div>Co-evolutionary Multi-Colony Ant Colony Optimization Based on Adaptive Guidance Mechanism and Its Application, Arabian Journal for Science and Engineering, 2021</div>
                 <div style="margin-top:4px;display:flex;gap:5px;flex-wrap:wrap">
-                  <span class="jcr-tag" style="display:inline-block;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600;background:rgb(37 99 235/.2);color:#1d4ed8;border:1px solid rgb(37 99 235/.3)">SCI</span>
-                  <span class="jcr-tag" style="display:inline-block;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600;background:rgb(8 145 178/.2);color:#0e7490;border:1px solid rgb(8 145 178/.3)">IF 2.807</span>
-                  <span class="jcr-tag" style="display:inline-block;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600;background:rgb(22 163 74/.2);color:#15803d;border:1px solid rgb(22 163 74/.3)">JCR Q2</span>
-                  <span class="jcr-tag" style="display:inline-block;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600;background:rgb(107 114 128/.25);color:#4b5563;border:1px solid rgb(107 114 128/.35)">中科院4区</span>
-                  <span class="jcr-tag" style="display:inline-block;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600;background:rgb(217 119 6/.2);color:#b45309;border:1px solid rgb(217 119 6/.3)">一作</span>
+                  <span class="jcr-tag jcr-tag-sci">SCI</span>
+                  <span class="jcr-tag jcr-tag-if">IF 2.807</span>
+                  <span class="jcr-tag jcr-tag-q2">JCR Q2</span>
+                  <span class="jcr-tag jcr-tag-q2">中科院4区</span>
+                  <span class="jcr-tag jcr-tag-first">一作</span>
                 </div>
               </li>
               <li>
                 <div>结合ABC算法动态分级的双蚁态蚁群算法, CSCD中文核心</div>
                 <div style="margin-top:4px;display:flex;gap:5px;flex-wrap:wrap">
-                  <span class="jcr-tag" style="display:inline-block;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600;background:rgb(124 58 237/.2);color:#6d28d9;border:1px solid rgb(124 58 237/.3)">CSCD核心</span>
-                  <span class="jcr-tag" style="display:inline-block;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600;background:rgb(217 119 6/.2);color:#b45309;border:1px solid rgb(217 119 6/.3)">一作</span>
+                  <span class="jcr-tag jcr-tag-sci">CSCD核心</span>
+                  <span class="jcr-tag jcr-tag-first">一作</span>
                 </div>
               </li>
             </ul>
@@ -578,10 +1077,35 @@ a{color:inherit;text-decoration:none}
 <footer class="footer"><div class="container">Li Shundong · C++ Software Engineer · Shanghai</div></footer>
 
 <script>
+// === 主题管理与自适应机制 ===
+const themeToggleBtn = document.getElementById('themeToggle');
+const savedTheme = localStorage.getItem('theme');
+const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+let initialTheme = 'light';
+if (savedTheme) {
+  initialTheme = savedTheme;
+} else if (systemPrefersDark) {
+  initialTheme = 'dark';
+}
+document.documentElement.setAttribute('data-theme', initialTheme);
+
+themeToggleBtn.addEventListener('click', () => {
+  const currentTheme = document.documentElement.getAttribute('data-theme');
+  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', newTheme);
+  localStorage.setItem('theme', newTheme);
+  
+  if (typeof drawBusTraces === 'function') {
+    setTimeout(drawBusTraces, 50);
+  }
+});
+
 const nav=document.getElementById('nav');
 window.addEventListener('scroll',()=>{
   nav.classList.toggle('scrolled',window.scrollY>10);
-  nav.style.background=`rgba(237,231,224,${.7+Math.min(window.scrollY/window.innerHeight,.2)})`;
+  const opacity = .75 + Math.min(window.scrollY / window.innerHeight, 0.15);
+  nav.style.background = `rgba(var(--nav-bg), ${opacity})`;
 },{passive:true});
 
 const twText="你真正拥有的，只有当下！";
@@ -601,7 +1125,7 @@ function tapFish(){
   if(malletG){malletG.style.transform='translate(-10px,8px)';}
   setTimeout(function(){
     if(flash){flash.style.transition='none';flash.style.opacity='.8';requestAnimationFrame(function(){flash.style.transition='opacity .35s ease-out';flash.style.opacity='0';});}
-    if(fishSvg){fishSvg.style.transition='transform .07s ease';fishSvg.style.transform='scaleY(.9) scaleX(1.05)';setTimeout(function(){fishSvg.style.transform='scale(1)';},90);}
+    if(fishSvg){fishSvg.style.transition='transform .07s ease';fishSvg.style.transform='scale(1.05, 0.9)';setTimeout(function(){fishSvg.style.transform='scale(1)';},90);}
     if(dongText){dongText.style.transition='none';dongText.style.transform='translateX(-50%) translateY(0) scale(.7)';dongText.style.opacity='0';requestAnimationFrame(function(){dongText.style.transition='transform .5s ease-out,opacity .5s ease-out';dongText.style.transform='translateX(-50%) translateY(-16px) scale(1)';dongText.style.opacity='.85';setTimeout(function(){dongText.style.opacity='0';},280);});}
   },75);
   if(malletG){setTimeout(function(){malletG.style.transform='translateY(0)';},130);}
@@ -627,7 +1151,7 @@ function typeNext(){
 }
 setTimeout(typeNext,500);
 
-// === 模拟微型硬件扫频示波器动画 ===
+// === 示波器 Canvas 实时绘制 ===
 (function(){
   const canvas = document.getElementById('dspOscilloscope');
   if(!canvas) return;
@@ -645,8 +1169,11 @@ setTimeout(typeNext,500);
   function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     
-    // 绘制示波器网格背景
-    ctx.strokeStyle = 'rgba(139, 111, 92, 0.08)';
+    const computedStyles = getComputedStyle(canvas);
+    const accentColor = computedStyles.getPropertyValue('--accent').trim() || '#ff6b2b';
+    const gridColor = computedStyles.getPropertyValue('--osc-grid').trim() || 'rgba(255, 107, 43, 0.05)';
+
+    ctx.strokeStyle = gridColor;
     ctx.lineWidth = 1;
     for(let i = 0; i < canvas.width; i += 20) {
       ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, canvas.height); ctx.stroke();
@@ -655,22 +1182,30 @@ setTimeout(typeNext,500);
       ctx.beginPath(); ctx.moveTo(0, j); ctx.lineTo(canvas.width, j); ctx.stroke();
     }
 
-    // 绘制正弦波波形 (古铜铜色波)
     ctx.beginPath();
-    ctx.strokeStyle = '#9b7b64';
+    ctx.strokeStyle = accentColor;
     ctx.lineWidth = 2;
+    
+    const currentTheme = document.documentElement.getAttribute('data-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    if (currentTheme === 'dark') {
+      ctx.shadowBlur = 6;
+      ctx.shadowColor = accentColor;
+    } else {
+      ctx.shadowBlur = 0;
+    }
+    
     for (let x = 0; x < canvas.width; x++) {
       const y = canvas.height / 2 + Math.sin(x * frequency + phase) * 18;
       if (x === 0) ctx.moveTo(x, y);
       else ctx.lineTo(x, y);
     }
     ctx.stroke();
+    ctx.shadowBlur = 0; 
 
     phase += 0.08;
     animationId = requestAnimationFrame(draw);
   }
   
-  // 鼠标悬停事件：变频（模拟扫频调制）
   canvas.addEventListener('mouseenter', () => { frequency = 0.18; });
   canvas.addEventListener('mouseleave', () => { frequency = 0.05; });
 
@@ -678,7 +1213,7 @@ setTimeout(typeNext,500);
   window.addEventListener('resize', resizeCanvas);
 })();
 
-// PCB总线走线实现
+// === ATE 工艺级 PCB 45度角高集成度全局布线系统 ===
 function drawBusTraces(){
   var bento=document.querySelector('.bento');
   var svg=document.getElementById('busSvg');
@@ -686,8 +1221,12 @@ function drawBusTraces(){
   var cards=bento.querySelectorAll('.lq');
   if(cards.length!==6)return;
 
-  svg.innerHTML='<defs><filter id="busGlow"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>';
+  // 1. 初始化背景，引入全局高斯模糊与混合模式
+  svg.innerHTML = '<defs><filter id="busGlow"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>';
+  
   var bR=bento.getBoundingClientRect();
+  var w=bR.width;
+  var h=bR.height;
   var r=[];
   cards.forEach(function(c){
     var cr=c.getBoundingClientRect();
@@ -707,70 +1246,246 @@ function drawBusTraces(){
   var hCenter1=(r[0].b+r[2].t)/2;
   var hCenter2=(r[2].b+r[4].t)/2;
   var bentoHeight=bR.height;
-  var stubOffset=15; 
+  var offset45 = 15; // 45°阻抗线偏置位
 
-  var d='M'+vCenter.toFixed(1)+',0 '
-    +'L'+vCenter.toFixed(1)+','+(hCenter1-stubOffset).toFixed(1)
-    +'L'+(vCenter-10).toFixed(1)+','+hCenter1.toFixed(1)
-    +'L'+(vCenter+10).toFixed(1)+','+hCenter1.toFixed(1)
-    +'L'+vCenter.toFixed(1)+','+(hCenter1+stubOffset).toFixed(1)
-    +'L'+vCenter.toFixed(1)+','+(hCenter2-stubOffset).toFixed(1)
-    +'L'+(vCenter+10).toFixed(1)+','+hCenter2.toFixed(1)
-    +'L'+(vCenter-10).toFixed(1)+','+hCenter2.toFixed(1)
-    +'L'+vCenter.toFixed(1)+','+(hCenter2+stubOffset).toFixed(1)
-    +'L'+vCenter.toFixed(1)+','+bentoHeight.toFixed(1);
+  // ==========================================
+  // [A] 全局画板覆铜接地网格背景 (GND Copper Hatches)
+  // ==========================================
+  var hatchPath = "";
+  // 覆铜线间距更密，涵盖全图空置角落与横向纵向边缘
+  var hatchXSteps = [15, 30, 45, 60, w - 60, w - 45, w - 30, w - 15, vCenter - 60, vCenter + 60];
+  hatchXSteps.forEach(function(xCoord) {
+    hatchPath += 'M ' + xCoord + ' 0 L ' + xCoord + ' ' + h + ' ';
+  });
+  for (var y = 20; y < h; y += 45) {
+    hatchPath += 'M 0 ' + y + ' L ' + w + ' ' + y + ' ';
+  }
+  var gridBack = document.createElementNS('http://www.w3.org/2000/svg','path');
+  gridBack.setAttribute('d', hatchPath);
+  gridBack.setAttribute('class', 'ground-hatch');
+  gridBack.setAttribute('fill', 'none'); // 修复填充Bug
+  svg.appendChild(gridBack);
 
-  [{cls:'trace-glow',sw:6,op:.12},{cls:'trace-main',sw:2,op:.45},{cls:'trace-flow',sw:3,op:.7}].forEach(function(s){
-    var p=document.createElementNS('http://www.w3.org/2000/svg','path');
-    p.setAttribute('d',d);p.setAttribute('class',s.cls);
-    p.setAttribute('stroke-width',s.sw);p.setAttribute('fill','none');
-    if(s.op)p.setAttribute('opacity',s.op);
+  // ==========================================
+  // [B] 深层折射走线 (Under-Card Signal Tracks)
+  // 通过玻璃折射产生多层覆铜板（Multi-layer Board）高档深度感
+  // ==========================================
+  var undercardPaths = [
+    // 穿行于左排卡片底部的垂直走线
+    'M ' + (w * 0.15) + ' 0 L ' + (w * 0.15) + ' ' + h,
+    'M ' + (w * 0.3) + ' 0 L ' + (w * 0.3) + ' ' + h,
+    // 穿行于右排卡片底部的垂直走线
+    'M ' + (w * 0.7) + ' 0 L ' + (w * 0.7) + ' ' + h,
+    'M ' + (w * 0.85) + ' 0 L ' + (w * 0.85) + ' ' + h
+  ];
+  undercardPaths.forEach(function(pathStr) {
+    var p = document.createElementNS('http://www.w3.org/2000/svg','path');
+    p.setAttribute('d', pathStr);
+    p.setAttribute('class', 'trace-main');
+    p.setAttribute('fill', 'none'); // 修复填充Bug
+    p.setAttribute('opacity', '0.12');
     svg.appendChild(p);
   });
 
-  var stubs=[
-    'M'+vCenter.toFixed(1)+','+(r[0].cy-stubOffset).toFixed(1)+' L'+(vCenter-stubOffset).toFixed(1)+','+r[0].cy.toFixed(1)+' L'+r[0].r.toFixed(1)+','+r[0].cy.toFixed(1),
-    'M'+vCenter.toFixed(1)+','+(r[1].cy-stubOffset).toFixed(1)+' L'+(vCenter+stubOffset).toFixed(1)+','+r[1].cy.toFixed(1)+' L'+r[1].l.toFixed(1)+','+r[1].cy.toFixed(1),
-    'M'+vCenter.toFixed(1)+','+(r[2].cy-stubOffset).toFixed(1)+' L'+(vCenter-stubOffset).toFixed(1)+','+r[2].cy.toFixed(1)+' L'+r[2].r.toFixed(1)+','+r[2].cy.toFixed(1),
-    'M'+vCenter.toFixed(1)+','+(r[3].cy-stubOffset).toFixed(1)+' L'+(vCenter+stubOffset).toFixed(1)+','+r[3].cy.toFixed(1)+' L'+r[3].l.toFixed(1)+','+r[3].cy.toFixed(1),
-    'M'+vCenter.toFixed(1)+','+(r[4].cy-stubOffset).toFixed(1)+' L'+(vCenter-stubOffset).toFixed(1)+','+r[4].cy.toFixed(1)+' L'+r[4].r.toFixed(1)+','+r[4].cy.toFixed(1),
-    'M'+vCenter.toFixed(1)+','+(r[5].cy-stubOffset).toFixed(1)+' L'+(vCenter+stubOffset).toFixed(1)+','+r[5].cy.toFixed(1)+' L'+r[5].l.toFixed(1)+','+r[5].cy.toFixed(1)
+  // ==========================================
+  // [C] 纵横交错高频总线网络 (Weaving Corridor Bus Network)
+  // 遍布垂直中道、两个水平间隙沟壑的 45 度走线网络
+  // ==========================================
+  var routingPaths = [];
+
+  // [C-1] 垂直中轴总线 (Main Central Bus)
+  var centralTrunk = 'M ' + vCenter.toFixed(1) + ' 0 '
+    + 'L ' + vCenter.toFixed(1) + ' ' + (hCenter1 - 40).toFixed(1)
+    + 'L ' + (vCenter - offset45).toFixed(1) + ' ' + (hCenter1 - 20).toFixed(1)
+    + 'L ' + (vCenter - offset45).toFixed(1) + ' ' + (hCenter1 + 10).toFixed(1)
+    + 'L ' + vCenter.toFixed(1) + ' ' + (hCenter1 + 30).toFixed(1)
+    + 'L ' + vCenter.toFixed(1) + ' ' + (hCenter2 - 40).toFixed(1)
+    + 'L ' + (vCenter + offset45).toFixed(1) + ' ' + (hCenter2 - 20).toFixed(1)
+    + 'L ' + (vCenter + offset45).toFixed(1) + ' ' + (hCenter2 + 10).toFixed(1)
+    + 'L ' + vCenter.toFixed(1) + ' ' + (hCenter2 + 30).toFixed(1)
+    + 'L ' + vCenter.toFixed(1) + ' ' + bentoHeight.toFixed(1);
+  routingPaths.push({ d: centralTrunk, flow: true });
+
+  // [C-2] 水平间隙 1 总线通道 (Corridor 1 - 3条平行走线)
+  var hBus1_a = 'M 0 ' + (hCenter1 - 6) + ' L ' + (vCenter - 45).toFixed(1) + ' ' + (hCenter1 - 6)
+    + ' L ' + (vCenter - 25).toFixed(1) + ' ' + (hCenter1 + 14).toFixed(1) + ' L ' + w + ' ' + (hCenter1 + 14);
+  var hBus1_b = 'M 0 ' + hCenter1 + ' L ' + (vCenter - 30).toFixed(1) + ' ' + hCenter1
+    + ' L ' + (vCenter - 10).toFixed(1) + ' ' + (hCenter1 + 20).toFixed(1) + ' L ' + w + ' ' + (hCenter1 + 20);
+  var hBus1_c = 'M 0 ' + (hCenter1 + 6) + ' L ' + (vCenter - 15).toFixed(1) + ' ' + (hCenter1 + 6)
+    + ' L ' + (vCenter + 5).toFixed(1) + ' ' + (hCenter1 + 26).toFixed(1) + ' L ' + w + ' ' + (hCenter1 + 26);
+  routingPaths.push({ d: hBus1_a, flow: false }, { d: hBus1_b, flow: true }, { d: hBus1_c, flow: false });
+
+  // [C-3] 水平间隙 2 总线通道 (Corridor 2 - 3条平行走线)
+  var hBus2_a = 'M 0 ' + (hCenter2 - 6) + ' L ' + (vCenter + 15).toFixed(1) + ' ' + (hCenter2 - 6)
+    + ' L ' + (vCenter + 35).toFixed(1) + ' ' + (hCenter2 + 14).toFixed(1) + ' L ' + w + ' ' + (hCenter2 + 14);
+  var hBus2_b = 'M 0 ' + hCenter2 + ' L ' + (vCenter + 5).toFixed(1) + ' ' + hCenter2
+    + ' L ' + (vCenter + 25).toFixed(1) + ' ' + (hCenter2 + 20).toFixed(1) + ' L ' + w + ' ' + (hCenter2 + 20);
+  var hBus2_c = 'M 0 ' + (hCenter2 + 6) + ' L ' + (vCenter - 5).toFixed(1) + ' ' + (hCenter2 + 6)
+    + ' L ' + (vCenter + 15).toFixed(1) + ' ' + (hCenter2 + 26).toFixed(1) + ' L ' + w + ' ' + (hCenter2 + 26);
+  routingPaths.push({ d: hBus2_a, flow: false }, { d: hBus2_b, flow: true }, { d: hBus2_c, flow: false });
+
+  // [C-4] 左侧：CLK 高速差分阻抗对
+  var diffX1 = 45;
+  var diffX2 = 53;
+  var dPath1 = 'M ' + diffX1 + ' 0 L ' + diffX1 + ' ' + (r[0].t - 30).toFixed(1)
+    + ' L ' + (diffX1 - 15).toFixed(1) + ' ' + (r[0].t - 15).toFixed(1)
+    + ' L ' + (diffX1 - 15).toFixed(1) + ' ' + (r[2].b + 15).toFixed(1)
+    + ' L ' + diffX1 + ' ' + (r[2].b + 30).toFixed(1) + ' L ' + diffX1 + ' ' + h;
+  routingPaths.push({ d: dPath1, flow: true });
+
+  // 渲染所有网络走线和对应的发光、流动流星
+  routingPaths.forEach(function(pathObj) {
+    // 基础暗线
+    var p = document.createElementNS('http://www.w3.org/2000/svg','path');
+    p.setAttribute('d', pathObj.d);
+    p.setAttribute('class', 'trace-main');
+    p.setAttribute('fill', 'none'); // 修复填充Bug
+    svg.appendChild(p);
+
+    // 氛围发光
+    var pg = document.createElementNS('http://www.w3.org/2000/svg','path');
+    pg.setAttribute('d', pathObj.d);
+    pg.setAttribute('class', 'trace-glow');
+    pg.setAttribute('fill', 'none'); // 修复填充Bug
+    svg.appendChild(pg);
+
+    // 动态流星
+    if (pathObj.flow) {
+      var pf = document.createElementNS('http://www.w3.org/2000/svg','path');
+      pf.setAttribute('d', pathObj.d);
+      pf.setAttribute('class', 'trace-flow');
+      pf.setAttribute('fill', 'none'); // 修复填充Bug
+      svg.appendChild(pf);
+    }
+  });
+
+  // ==========================================
+  // [D] 分支走线、精密阻抗丝印、去耦贴片电容
+  // ==========================================
+  var silkscreenLabels = [
+    { text: "DUT_CLK_A (Z=50Ω)", x: vCenter - 95, y: r[0].cy - 10 },
+    { text: "DUT_PWR_VDD", x: vCenter + 25, y: r[1].cy - 10 },
+    { text: "RF_解调通道_01", x: vCenter - 90, y: r[2].cy - 10 },
+    { text: "DGT_VECTOR_02", x: vCenter + 25, y: r[3].cy - 10 },
+    { text: "STDF_DATA_BUS", x: vCenter - 90, y: r[4].cy - 10 },
+    { text: "CSV_RAW_MEM", x: vCenter + 25, y: r[5].cy - 10 }
   ];
 
-  stubs.forEach(function(sd,index){
-    [{cls:'trace-glow',sw:4,op:.08},{cls:'trace-main',sw:1.2,op:.3}].forEach(function(l){
+  r.forEach(function(targetCard, index){
+    var isLeft = (index % 2 === 0);
+    var stubY = targetCard.cy;
+    
+    // 45° 分支走线
+    var branchPath = "";
+    if (isLeft) {
+      branchPath = 'M ' + vCenter.toFixed(1) + ' ' + (stubY - offset45).toFixed(1)
+        + ' L ' + (vCenter - offset45).toFixed(1) + ' ' + stubY.toFixed(1)
+        + ' L ' + targetCard.r.toFixed(1) + ' ' + stubY.toFixed(1);
+    } else {
+      branchPath = 'M ' + vCenter.toFixed(1) + ' ' + (stubY - offset45).toFixed(1)
+        + ' L ' + (vCenter + offset45).toFixed(1) + ' ' + stubY.toFixed(1)
+        + ' L ' + targetCard.l.toFixed(1) + ' ' + stubY.toFixed(1);
+    }
+
+    [{cls:'trace-glow',sw:4,op:.06},{cls:'trace-main',sw:1.2,op:.25}].forEach(function(l){
       var p=document.createElementNS('http://www.w3.org/2000/svg','path');
-      p.setAttribute('d',sd);p.setAttribute('class',l.cls);
-      p.setAttribute('stroke-width',l.sw);p.setAttribute('fill','none');
+      p.setAttribute('d',branchPath);p.setAttribute('class',l.cls);
+      p.setAttribute('stroke-width',l.sw);p.setAttribute('fill','none'); // 修复填充Bug
       if(l.op)p.setAttribute('opacity',l.op);
       svg.appendChild(p);
     });
 
-    var targetCard=r[index];
-    var dotX=(index%2===0)?targetCard.r:targetCard.l;
-    var dotY=targetCard.cy;
+    // 0402 去耦电容
+    var padX = isLeft ? targetCard.r + 20 : targetCard.l - 26;
+    var padY = stubY - 2;
+    var rect1 = document.createElementNS('http://www.w3.org/2000/svg','rect');
+    rect1.setAttribute('x', padX.toFixed(1));rect1.setAttribute('y', padY.toFixed(1));
+    rect1.setAttribute('width', '6');rect1.setAttribute('height', '4');
+    rect1.setAttribute('class', 'smd-pad');
+    var rect2 = document.createElementNS('http://www.w3.org/2000/svg','rect');
+    rect2.setAttribute('x', (padX + 8).toFixed(1));rect2.setAttribute('y', padY.toFixed(1));
+    rect2.setAttribute('width', '6');rect2.setAttribute('height', '4');
+    rect2.setAttribute('class', 'smd-pad');
+    svg.appendChild(rect1);
+    svg.appendChild(rect2);
+
+    // 过孔
+    var viaX = isLeft ? targetCard.r + 6 : targetCard.l - 12;
+    var viaY = stubY;
     
-    var dot=document.createElementNS('http://www.w3.org/2000/svg','circle');
-    dot.setAttribute('cx',dotX.toFixed(1));dot.setAttribute('cy',dotY.toFixed(1));
-    dot.setAttribute('r','3.5');dot.setAttribute('class','trace-dot');
-    dot.setAttribute('fill','#c9a96e');dot.setAttribute('filter','url(#busGlow)');
-    svg.appendChild(dot);
+    var viaRing = document.createElementNS('http://www.w3.org/2000/svg','circle');
+    viaRing.setAttribute('cx', viaX.toFixed(1));viaRing.setAttribute('cy', viaY.toFixed(1));
+    viaRing.setAttribute('r', '4');viaRing.setAttribute('class', 'via-annular-ring');
+    
+    var viaHole = document.createElementNS('http://www.w3.org/2000/svg','circle');
+    viaHole.setAttribute('cx', viaX.toFixed(1));viaHole.setAttribute('cy', viaY.toFixed(1));
+    viaHole.setAttribute('r', '1.8');viaHole.setAttribute('class', 'via-hole');
+
+    svg.appendChild(viaRing);
+    svg.appendChild(viaHole);
+
+    // 丝印文本
+    var labelInfo = silkscreenLabels[index];
+    var txt = document.createElementNS('http://www.w3.org/2000/svg','text');
+    txt.setAttribute('x', labelInfo.x);txt.setAttribute('y', labelInfo.y);
+    txt.setAttribute('class', 'pcb-text');
+    txt.textContent = labelInfo.text;
+    svg.appendChild(txt);
   });
 
-  var vias=[
-    [vCenter,hCenter1],[vCenter-10,hCenter1],[vCenter+10,hCenter1],
-    [vCenter,hCenter2],[vCenter-10,hCenter2],[vCenter+10,hCenter2]
+  // ==========================================
+  // [E] 全局散热/回流过孔矩阵 (Via Matrices Array)
+  // ==========================================
+  var viaFields = [
+    {x: 60, y: 120}, {x: 75, y: 120}, {x: 60, y: 135}, {x: 75, y: 135}, 
+    {x: w - 80, y: h - 140}, {x: w - 65, y: h - 140}, {x: w - 80, y: h - 125}, {x: w - 65, y: h - 125},
+    {x: vCenter - 70, y: hCenter1 + 60}, {x: vCenter - 55, y: hCenter1 + 60},
+    {x: vCenter + 55, y: hCenter2 - 60}, {x: vCenter + 70, y: hCenter2 - 60}
   ];
-  vias.forEach(function(pt){
+  viaFields.forEach(function(vf) {
+    var vr = document.createElementNS('http://www.w3.org/2000/svg','circle');
+    vr.setAttribute('cx', vf.x);vr.setAttribute('cy', vf.y);vr.setAttribute('r', '3');
+    vr.setAttribute('class', 'via-annular-ring');
+    var vh = document.createElementNS('http://www.w3.org/2000/svg','circle');
+    vh.setAttribute('cx', vf.x);vh.setAttribute('cy', vf.y);vh.setAttribute('r', '1.2');
+    vh.setAttribute('class', 'via-hole');
+    svg.appendChild(vr);
+    svg.appendChild(vh);
+  });
+
+  // 边缘丝印技术标签
+  var extraTexts = [
+    { text: "ATE_LOADBOARD_V1.2", x: 40, y: 40 },
+    { text: "LAYER_02_SIGNAL", x: w - 140, y: 40 },
+    { text: "SYSTEM_GND_SHIELD", x: 40, y: h - 40 }
+  ];
+  extraTexts.forEach(function(et) {
+    var txt = document.createElementNS('http://www.w3.org/2000/svg','text');
+    txt.setAttribute('x', et.x);txt.setAttribute('y', et.y);
+    txt.setAttribute('class', 'pcb-text');
+    txt.textContent = et.text;
+    svg.appendChild(txt);
+  });
+
+  // 主干交错结过孔盒
+  var junctions = [
+    [vCenter, hCenter1 - 40], [vCenter - offset45, hCenter1 - 20],
+    [vCenter, hCenter2 - 40], [vCenter + offset45, hCenter2 - 20],
+    [vCenter - offset45, hCenter1 + 14], [vCenter - 10, hCenter1 + 20],
+    [vCenter + 35, hCenter2 + 14], [vCenter + 25, hCenter2 + 20]
+  ];
+  junctions.forEach(function(pt){
     var rc=document.createElementNS('http://www.w3.org/2000/svg','rect');
-    rc.setAttribute('x',(pt[0]-2).toFixed(1));rc.setAttribute('y',(pt[1]-2).toFixed(1));
-    rc.setAttribute('width','4');rc.setAttribute('height','4');rc.setAttribute('rx','0.5');
-    rc.setAttribute('fill','#6a4a2a');rc.setAttribute('stroke','#9b7b64');rc.setAttribute('stroke-width','1');
+    rc.setAttribute('x',(pt[0]-2.5).toFixed(1));rc.setAttribute('y',(pt[1]-2.5).toFixed(1));
+    rc.setAttribute('width','5');rc.setAttribute('height','5');rc.setAttribute('rx','0.8');
+    rc.setAttribute('fill','var(--bus-joint-bg)');rc.setAttribute('stroke','var(--accent)');rc.setAttribute('stroke-width','1');
     svg.appendChild(rc);
   });
 }
 
+// 首次和防异步抖动重绘，确保高密度全局图层无错位
 setTimeout(drawBusTraces,100);
+setTimeout(drawBusTraces,600); // 确保字体、卡片彻底加载后精确对准
 window.addEventListener('resize',drawBusTraces);
 
 const revealEls=document.querySelectorAll('.reveal');
@@ -798,7 +1513,7 @@ const observer=new IntersectionObserver((entries)=>{
     }
   });
 },{threshold:.12});
-document.querySelectorAll('.reveal,.bento,.edu-grid').forEach(el=>observer.observe(el));
+document.querySelectorAll('.reveal,.bento,.edu-grid,.scroll-wrap').forEach(el=>observer.observe(el));
 </script>
 </body>
 </html>
