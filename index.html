@@ -1,0 +1,805 @@
+<!-- START OF FILE index.html -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Li Shundong · C++ Software Engineer</title>
+<meta name="description" content="C++系统软件开发工程师，5年ATE半导体测试平台研发经验。">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:'Geist','Inter',-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;line-height:1.6;color:#2d2925;background:#ede7e0}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+
+/* === COLOR PALETTE ===
+   Background: #ede7e0 warm putty
+   Text:       #2d2925 espresso
+   Muted:      #8a8279 warm stone
+   Accent:     #8b6f5c camel bronze
+   Glass:      warm translucent
+================================== */
+/* === LAYOUT === */
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+.section{padding:80px 0;position:relative}
+.section-bg{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.glow{position:absolute;width:100%;height:100%}
+.section:nth-child(even) .glow{background:radial-gradient(ellipse 60% 50% at 20% 50%,rgb(155 123 100/.05),transparent 70%),radial-gradient(ellipse 40% 40% at 80% 30%,rgb(139 111 92/.03),transparent 60%)}
+.section:nth-child(odd) .glow{background:radial-gradient(ellipse 50% 40% at 70% 60%,rgb(139 111 92/.04),transparent 70%),radial-gradient(ellipse 30% 50% at 30% 80%,rgb(155 123 100/.03),transparent 60%)}
+
+/* === LIQUID GLASS (凸面折射感 · 顶高光 + 底暗影 + 边缘色散) === */
+.lq{position:relative;border-radius:16px;overflow:hidden}
+/* 底衬 — 暖调渐变模拟折射光路 */
+.lq-bg{position:absolute;inset:0;border-radius:inherit}
+.lq-bg::before{content:'';position:absolute;inset:-16px;background:radial-gradient(ellipse 60% 40% at 35% 15%,rgb(255 250 242/.35) 0%,transparent 50%),radial-gradient(ellipse 50% 35% at 72% 58%,rgb(240 225 205/.15) 0%,transparent 45%),radial-gradient(ellipse 80% 25% at 50% 95%,rgb(255 248 238/.08) 0%,transparent 35%);filter:blur(22px)}
+/* 玻璃面板 — 亮基底 + 顶高光(凸面反射) + 底暗影(曲面遮挡) + 边缘微光 */
+.lq-panel{position:relative;z-index:1;border-radius:inherit;border:1px solid rgb(0 0 0/.08);background:rgb(255 255 252/.55);backdrop-filter:blur(20px) saturate(120%);-webkit-backdrop-filter:blur(20px) saturate(120%);box-shadow:inset 0 1px 0 rgb(255 255 255/.6),inset 0 -1px 0 rgb(0 0 0/.04),0 2px 16px rgb(0 0 0/.04);padding:24px;transition:border .3s,transform .3s,box-shadow .3s}
+.lq-panel:hover{transform:translateY(-2px);box-shadow:inset 0 1px 0 rgb(255 255 255/.45),inset 0 2px 6px rgb(255 255 255/.12),inset 0 -1px 0 rgb(0 0 0/.2),0 6px 28px rgb(0 0 0/.15)}
+/* === NAV === */
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:rgba(237,231,224,.72);backdrop-filter:blur(24px) saturate(120%);-webkit-backdrop-filter:blur(24px) saturate(120%);border-bottom:1px solid transparent;transition:border-color .3s}
+.nav.scrolled{border-bottom-color:rgb(0 0 0/.06)}
+.nav-logo{font-weight:600;font-size:16px;letter-spacing:-.01em;color:#2d2925}
+
+/* === HERO === */
+.hero{display:flex;flex-direction:column;padding-top:100px;padding-bottom:60px;overflow:hidden;position:relative;align-items:center}
+.hero-aurora{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 40% 50% at 20% 50%,rgb(255 248 240/.08),transparent 60%),radial-gradient(ellipse 50% 40% at 80% 30%,rgb(220 210 200/.05),transparent 60%),radial-gradient(ellipse 30% 30% at 50% 80%,rgb(240 235 228/.04),transparent 50%);filter:blur(80px)}
+.hero-inner{display:flex;flex-direction:column;align-items:center;width:100%;max-width:900px;margin:0 auto}
+.hero-photo{flex-shrink:0;width:160px;height:160px;border-radius:50%;overflow:hidden;border:2px solid rgb(0 0 0/.08);background:rgb(255 255 252/.4);display:flex;align-items:center;justify-content:center}
+.hero-photo img{width:100%;height:100%;object-fit:cover}
+.hero-text{flex:1;max-width:560px}
+
+.hero-greeting{font-size:14px;font-family:'Geist Mono',monospace;color:#9b7b64;margin-bottom:20px;letter-spacing:.04em}
+.hero-name{font-size:clamp(40px,6vw,64px);font-weight:700;letter-spacing:-.03em;line-height:1.05;margin-bottom:16px;color:#2d2925}
+.hero-title{font-size:clamp(16px,2vw,20px);color:#6b635a;margin-bottom:24px;font-weight:400}
+.hero-contact{display:flex;gap:20px;flex-wrap:wrap}
+.contact-link{font-size:14px;color:#6b635a;display:flex;align-items:center;gap:8px;transition:color .2s}
+.contact-link:hover{color:#9b7b64}
+
+/* === EXPERIENCE === */
+.timeline{position:relative;padding-left:32px}
+.timeline-line{position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:rgb(0 0 0/.06)}
+.exp-item{position:relative;margin-bottom:56px}
+.exp-item:last-child{margin-bottom:0}
+.exp-dot{position:absolute;left:-28px;top:6px;width:10px;height:10px;background:#9b7b64;border-radius:50%;border:2px solid #ede7e0}
+.exp-header{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:12px;margin-bottom:12px}
+.exp-company{font-size:18px;font-weight:600;color:#2d2925;letter-spacing:-.01em}
+.exp-date{font-size:14px;color:#8a8279;font-family:'Geist Mono',monospace}
+.exp-role{font-size:15px;color:#9b7b64;margin-bottom:16px;font-weight:500}
+.exp-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+.exp-list li{font-size:14px;color:#6b635a;padding-left:20px;position:relative;line-height:1.7}
+.exp-list li::before{content:'';position:absolute;left:0;top:10px;width:5px;height:5px;background:#9b7b64;border-radius:50%}
+.achi-label{font-size:14px;font-weight:600;color:#6b8f77;margin-bottom:12px;letter-spacing:.02em}
+.achi ul{list-style:none;display:flex;flex-direction:column;gap:6px}
+.achi ul li{font-size:14px;color:#6b8f77;padding-left:18px;position:relative;line-height:1.6}
+.achi ul li::before{content:'✓';position:absolute;left:0;font-weight:700;font-size:11px}
+
+/* === BENTO === */
+.bento{display:grid;grid-template-columns:repeat(2,1fr);grid-auto-rows:1fr;gap:16px;position:relative}
+.scroll-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.bl{font-family:'Geist Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.05em;color:#9b7b64;margin-bottom:10px}
+.bento ul li::before{content:'';position:absolute;left:0;top:9px;width:5px;height:5px;background:#9b7b64;border-radius:50%}
+.br{margin-top:12px;padding-top:12px;border-top:1px solid rgb(0 0 0/.06);font-size:12px;color:#5a7a5a;font-weight:500}
+
+/* PCB总线走线 */
+.bus-svg{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:visible}
+.bus-svg path{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.bus-svg .trace-main{stroke:#9b7b64;stroke-width:2;opacity:.45}
+.bus-svg .trace-glow{stroke:#c9a96e;stroke-width:5;opacity:.12}
+.bus-svg .trace-flow{stroke:#f0d090;stroke-width:3;stroke-dasharray:12 40;opacity:.7;animation:traceFlow 3s linear infinite}
+@keyframes traceFlow{0%{stroke-dashoffset:0}100%{stroke-dashoffset:-52}}
+.bus-svg .trace-dot{fill:#c9a96e;filter:url(#busGlow)}
+.bus-svg .trace-dot-pulse{fill:#f0d090;filter:url(#busGlow)}
+.bus-svg .trace-dot-pulse circle{animation:dotPulse 2s ease-in-out infinite}
+@keyframes dotPulse{0%,100%{r:3.5}50%{r:5}}
+.bus-svg .trace-joint{fill:#6a4a2a;stroke:#9b7b64;stroke-width:1.5}
+
+/* === EDUCATION === */
+.edu-grid{display:flex;flex-direction:column;gap:16px}
+.es{font-size:18px;font-weight:600;color:#2d2925;margin-bottom:4px;letter-spacing:-.01em}
+.em{font-size:14px;color:#9b7b64;margin-bottom:6px}
+.ed{font-size:14px;color:#8a8279;font-family:'Geist Mono',monospace;margin-bottom:16px}
+.papers{list-style:none;display:flex;flex-direction:column;gap:6px}
+.papers li{font-size:14px;color:#6b635a;padding-left:16px;position:relative;line-height:1.5}
+.papers li::before{content:'·';position:absolute;left:4px;color:#9b7b64;font-weight:700}
+.awards-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.award-tag{padding:4px 12px;border-radius:999px;font-size:12px;font-weight:500;color:#6b8f77;border:1px solid rgb(107 143 119/.15);background:rgb(107 143 119/.05)}
+
+/* === FOOTER === */
+.footer{padding:32px 0;border-top:1px solid rgb(0 0 0/.06);text-align:center;font-size:14px;color:#8a8279}
+
+/* === REVEAL + ENTRANCE ANIMATIONS === */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@keyframes blink{50%{opacity:0}}
+@keyframes hang-1{0%,100%{transform:rotate(0deg)}25%{transform:rotate(.4deg)}75%{transform:rotate(-.3deg)}}
+@keyframes hang-2{0%,100%{transform:rotate(0deg)}20%{transform:rotate(-.5deg)}80%{transform:rotate(.3deg)}}
+@keyframes hang-3{0%,100%{transform:rotate(0deg)}30%{transform:rotate(.3deg)}70%{transform:rotate(-.4deg)}}
+@keyframes fishBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+.reveal-delay-1{transition-delay:.05s}
+.reveal-delay-2{transition-delay:.12s}
+.reveal-delay-3{transition-delay:.19s}
+.reveal-delay-4{transition-delay:.26s}
+.reveal-delay-5{transition-delay:.33s}
+.reveal-delay-6{transition-delay:.4s}
+/* 液态玻璃卡片独立入场 — 缩放 + 浮起 */
+.bento .lq{opacity:0;transform:translateY(30px) scale(.96);transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1)}
+.bento .lq.visible{opacity:1;transform:translateY(0) scale(1)}
+/* education 卡片 */
+.edu-grid .lq{opacity:0;transform:translateY(24px);transition:opacity .6s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1)}
+.edu-grid .lq.visible{opacity:1;transform:translateY(0)}
+.hr{height:1px;background:rgb(0 0 0/.06);margin:0 24px}
+
+/* === SKILLS CONSOLE (极简自研硬件看板特有样式) === */
+.skill-bento {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 20px;
+}
+.skill-card {
+  min-height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.tech-tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 14px 0;
+}
+.tech-tag {
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #2d2925;
+  background: rgba(139, 111, 92, 0.1);
+  border: 1px solid rgba(139, 111, 92, 0.15);
+  font-family: 'Geist Mono', monospace;
+  transition: all 0.3s;
+}
+.tech-tag:hover {
+  background: #9b7b64;
+  color: #fff;
+  border-color: #9b7b64;
+}
+
+/* 动感微型硬件示波器 */
+.osc-canvas {
+  width: 100%;
+  height: 60px;
+  background: rgba(45, 41, 37, 0.05);
+  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+/* 并行流水线动画效果 */
+.pipeline-track {
+  width: 100%;
+  height: 24px;
+  background: rgba(139, 111, 92, 0.05);
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+  border: 1px dashed rgba(139, 111, 92, 0.3);
+  margin-top: 10px;
+}
+.pipeline-packet {
+  position: absolute;
+  top: 4px;
+  width: 14px;
+  height: 14px;
+  background: #9b7b64;
+  border-radius: 50%;
+  animation: flowForward 3s infinite linear;
+}
+.p2 { animation-delay: 1s; }
+.p3 { animation-delay: 2s; }
+@keyframes flowForward {
+  0% { left: -20px; opacity: 0; }
+  5% { opacity: 1; }
+  95% { opacity: 1; }
+  100% { left: 105%; opacity: 0; }
+}
+
+@media(max-width:768px){
+  .section{padding:56px 0}
+  .container{padding:0 16px}
+  .hero-inner{flex-direction:column;gap:28px;text-align:center}
+  .hero-photo{width:120px;height:120px;margin:0 auto}
+  .hero-text{max-width:100%}
+  .hero-contact{justify-content:center}
+  .edu-grid{gap:12px}
+  .scroll-grid{grid-template-columns:1fr!important}
+  .skill-bento {
+    grid-template-columns: 1fr;
+  }
+}
+@media(max-width:480px){
+  .container{padding:0 16px}
+  .exp-header{flex-direction:column}
+  .nav{padding:0 16px}
+}
+</style>
+</head>
+<body>
+<nav class="nav" id="nav">
+  <a href="#" class="nav-logo">LS</a>
+</nav>
+
+<main>
+  <section class="hero">
+    <div class="hero-aurora"></div>
+    <div class="container hero-inner">
+      <div style="display:flex;align-items:center;gap:80px;width:100%">
+        <div class="hero-text reveal">
+          <div class="hero-greeting">C++ SOFTWARE ENGINEER</div>
+          <h1 class="hero-name">李顺东</h1>
+          <p class="hero-title">C++系统软件开发 | SDK | 上位机后端开发</p>
+          <div class="hero-contact">
+            <a href="mailto:lia734605@gmail.com" class="contact-link"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9b7b64" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg> lia734605@gmail.com</a>
+            <a href="tel:16605114386" class="contact-link"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9b7b64" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> 16605114386</a>
+            <span class="contact-link">目前状态：在职</span>
+          </div>
+        </div>
+        <div class="hero-photo reveal">
+          <img src="photo.jpg" alt="Li Shundong">
+        </div>
+      </div>
+      <div style="text-align:center;font-size:18px;color:#8a8279;font-family:'Geist','PingFang SC',sans-serif;width:100%;margin-top:32px;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:4px">
+        <span id="tw-text" style="letter-spacing:.06em"></span><span id="tw-cursor" style="display:inline-block;width:2px;height:1.1em;background:#8a8279;margin-left:2px;vertical-align:text-bottom;animation:blink .8s step-end infinite"> </span>
+      </div>
+      <div style="text-align:center;margin-top:12px">
+        <span id="monk-scene" style="display:none;user-select:none;position:relative">
+          <span id="fishBtn" style="display:inline-block;cursor:pointer;position:relative;width:48px;height:48px;animation:fishBob 2.6s ease-in-out infinite">
+            <svg id="fishSvg" viewBox="0 0 68 64" width="48" height="45" style="display:block;overflow:visible">
+              <defs>
+                <radialGradient id="wb" cx="62%" cy="32%" r="68%">
+                  <stop offset="0%" stop-color="#f0d090"/><stop offset="15%" stop-color="#d8a860"/>
+                  <stop offset="35%" stop-color="#b88040"/><stop offset="55%" stop-color="#8a5828"/>
+                  <stop offset="80%" stop-color="#5a3818"/><stop offset="100%" stop-color="#3a2010"/>
+                </radialGradient>
+                <radialGradient id="wbDark" cx="50%" cy="50%" r="55%">
+                  <stop offset="40%" stop-color="transparent"/><stop offset="100%" stop-color="rgb(20 8 0/.35)"/>
+                </radialGradient>
+                <radialGradient id="mlt" cx="35%" cy="30%" r="70%">
+                  <stop offset="0%" stop-color="#e0b878"/><stop offset="50%" stop-color="#a07040"/>
+                  <stop offset="100%" stop-color="#5a3820"/>
+                </radialGradient>
+              </defs>
+              <ellipse cx="30" cy="59" rx="24" ry="3" fill="rgb(0 0 0/.18)"/>
+              <path d="M8,28 C8,12 20,4 34,4 C48,4 60,14 60,28 C60,42 52,54 42,57 L18,57 C12,52 8,42 8,28Z" fill="url(#wb)" stroke="#3a1c08" stroke-width=".8"/>
+              <path d="M8,28 C8,12 20,4 34,4 C48,4 60,14 60,28 C60,42 52,54 42,57 L18,57 C12,52 8,42 8,28Z" fill="url(#wbDark)"/>
+              <g stroke="rgb(80 45 15/.18)" stroke-width=".6" fill="none" stroke-linecap="round">
+                <path d="M12,28 Q34,34 56,28"/><path d="M10,36 Q34,42 58,36"/>
+                <path d="M14,20 Q34,25 54,20"/><path d="M18,44 Q34,49 48,44"/>
+              </g>
+              <path d="M6,28 C6,27 14,25 28,24 C40,25 48,27 50,28 C48,30 40,32 28,33 C14,32 6,30 6,28Z" fill="#0a0402"/>
+              <path d="M6,28 C6,27 14,25 28,24 C40,25 48,27 50,28" fill="none" stroke="#1a0a04" stroke-width=".8"/>
+              <ellipse cx="36" cy="14" rx="16" ry="8" fill="rgb(255 230 170/.15)"/>
+              <ellipse cx="38" cy="12" rx="8" ry="4" fill="rgb(255 245 200/.1)"/>
+              <ellipse cx="54" cy="50" rx="3.5" ry="3" fill="#5a3218" stroke="#3a1c08" stroke-width=".5"/>
+              <ellipse cx="53.5" cy="49.5" rx="1.5" ry="1" fill="#7a4a28"/>
+              <g stroke="rgb(80 45 15/.25)" stroke-width=".6" fill="none" stroke-linecap="round">
+                <path d="M20,40 Q23,43 20,46"/><path d="M24,41 Q27,44 24,47"/>
+                <path d="M28,42 Q31,45 28,48"/><path d="M32,42 Q35,45 32,48"/>
+                <path d="M36,42 Q39,45 36,48"/><path d="M40,41 Q43,44 40,47"/>
+                <path d="M44,40 Q47,43 44,46"/>
+              </g>
+              <g id="flash" style="opacity:0">
+                <circle cx="22" cy="28" r="5" fill="rgb(255 240 190/.6)"/>
+                <circle cx="22" cy="28" r="9" fill="none" stroke="rgb(255 210 140/.35)" stroke-width="1"/>
+              </g>
+              <g id="malletG" style="transition:transform .1s cubic-bezier(.3,1.8,.5,1)">
+                <rect x="54" y="6" width="1.8" height="16" rx=".9" fill="url(#mlt)" stroke="#3a1c08" stroke-width=".3" transform="rotate(-30 55 14)"/>
+                <ellipse cx="50" cy="8" rx="4.5" ry="4" fill="url(#mlt)" stroke="#3a1c08" stroke-width=".5"/>
+                <ellipse cx="49" cy="6.5" rx="2" ry="1.5" fill="rgb(255 230 180/.3)"/>
+              </g>
+            </svg>
+          </span>
+          <span id="meritText" style="position:absolute;left:50%;transform:translateX(-50%);bottom:100%;font-size:13px;color:#9b7b64;font-weight:600;white-space:nowrap;pointer-events:none;opacity:0">+1 功德</span>
+          <span id="dongText" style="position:absolute;left:50%;transform:translateX(-50%);bottom:70%;font-size:14px;color:#b8845a;font-weight:700;white-space:nowrap;pointer-events:none;opacity:0">咚~</span>
+          <span id="meritCount" style="position:absolute;left:108%;top:50%;transform:translateY(-50%);font-size:11px;color:#8a8279;font-family:'Geist Mono',monospace;white-space:nowrap;pointer-events:none"></span>
+        </span>
+      </div>
+    </div>
+    <div style="position:relative;max-width:920px;margin:32px auto 0;padding:0">
+<div style="display:flex;align-items:stretch;max-width:920px;margin:24px auto 0">
+  <div style="width:14px;border-radius:7px;background:linear-gradient(90deg,rgb(155 123 100/.5),rgb(155 123 100/.65));position:relative;flex-shrink:0">
+    <div style="position:absolute;top:-5px;left:-5px;width:24px;height:16px;border-radius:4px;background:linear-gradient(90deg,rgb(155 123 100/.55),rgb(155 123 100/.7))"></div>
+    <div style="position:absolute;bottom:-5px;left:-5px;width:24px;height:16px;border-radius:4px;background:linear-gradient(90deg,rgb(155 123 100/.55),rgb(155 123 100/.7))"></div>
+  </div>
+  <div style="flex:1;background:linear-gradient(90deg,rgb(255 255 252/.7),rgb(255 252 245/.5));border-top:1px solid rgb(0 0 0/.05);border-bottom:1px solid rgb(0 0 0/.05);padding:20px 16px">
+    <div style="text-align:center;font-size:clamp(18px,2.5vw,26px);font-weight:600;color:#2d2925;letter-spacing:-.02em;margin-bottom:18px">个人优势</div>
+    <div class="scroll-grid">
+      <div class="lq" style="position:relative">
+        <div class="lq-bg"></div>
+        <div class="lq-panel">
+          <div class="bl">独立交付与全栈攻坚</div>
+          <div class="bd" style="margin-top:6px">深耕半导体封测5年，具备从0到1的项目落地经验。在K8860项目团队变动后独立承担后端核心架构演进与全模块交付，支撑数字/射频/混合信号三大领域全覆盖，助力打破国外技术封锁、解决「卡脖子」问题</div>
+        </div>
+      </div>
+      <div class="lq" style="position:relative">
+        <div class="lq-bg"></div>
+        <div class="lq-panel">
+          <div class="bl">C++ 架构与高性能编程</div>
+          <div class="bd" style="margin-top:6px">深耕 Modern C++(14/17)，运用模板元编程、动态反射与设计模式(PImpl/Factory/Strategy)构建高扩展性SDK；通过异步I/O、对象池及无锁编程优化，自研高性能RPC与数据记录系统，解决海量吞吐瓶颈</div>
+        </div>
+      </div>
+      <div class="lq" style="position:relative">
+        <div class="lq-bg"></div>
+        <div class="lq-panel">
+          <div class="bl">核心技术自主可控</div>
+          <div class="bd" style="margin-top:6px">具备从编译器到算法库的底层开发能力，独立实现基于ANTLR4的DSL编译器及高精度DSP算法库(FFT/DNL/INL)，解调精度对标国际标杆(误差＜0.01dBm)，实现核心技术完全自主可控</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="width:14px;border-radius:7px;background:linear-gradient(270deg,rgb(155 123 100/.5),rgb(155 123 100/.65));position:relative;flex-shrink:0">
+    <div style="position:absolute;top:-5px;right:-5px;width:24px;height:16px;border-radius:4px;background:linear-gradient(270deg,rgb(155 123 100/.55),rgb(155 123 100/.7))"></div>
+    <div style="position:absolute;bottom:-5px;right:-5px;width:24px;height:16px;border-radius:4px;background:linear-gradient(270deg,rgb(155 123 100/.55),rgb(155 123 100/.7))"></div>
+  </div>
+</div>
+</div>
+  </section>
+  <div class="hr"></div>
+
+  <!-- === 全新重构：ATE 交互式系统看板（专业技能区） === -->
+  <section class="section">
+    <div class="section-bg"><div class="glow"></div></div>
+    <div class="container">
+      <div class="reveal"><h2 class="section-heading">专业技能</h2></div>
+      
+      <div class="skill-bento reveal" style="margin-top: 24px;">
+        
+        <!-- Column 1: Core Systems -->
+        <div class="lq skill-card">
+          <div class="lq-bg"></div>
+          <div class="lq-panel" style="height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div class="bl">CORE SYSTEMS | C++ 核心 & 并发调度</div>
+              <p style="font-size: 13.5px; color: #6b635a; margin-top: 10px;">熟练掌握 Modern C++(14/17)，深度遵循 RAII 资源托管。设计了多 DUT 并行任务流调度引擎，利用无锁环形队列消灭堆分配竞争死锁。</p>
+            </div>
+            <div>
+              <div class="tech-tag-row">
+                <span class="tech-tag">C++14/17</span>
+                <span class="tech-tag">RAII</span>
+                <span class="tech-tag">无锁多线程</span>
+                <span class="tech-tag">PImpl 隔离</span>
+              </div>
+              <div class="pipeline-track" title="微型并发无锁队列硬件模拟">
+                <div class="pipeline-packet"></div>
+                <div class="pipeline-packet p2"></div>
+                <div class="pipeline-packet p3"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 2: DSP & FFT -->
+        <div class="lq skill-card">
+          <div class="lq-bg"></div>
+          <div class="lq-panel" style="height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div class="bl">ALGORITHMS | 信号分析与高精度 DSP</div>
+              <p style="font-size: 13.5px; color: #6b635a; margin-top: 10px;">自研高精度数字信号处理(DSP)算法库。通过 Cooley-Tukey 架构实现高性能 FFT，针对窗函数引入 ENBW 数学补偿，频谱分析精度对标 Keysight 商业方案。</p>
+            </div>
+            <div>
+              <div class="tech-tag-row">
+                <span class="tech-tag">Cooley-Tukey FFT</span>
+                <span class="tech-tag">ENBW 窗口补偿</span>
+                <span class="tech-tag">DNL/INL 算法</span>
+              </div>
+              <canvas class="osc-canvas" id="dspOscilloscope" title="实时射频信号扫频示波器（鼠标悬停变频）"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 3: ANTLR4 & DSL -->
+        <div class="lq skill-card">
+          <div class="lq-bg"></div>
+          <div class="lq-panel" style="height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div class="bl">COMPILER | 自研语法编译器 (DSL)</div>
+              <p style="font-size: 13.5px; color: #6b635a; margin-top: 10px;">基于 ANTLR4 开发声明式芯片测试领域语言（ATPL）。自主编写词法/语法树遍历器，增加静态语义安全推导、编译期类型推导及引脚冲突边界校验。</p>
+            </div>
+            <div class="tech-tag-row">
+              <span class="tech-tag">ANTLR4</span>
+              <span class="tech-tag">ATPL 语言</span>
+              <span class="tech-tag">AST 语法分析树</span>
+              <span class="tech-tag">语义静态检查</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 4: Async STDF -->
+        <div class="lq skill-card">
+          <div class="lq-bg"></div>
+          <div class="lq-panel" style="height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div class="bl">DATA PIPELINE | 异步 STDF 数据系统</div>
+              <p style="font-size: 13.5px; color: #6b635a; margin-top: 10px;">实现 STDFv4 协议，搭建 ATE 核心高速数据管道。设计高吞吐双缓冲 ObjectPool 零阻塞写盘 Worker 线程，支撑 7x24h 工业级量产实绩落盘需求。</p>
+            </div>
+            <div class="tech-tag-row">
+              <span class="tech-tag">STDF V4</span>
+              <span class="tech-tag">ZMQ IPC</span>
+              <span class="tech-tag">MessagePack</span>
+              <span class="tech-tag">libhv</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="hr"></div>
+
+  <section class="section">
+    <div class="section-bg"><div class="glow"></div></div>
+    <div class="container">
+      <div class="reveal">
+        <h2 class="section-heading">项目经历<br>K8860 ATEStudio 核心模块</h2>
+      </div>
+      <div class="bento reveal">
+        <svg id="busSvg" class="bus-svg">
+          <defs>
+            <filter id="busGlow"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          </defs>
+        </svg>
+        <div class="lq">
+          <div class="lq-bg"></div><div class="lq-panel">
+            <div class="bl">语言层 | ATPL DSL编译器</div>
+            <ul style="font-size:14px;color:#6b635a;line-height:1.7;padding-left:0;list-style:none">
+              <li style="padding-left:16px;position:relative;margin-bottom:4px">基于ANTLR4自研ATPL领域语言，将测试流程从C++硬编码解耦为声明式配置</li>
+              <li style="padding-left:16px;position:relative;margin-bottom:4px">词法→语法→语义三阶段分析，类型推推导+值域校验，编译期拦截配置错误</li>
+              <li style="padding-left:16px;position:relative;margin-bottom:4px">ATE语法颗粒度细(引脚/电平/时序)，配置错误可能误测损坏芯片</li>
+            </ul>
+            <div class="br">硬件损坏风险降低90%，测试人员无需掌握C++</div>
+          </div>
+        </div>
+        <div class="lq">
+          <div class="lq-bg"></div><div class="lq-panel">
+            <div class="bl">调度层 | 多DUT并行测试流调度引擎</div>
+            <ul style="font-size:14px;color:#6b635a;line-height:1.7;padding-left:0;list-style:none">
+              <li style="padding-left:16px;position:relative;margin-bottom:4px">将ATPL测试流转化为有向图，驱动多DUT并行测试执行</li>
+              <li style="padding-left:16px;position:relative;margin-bottom:4px">DFS构图+三色环检测，状态机分发任务，result_map+pushResult实时归并</li>
+              <li style="padding-left:16px;position:relative;margin-bottom:4px">子流程嵌套+GOTO致拓扑复杂，多DUT并行需平衡吞吐与一致性</li>
+            </ul>
+            <div class="br">支撑多DUT量产测试稳定运行，多场景统一调度</div>
+          </div>
+        </div>
+        <div class="lq">
+          <div class="lq-bg"></div><div class="lq-panel">
+            <div class="bl">接口层 | SDK架构分层和模块化设计</div>
+            <ul style="font-size:14px;color:#6b635a;line-height:1.7;padding-left:0;list-style:none">
+              <li style="padding-left:16px;position:relative;margin-bottom:4px">四层架构(RPC→SDK→Impl→HAL)解耦前端与底层硬件</li>
+              <li style="padding-left:16px;position:relative;margin-bottom:4px">ZMQ+MsgPack通信，PImpl隔离，反射工厂动态加载，libhv统一传输</li>
+              <li style="padding-left:16px;position:relative;margin-bottom:4px">多硬件类型(DGT/RF/MIX)接口不一致，抽象层需兼顾通用性与实时性</li>
+            </ul>
+            <div class="br">形成"前端触发→SDK调度→用例执行→硬件驱动"完整链路</div>
+          </div>
+        </div>
+        <div class="lq">
+          <div class="lq-bg"></div><div class="lq-panel">
+            <div class="bl">算法层 | 高精度DSP信号分析系统</div>
+            <ul style="font-size:14px;color:#6b635a;line-height:1.7;padding-left:0;list-style:none">
+              <li style="padding-left:16px;position:relative;margin-bottom:4px">自研FFT信号分析系统，实现射频/混合信号测试能力</li>
+              <li style="padding-left:16px;position:relative;margin-bottom:4px">CG/ENBW补偿频率泄露，FFT→频谱→SNR/THD/SFDR/SND全链路，多量纲输出</li>
+              <li style="padding-left:16px;position:relative;margin-bottom:4px">频谱泄露需精确数学补偿，精度对标Keysight VSA商业软件</li>
+            </ul>
+            <div class="br">打破第三方商业软件依赖，自研方案满足量产精度要求</div>
+          </div>
+        </div>
+        <div class="lq">
+          <div class="lq-bg"></div><div class="lq-panel">
+            <div class="bl">数据层 | 异步STDF数据记录系统</div>
+            <ul style="font-size:14px;color:#6b635a;line-height:1.7;padding-left:0;list-style:none">
+              <li style="padding-left:16px;position:relative;margin-bottom:4px">实现STDFv4协议，提供测试数据全周期追溯</li>
+              <li style="padding-left:16px;position:relative;margin-bottom:4px">异步Worker零阻塞写盘，ObjectPool复用+原子状态机+CAS+熔断机制</li>
+              <li style="padding-left:16px;position:relative;margin-bottom:4px">高吞吐不阻塞测试线程，千万级数据完整性保证与异常恢复</li>
+            </ul>
+            <div class="br">7×24h零故障运行，千万级记录写入无丢失</div>
+          </div>
+        </div>
+        <div class="lq">
+          <div class="lq-bg"></div><div class="lq-panel">
+            <div class="bl">配置层 | 高性能CSV解析库</div>
+            <ul style="font-size:14px;color:#6b635a;line-height:1.7;padding-left:0;list-style:none">
+              <li style="padding-left:16px;position:relative;margin-bottom:4px">高性能CSV引擎，支撑量产配置快速加载</li>
+              <li style="padding-left:16px;position:relative;margin-bottom:4px">string_view零拷贝+atomic取号机并行+策略模式切换解析</li>
+              <li style="padding-left:16px;position:relative;margin-bottom:4px">千万行秒级加载，多核行边界对齐与无锁线程安全</li>
+            </ul>
+            <div class="br">异步解析吞吐量较同步提升数倍，千万行级CSV秒级加载</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="hr"></div>
+
+  <section class="section">
+    <div class="section-bg"><div class="glow"></div></div>
+    <div class="container">
+      <div class="reveal"><h2 class="section-heading">教育经历</h2></div>
+      <div class="edu-grid reveal">
+        <div class="lq">
+          <div class="lq-bg"></div><div class="lq-panel" style="min-height:200px">
+            <div class="es">上海工程技术大学</div><div class="em">智能感知与控制 · 硕士</div><div class="ed">2018/09 ~ 2021/04</div>
+            <ul class="papers">
+              <li>
+                <div>Multiple ant colony optimization using both novel LSTM network and adaptive Tanimoto communication strategy, Applied Intelligence, 2021</div>
+                <div style="margin-top:4px;display:flex;gap:5px;flex-wrap:wrap">
+                  <span class="jcr-tag" style="display:inline-block;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600;background:rgb(37 99 235/.2);color:#1d4ed8;border:1px solid rgb(37 99 235/.3)">SCI</span>
+                  <span class="jcr-tag" style="display:inline-block;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600;background:rgb(8 145 178/.2);color:#0e7490;border:1px solid rgb(8 145 178/.3)">IF 5.086</span>
+                  <span class="jcr-tag" style="display:inline-block;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600;background:rgb(22 163 74/.2);color:#15803d;border:1px solid rgb(22 163 74/.3)">JCR Q2</span>
+                  <span class="jcr-tag" style="display:inline-block;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600;background:rgb(22 163 74/.18);color:#15803d;border:1px solid rgb(22 163 74/.25)">中科院2区</span>
+                  <span class="jcr-tag" style="display:inline-block;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600;background:rgb(217 119 6/.2);color:#b45309;border:1px solid rgb(217 119 6/.3)">一作</span>
+                </div>
+              </li>
+              <li>
+                <div>Co-evolutionary Multi-Colony Ant Colony Optimization Based on Adaptive Guidance Mechanism and Its Application, Arabian Journal for Science and Engineering, 2021</div>
+                <div style="margin-top:4px;display:flex;gap:5px;flex-wrap:wrap">
+                  <span class="jcr-tag" style="display:inline-block;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600;background:rgb(37 99 235/.2);color:#1d4ed8;border:1px solid rgb(37 99 235/.3)">SCI</span>
+                  <span class="jcr-tag" style="display:inline-block;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600;background:rgb(8 145 178/.2);color:#0e7490;border:1px solid rgb(8 145 178/.3)">IF 2.807</span>
+                  <span class="jcr-tag" style="display:inline-block;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600;background:rgb(22 163 74/.2);color:#15803d;border:1px solid rgb(22 163 74/.3)">JCR Q2</span>
+                  <span class="jcr-tag" style="display:inline-block;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600;background:rgb(107 114 128/.25);color:#4b5563;border:1px solid rgb(107 114 128/.35)">中科院4区</span>
+                  <span class="jcr-tag" style="display:inline-block;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600;background:rgb(217 119 6/.2);color:#b45309;border:1px solid rgb(217 119 6/.3)">一作</span>
+                </div>
+              </li>
+              <li>
+                <div>结合ABC算法动态分级的双蚁态蚁群算法, CSCD中文核心</div>
+                <div style="margin-top:4px;display:flex;gap:5px;flex-wrap:wrap">
+                  <span class="jcr-tag" style="display:inline-block;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600;background:rgb(124 58 237/.2);color:#6d28d9;border:1px solid rgb(124 58 237/.3)">CSCD核心</span>
+                  <span class="jcr-tag" style="display:inline-block;padding:1px 6px;border-radius:4px;font-size:11px;font-weight:600;background:rgb(217 119 6/.2);color:#b45309;border:1px solid rgb(217 119 6/.3)">一作</span>
+                </div>
+              </li>
+            </ul>
+            <div class="awards-row">
+              <span class="award-tag">一等奖学金 (2018-2019)</span><span class="award-tag">二等奖学金 (2019-2020)</span>
+              <span class="award-tag">"互联网+" 二等奖</span><span class="award-tag">"兆易创新杯" 二等奖</span>
+            </div>
+          </div>
+        </div>
+        <div class="lq">
+          <div class="lq-bg"></div><div class="lq-panel" style="min-height:200px;display:flex;flex-direction:column;justify-content:center">
+            <div class="es">南京航空航天大学金城学院</div><div class="em">自动化 · 本科</div><div class="ed">2013/09 ~ 2015/06</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer"><div class="container">Li Shundong · C++ Software Engineer · Shanghai</div></footer>
+
+<script>
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{
+  nav.classList.toggle('scrolled',window.scrollY>10);
+  nav.style.background=`rgba(237,231,224,${.7+Math.min(window.scrollY/window.innerHeight,.2)})`;
+},{passive:true});
+
+const twText="你真正拥有的，只有当下！";
+const twEl=document.getElementById('tw-text');
+const twCursor=document.getElementById('tw-cursor');
+const monkScene=document.getElementById('monk-scene');
+const fish=document.getElementById('fishBtn');
+const fishSvg=document.getElementById('fishSvg');
+const meritText=document.getElementById('meritText');
+const dongText=document.getElementById('dongText');
+const meritCount=document.getElementById('meritCount');
+const malletG=document.getElementById('malletG');
+const flash=document.getElementById('flash');
+let merit=0;
+
+function tapFish(){
+  if(malletG){malletG.style.transform='translate(-10px,8px)';}
+  setTimeout(function(){
+    if(flash){flash.style.transition='none';flash.style.opacity='.8';requestAnimationFrame(function(){flash.style.transition='opacity .35s ease-out';flash.style.opacity='0';});}
+    if(fishSvg){fishSvg.style.transition='transform .07s ease';fishSvg.style.transform='scaleY(.9) scaleX(1.05)';setTimeout(function(){fishSvg.style.transform='scale(1)';},90);}
+    if(dongText){dongText.style.transition='none';dongText.style.transform='translateX(-50%) translateY(0) scale(.7)';dongText.style.opacity='0';requestAnimationFrame(function(){dongText.style.transition='transform .5s ease-out,opacity .5s ease-out';dongText.style.transform='translateX(-50%) translateY(-16px) scale(1)';dongText.style.opacity='.85';setTimeout(function(){dongText.style.opacity='0';},280);});}
+  },75);
+  if(malletG){setTimeout(function(){malletG.style.transform='translateY(0)';},130);}
+  merit++;
+  meritText.textContent='+1 功德';
+  meritText.style.transition='none';meritText.style.transform='translateX(-50%) translateY(0)';meritText.style.opacity='1';
+  requestAnimationFrame(function(){meritText.style.transition='transform .9s ease-out,opacity .9s ease-out';meritText.style.transform='translateX(-50%) translateY(-26px)';meritText.style.opacity='0';});
+  if(meritCount){meritCount.textContent='功德 +'+merit;}
+}
+if(fish){fish.addEventListener('click',tapFish);}
+let idx=0;
+function typeNext(){
+  if(idx<twText.length){
+    twEl.textContent+=twText[idx];
+    idx++;
+    const delay=twText[idx-1].match(/[\u4e00-\u9fff]/)?160:80;
+    setTimeout(typeNext,delay);
+  }else{
+    monkScene.style.display='inline-block';
+    setTimeout(function(){tapFish();},800);
+    setInterval(tapFish,3000);
+  }
+}
+setTimeout(typeNext,500);
+
+// === 模拟微型硬件扫频示波器动画 ===
+(function(){
+  const canvas = document.getElementById('dspOscilloscope');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let animationId;
+  let phase = 0;
+  let frequency = 0.05;
+
+  function resizeCanvas() {
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+  }
+  resizeCanvas();
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    // 绘制示波器网格背景
+    ctx.strokeStyle = 'rgba(139, 111, 92, 0.08)';
+    ctx.lineWidth = 1;
+    for(let i = 0; i < canvas.width; i += 20) {
+      ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, canvas.height); ctx.stroke();
+    }
+    for(let j = 0; j < canvas.height; j += 15) {
+      ctx.beginPath(); ctx.moveTo(0, j); ctx.lineTo(canvas.width, j); ctx.stroke();
+    }
+
+    // 绘制正弦波波形 (古铜铜色波)
+    ctx.beginPath();
+    ctx.strokeStyle = '#9b7b64';
+    ctx.lineWidth = 2;
+    for (let x = 0; x < canvas.width; x++) {
+      const y = canvas.height / 2 + Math.sin(x * frequency + phase) * 18;
+      if (x === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+
+    phase += 0.08;
+    animationId = requestAnimationFrame(draw);
+  }
+  
+  // 鼠标悬停事件：变频（模拟扫频调制）
+  canvas.addEventListener('mouseenter', () => { frequency = 0.18; });
+  canvas.addEventListener('mouseleave', () => { frequency = 0.05; });
+
+  draw();
+  window.addEventListener('resize', resizeCanvas);
+})();
+
+// PCB总线走线实现
+function drawBusTraces(){
+  var bento=document.querySelector('.bento');
+  var svg=document.getElementById('busSvg');
+  if(!bento||!svg)return;
+  var cards=bento.querySelectorAll('.lq');
+  if(cards.length!==6)return;
+
+  svg.innerHTML='<defs><filter id="busGlow"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>';
+  var bR=bento.getBoundingClientRect();
+  var r=[];
+  cards.forEach(function(c){
+    var cr=c.getBoundingClientRect();
+    r.push({
+      l:cr.left-bR.left,
+      t:cr.top-bR.top,
+      r:cr.right-bR.left,
+      b:cr.bottom-bR.top,
+      w:cr.width,
+      h:cr.height,
+      cx:cr.left-bR.left+cr.width/2,
+      cy:cr.top-bR.top+cr.height/2
+    });
+  });
+
+  var vCenter=(r[0].r+r[1].l)/2;
+  var hCenter1=(r[0].b+r[2].t)/2;
+  var hCenter2=(r[2].b+r[4].t)/2;
+  var bentoHeight=bR.height;
+  var stubOffset=15; 
+
+  var d='M'+vCenter.toFixed(1)+',0 '
+    +'L'+vCenter.toFixed(1)+','+(hCenter1-stubOffset).toFixed(1)
+    +'L'+(vCenter-10).toFixed(1)+','+hCenter1.toFixed(1)
+    +'L'+(vCenter+10).toFixed(1)+','+hCenter1.toFixed(1)
+    +'L'+vCenter.toFixed(1)+','+(hCenter1+stubOffset).toFixed(1)
+    +'L'+vCenter.toFixed(1)+','+(hCenter2-stubOffset).toFixed(1)
+    +'L'+(vCenter+10).toFixed(1)+','+hCenter2.toFixed(1)
+    +'L'+(vCenter-10).toFixed(1)+','+hCenter2.toFixed(1)
+    +'L'+vCenter.toFixed(1)+','+(hCenter2+stubOffset).toFixed(1)
+    +'L'+vCenter.toFixed(1)+','+bentoHeight.toFixed(1);
+
+  [{cls:'trace-glow',sw:6,op:.12},{cls:'trace-main',sw:2,op:.45},{cls:'trace-flow',sw:3,op:.7}].forEach(function(s){
+    var p=document.createElementNS('http://www.w3.org/2000/svg','path');
+    p.setAttribute('d',d);p.setAttribute('class',s.cls);
+    p.setAttribute('stroke-width',s.sw);p.setAttribute('fill','none');
+    if(s.op)p.setAttribute('opacity',s.op);
+    svg.appendChild(p);
+  });
+
+  var stubs=[
+    'M'+vCenter.toFixed(1)+','+(r[0].cy-stubOffset).toFixed(1)+' L'+(vCenter-stubOffset).toFixed(1)+','+r[0].cy.toFixed(1)+' L'+r[0].r.toFixed(1)+','+r[0].cy.toFixed(1),
+    'M'+vCenter.toFixed(1)+','+(r[1].cy-stubOffset).toFixed(1)+' L'+(vCenter+stubOffset).toFixed(1)+','+r[1].cy.toFixed(1)+' L'+r[1].l.toFixed(1)+','+r[1].cy.toFixed(1),
+    'M'+vCenter.toFixed(1)+','+(r[2].cy-stubOffset).toFixed(1)+' L'+(vCenter-stubOffset).toFixed(1)+','+r[2].cy.toFixed(1)+' L'+r[2].r.toFixed(1)+','+r[2].cy.toFixed(1),
+    'M'+vCenter.toFixed(1)+','+(r[3].cy-stubOffset).toFixed(1)+' L'+(vCenter+stubOffset).toFixed(1)+','+r[3].cy.toFixed(1)+' L'+r[3].l.toFixed(1)+','+r[3].cy.toFixed(1),
+    'M'+vCenter.toFixed(1)+','+(r[4].cy-stubOffset).toFixed(1)+' L'+(vCenter-stubOffset).toFixed(1)+','+r[4].cy.toFixed(1)+' L'+r[4].r.toFixed(1)+','+r[4].cy.toFixed(1),
+    'M'+vCenter.toFixed(1)+','+(r[5].cy-stubOffset).toFixed(1)+' L'+(vCenter+stubOffset).toFixed(1)+','+r[5].cy.toFixed(1)+' L'+r[5].l.toFixed(1)+','+r[5].cy.toFixed(1)
+  ];
+
+  stubs.forEach(function(sd,index){
+    [{cls:'trace-glow',sw:4,op:.08},{cls:'trace-main',sw:1.2,op:.3}].forEach(function(l){
+      var p=document.createElementNS('http://www.w3.org/2000/svg','path');
+      p.setAttribute('d',sd);p.setAttribute('class',l.cls);
+      p.setAttribute('stroke-width',l.sw);p.setAttribute('fill','none');
+      if(l.op)p.setAttribute('opacity',l.op);
+      svg.appendChild(p);
+    });
+
+    var targetCard=r[index];
+    var dotX=(index%2===0)?targetCard.r:targetCard.l;
+    var dotY=targetCard.cy;
+    
+    var dot=document.createElementNS('http://www.w3.org/2000/svg','circle');
+    dot.setAttribute('cx',dotX.toFixed(1));dot.setAttribute('cy',dotY.toFixed(1));
+    dot.setAttribute('r','3.5');dot.setAttribute('class','trace-dot');
+    dot.setAttribute('fill','#c9a96e');dot.setAttribute('filter','url(#busGlow)');
+    svg.appendChild(dot);
+  });
+
+  var vias=[
+    [vCenter,hCenter1],[vCenter-10,hCenter1],[vCenter+10,hCenter1],
+    [vCenter,hCenter2],[vCenter-10,hCenter2],[vCenter+10,hCenter2]
+  ];
+  vias.forEach(function(pt){
+    var rc=document.createElementNS('http://www.w3.org/2000/svg','rect');
+    rc.setAttribute('x',(pt[0]-2).toFixed(1));rc.setAttribute('y',(pt[1]-2).toFixed(1));
+    rc.setAttribute('width','4');rc.setAttribute('height','4');rc.setAttribute('rx','0.5');
+    rc.setAttribute('fill','#6a4a2a');rc.setAttribute('stroke','#9b7b64');rc.setAttribute('stroke-width','1');
+    svg.appendChild(rc);
+  });
+}
+
+setTimeout(drawBusTraces,100);
+window.addEventListener('resize',drawBusTraces);
+
+const revealEls=document.querySelectorAll('.reveal');
+revealEls.forEach((el,i)=>{
+  const idxWithinParent=[...el.parentElement.children].indexOf(el);
+  el.classList.add(`reveal-delay-${Math.min(idxWithinParent,6)}`);
+});
+
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('visible');
+      if(e.target.classList.contains('bento')){
+        e.target.querySelectorAll('.lq').forEach((card,i)=>{
+          card.style.transitionDelay=`${.06+i*.08}s`;
+          setTimeout(()=>card.classList.add('visible'),10);
+        });
+      }
+      if(e.target.classList.contains('edu-grid')){
+        e.target.querySelectorAll('.lq').forEach((card,i)=>{
+          card.style.transitionDelay=`${i*.15}s`;
+          setTimeout(()=>card.classList.add('visible'),10);
+        });
+      }
+    }
+  });
+},{threshold:.12});
+document.querySelectorAll('.reveal,.bento,.edu-grid').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
+<!-- END OF FILE index.html -->
