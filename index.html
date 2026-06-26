@@ -2685,39 +2685,102 @@
       }
     });
 
-    // === 高保真静态 PDF 副本一键静默打印（采用 300ms 异步调度解决线程阻塞） ===
-    const printBtn = document.getElementById('printBtn');
-    if (printBtn) {
-      printBtn.addEventListener('click', () => {
+    // === 按钮独立文字气泡生成逻辑 ===
 
-        // 1. 立即弹出大眼传感器的液态玻璃气泡（让浏览器第一时间重绘 DOM）
-        const eyeBubble = document.getElementById('eyeBubble');
-        if (eyeBubble) {
-          eyeBubble.textContent = "找我要，我给你啊！";
-          eyeBubble.classList.add('visible');
+    // 1. 动态注入气泡所需的样式（保持磨砂玻璃一致风格）
+    const tooltipStyle = document.createElement('style');
+    tooltipStyle.textContent = `
+  .btn-tooltip {
+    position: absolute;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    color: var(--text);
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 12.5px;
+    font-family: 'Geist', sans-serif;
+    box-shadow: 0 6px 18px var(--glass-shadow), inset 0 1px 0 var(--glass-inset-top);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 999;
+    pointer-events: none;
+    opacity: 0;
+    transform: translate(-50%, 8px);
+    transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.25s;
+    white-space: nowrap;
+  }
+  .btn-tooltip.visible {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  /* 顶部指向对应按钮的微型小三角 */
+  .btn-tooltip::after {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-bottom-color: var(--glass-border);
+  }
+`;
+    document.head.appendChild(tooltipStyle);
+
+    // 2. 气泡生成与控制逻辑
+    let activeBtnTooltip = null;
+
+    function showButtonTooltip(targetElement, text) {
+      // 如果当前已有气泡在显示，先将其移除，避免多图层重叠
+      if (activeBtnTooltip) {
+        activeBtnTooltip.remove();
+      }
+
+      // 创建动态气泡
+      const tooltip = document.createElement('div');
+      tooltip.className = 'btn-tooltip';
+      tooltip.textContent = text;
+      document.body.appendChild(tooltip);
+
+      // 计算目标按钮在文档中的精确绝对物理坐标
+      const rect = targetElement.getBoundingClientRect();
+      const x = rect.left + rect.width / 2;
+      const y = rect.bottom + window.scrollY + 8; // 在按钮下方留出8px间距
+
+      tooltip.style.left = `${x}px`;
+      tooltip.style.top = `${y}px`;
+
+      // 触发重绘以使 transition CSS 过渡动画生效
+      void tooltip.offsetWidth;
+      tooltip.classList.add('visible');
+
+      activeBtnTooltip = tooltip;
+
+      // 3秒后自动淡出并销毁
+      setTimeout(() => {
+        if (activeBtnTooltip === tooltip) {
+          tooltip.classList.remove('visible');
+          setTimeout(() => tooltip.remove(), 250);
         }
+      }, 3000);
+    }
 
-        // 2. 延迟 300 毫秒后，再异步拉起会阻塞主线程的打印面板
-        // 这 300 毫秒对人类感官毫无影响，但足够浏览器将“找我要”气泡优雅地渲染出来
-        setTimeout(() => {
-          const iframe = document.getElementById('pdfPrintIframe');
-          if (iframe) {
-            try {
-              iframe.contentWindow.focus();
-              iframe.contentWindow.print();
-            } catch (e) {
-              alert("由于当前环境的安全沙箱限制，一键静默打印已被拦截。请直接点击旁边的「下载」按钮获取高保真离线 PDF！");
-            }
-          }
+    // 3. 拦截按钮默认行为并触发独立气泡
+    const printBtn = document.getElementById('printBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
 
-          // 3. 打印面板拉起后，设定 3 秒后将气泡自动优雅收回
-          setTimeout(() => {
-            if (eyeBubble) {
-              eyeBubble.classList.remove('visible');
-            }
-          }, 3000);
+    if (printBtn) {
+      printBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        showButtonTooltip(printBtn, "打印机没墨了，我给你pdf格式吧~");
+      });
+    }
 
-        }, 300); // 300ms 极客延迟控制
+    if (downloadBtn) {
+      downloadBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        showButtonTooltip(downloadBtn, "找我要，我给你啊~");
       });
     }
 
