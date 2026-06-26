@@ -11,7 +11,7 @@
     @import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap');
 
     /* ==========================================================================
-   CSS 主题变量 system (兼容自适应及手动切换)
+   CSS 主题变量系统 (兼容自适应及手动切换)
    ========================================================================== */
     :root {
       /* --- 1. 原版温润浅色主题 (Putty / Espresso) --- */
@@ -282,13 +282,6 @@
       --pipeline-border: rgba(255, 107, 43, 0.2);
       --wafer-grid-fine: rgba(255, 107, 43, 0.02);
       --wafer-grid-major: rgba(255, 107, 43, 0.045);
-      --aurora-1: rgba(255, 107, 43, 0.03);
-      --aurora-2: rgba(0, 0, 0, 0.85);
-      --aurora-3: rgba(255, 255, 255, 0.005);
-      --glow-1: rgba(255, 107, 43, 0.02);
-      --glow-2: rgba(255, 107, 43, 0.01);
-      --glow-3: rgba(255, 107, 43, 0.015);
-      --glow-4: rgba(255, 107, 43, 0.01);
       --bus-glow: #ff6b2b;
       --bus-flow: #ffb088;
       --bus-joint-bg: #280f05;
@@ -350,7 +343,7 @@
 
     /* === 芯片/半导体晶圆全局背景刻蚀设计 (WAFER WORKSTATION) === */
     body {
-      font-family: 'Geist', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+      font-family: 'Geist', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
       line-height: 1.6;
       color: var(--text);
       background-color: var(--bg);
@@ -520,13 +513,6 @@
     }
 
     /* === HERO === */
-    .hero-row {
-      display: flex;
-      align-items: center;
-      gap: 80px;
-      width: 100%;
-    }
-
     .hero {
       display: flex;
       flex-direction: column;
@@ -552,6 +538,13 @@
       width: 100%;
       max-width: 900px;
       margin: 0 auto
+    }
+
+    .hero-row {
+      display: flex;
+      align-items: center;
+      gap: 80px;
+      width: 100%;
     }
 
     /* 圆形头像高档 3D 悬浮相框 */
@@ -1224,14 +1217,10 @@
     }
 
     /* === SKILLS CONSOLE (高端系统看板) === */
-    /* ==========================================================================
-   专业技能系统看板布局调整
-   ========================================================================== */
     .skill-bento {
       display: grid;
-      /* 修改前：grid-template-columns: 1.2fr 0.8fr; */
-      /* 修改后：平分左右两栏，宽度完全一致 */
       grid-template-columns: 1fr 1fr;
+      /* 平分两栏，确保左右大小一致 */
       gap: 20px;
     }
 
@@ -1370,25 +1359,6 @@
 
       /* 压扁 */
       60% {
-        transform: translateX(-50%) scale(0.85, 1.15);
-      }
-
-      /* 拉长 */
-      100% {
-        transform: translateX(-50%) scale(1.08, 1.08);
-      }
-    }
-
-    /* 眨眼动画 */
-    @keyframes eyeBlink {
-
-      0%,
-      93%,
-      100% {
-        transform: scaleY(1);
-      }
-
-      96% {
         transform: scaleY(0.1);
       }
     }
@@ -1555,8 +1525,6 @@
     .hero-photo.active-bounce {
       animation: photoSquash 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.2) forwards;
     }
-
-
 
     /* 点赞文字浮现动画 */
     @keyframes floatUp {
@@ -1744,78 +1712,23 @@
       text-decoration: underline;
     }
 
+    /* ==========================================================================
+   卷轴下方快速锚点定位导航组
+   ========================================================================== */
+    .scroll-nav-bar {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 36px;
+      position: relative;
+      z-index: 10;
+    }
+
     /* 窄屏智能折叠机制：防止顶栏元素堆叠溢出 */
     @media(max-width: 820px) {
       .glass-pill span.txt-fold {
         display: none !important;
         /* 自动剔除 “次点赞”、“位访客”、“联系我” 辅助文字 */
-      }
-    }
-
-    @media(max-width: 480px) {
-      .nav-tools {
-        gap: 4px;
-      }
-
-      .glass-pill {
-        padding: 6px 8px;
-      }
-    }
-
-    /* 撒花粒子、头像点赞等特效类 */
-    .confetti-particle {
-      position: absolute;
-      pointer-events: none;
-      font-size: 14px;
-      animation: particleFloat 0.8s cubic-bezier(0.1, 0.8, 0.25, 1) forwards;
-      z-index: 99;
-    }
-
-    @keyframes particleFloat {
-      0% {
-        transform: translate(-50%, -50%) translate(0, 0) scale(0.4);
-        opacity: 1;
-      }
-
-      80% {
-        opacity: 0.9;
-      }
-
-      100% {
-        transform: translate(-50%, -50%) translate(var(--tx), var(--ty)) scale(1);
-        opacity: 0;
-      }
-    }
-
-    @keyframes floatUp {
-      0% {
-        transform: translate(-50%, -50%) translateY(0) scale(0.6);
-        opacity: 1;
-      }
-
-      100% {
-        transform: translate(-50%, -50%) translateY(-60px) scale(1.2);
-        opacity: 0;
-      }
-    }
-
-    .like-pop-text {
-      position: absolute;
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--accent);
-      pointer-events: none;
-      z-index: 100;
-      animation: floatUp 0.65s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-      font-family: 'Geist', sans-serif;
-      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    @media print {
-
-      .like-badge-wrap,
-      .contact-modal {
-        display: none !important;
       }
     }
 
@@ -1828,7 +1741,7 @@
         padding: 0 16px
       }
 
-      /* 解决移动端宽度撑开导致缩水的核心样式 */
+      /* 解决移动端宽度被写死 flex gap 撑开导致缩水的核心样式 */
       .hero-row {
         flex-direction: column-reverse;
         /* 手机端文本与头像垂直上下堆叠 */
@@ -1860,9 +1773,12 @@
       }
 
       .hero-contact {
-        justify-content: center
+        justify-content: center;
+        flex-direction: column;
+        gap: 12px;
       }
 
+      /* 手机端联系方式纵向平铺 */
       .edu-grid {
         gap: 12px
       }
@@ -1876,23 +1792,22 @@
       }
     }
 
-    @media(max-width:480px) {
-      .container {
-        padding: 0 16px
+    @media(max-width: 480px) {
+      .nav-tools {
+        gap: 4px;
       }
 
-      .exp-header {
-        flex-direction: column
+      .glass-pill {
+        padding: 6px 8px;
       }
 
-      .nav {
-        padding: 0 16px
+      .scroll-nav-bar {
+        gap: 8px;
+        margin-top: 24px;
       }
     }
 
-    /* ==========================================================================
-   一键 PDF 导出/打印模式排版控制样式（完全防截断，降级平面化排版）
-   ========================================================================== */
+    /* 一键 PDF 导出/打印模式排版控制样式（完全防截断，降级平面化排版） */
     @media print {
 
       /* 强制打印机保留背景色和纸张色彩 */
@@ -1908,7 +1823,7 @@
         font-size: 11px !important;
       }
 
-      /* 隐藏所有动态特效、发光流星、以及网站操控栏、眼睛传感器、点赞徽章 */
+      /* 隐藏所有动态特效、发光流星、以及网站操控栏、眼睛传感器、点赞徽章、锚点组 */
       .nav,
       .theme-toggle-btn,
       #monk-scene,
@@ -1919,7 +1834,8 @@
       .hr,
       .hero-photo,
       .scroll-eyes-container,
-      .like-badge-wrap {
+      .like-badge-wrap,
+      .scroll-nav-bar {
         display: none !important;
       }
 
@@ -2050,6 +1966,39 @@
     .monk-bounce-in {
       animation: bounceIn 0.85s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
     }
+
+    /* ==========================================================================
+   磨砂玻璃卡片 - 核心业绩专属微偏光样式
+   ========================================================================== */
+    .like-badge-wrap,
+    .contact-modal {
+      /* 确保不被打印干扰的兜底定位 */
+    }
+
+    .achi-glass {
+      /* 引入极微量的绿色高透光渐变底色，增加视觉深度 */
+      background: linear-gradient(135deg, rgb(107 143 119 / .08), var(--glass-bg)) !important;
+      border: 1.5px solid var(--scroll-silk-border);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.4),
+        0 4px 12px var(--glass-shadow);
+    }
+
+    /* 深色模式下的翡翠玻璃折射 */
+    :root[data-theme="dark"] .achi-glass {
+      background: linear-gradient(135deg, rgba(107, 143, 119, 0.12) 0%, var(--glass-bg) 100%) !important;
+      border: 1.5px solid rgba(107, 143, 119, 0.3) !important;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45) !important;
+    }
+
+    /* 悬停时增强折射与微光悬浮感 */
+    .achi-glass:hover {
+      transform: translateY(-2px);
+      border-color: rgba(107, 143, 119, 0.45) !important;
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.5),
+        0 12px 28px rgba(107, 143, 119, 0.15) !important;
+    }
   </style>
 </head>
 
@@ -2134,7 +2083,6 @@
     <section class="hero">
       <div class="hero-aurora"></div>
       <div class="container hero-inner">
-        <!-- <div style="display:flex;align-items:center;gap:80px;width:100%"> -->
         <div class="hero-row">
           <div class="hero-text reveal">
             <h1 class="hero-name">李顺东</h1>
@@ -2161,23 +2109,16 @@
               <span class="contact-link">目前状态：在职，关注新机会</span>
             </div>
           </div>
-          <!-- 圆形头像点赞相框 -->
+          <!-- 圆形头像响应式剪裁相框 -->
           <div class="photo-wrap">
             <div class="photo-glow"></div>
             <div class="hero-photo reveal" id="avatarContainer" title="双击头像可为我点赞及撒花！">
-              <!-- <img id="avatarImg" src="photo.png" alt="Li Shundong"> -->
-              <!-- 修改后：圆形头像点赞相框内引入响应式源 -->
-              <div class="photo-wrap">
-                <div class="photo-glow"></div>
-                <div class="hero-photo reveal" id="avatarContainer" title="双击头像可为我点赞及撒花！">
-                  <picture style="display: block; width: 100%; height: 100%;">
-                    <!-- 移动端自适应：当屏幕宽度小于或等于 768px 时，仅加载轻量版小图 -->
-                    <source srcset="photo-mobile.jpg" media="(max-width: 768px)">
-                    <!-- 默认/PC端：加载高清大图 -->
-                    <img id="avatarImg" src="photo.png" alt="Li Shundong">
-                  </picture>
-                </div>
-              </div>
+              <picture style="display: block; width: 100%; height: 100%;">
+                <!-- 移动端自适应：当屏幕宽度小于或等于 768px 时，仅加载轻量版小图 -->
+                <source srcset="photo-mobile.jpg" media="(max-width: 768px)">
+                <!-- 默认/PC端：加载高清大图 -->
+                <img id="avatarImg" src="photo.jpg" alt="Li Shundong">
+              </picture>
             </div>
           </div>
         </div>
@@ -2271,7 +2212,7 @@
             <div class="scroll-knob-bottom"></div>
           </div>
 
-          <!-- 眼睛追踪传感器组件 (包含吐槽气泡) -->
+          <!-- 眼睛追踪传感器组件 -->
           <div class="scroll-eyes-container">
             <div class="eye-socket">
               <div class="eye-pupil" id="leftPupil"></div>
@@ -2326,11 +2267,49 @@
           </div>
         </div>
       </div>
+
+      <!-- 快速锚点定位导航组 -->
+      <div class="scroll-nav-bar reveal">
+        <a href="#skillsSection" class="glass-pill">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 2 7 12 12 22 7 12 2" />
+            <polyline points="2 17 12 22 22 17" />
+            <polyline points="2 12 12 17 22 12" />
+          </svg>
+          专业技能
+        </a>
+        <a href="#experienceSection" class="glass-pill">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+            <line x1="8" y1="21" x2="16" y2="21" />
+            <line x1="12" y1="17" x2="12" y2="21" />
+          </svg>
+          工作经历
+        </a>
+        <a href="#projectsSection" class="glass-pill">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <!-- 修正后的无损路径，恢复了文件夹的垂直高度 (V5) 和上提手斜角 (l2 3) -->
+            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+          </svg>
+          项目经历
+        </a>
+        <a href="#educationSection" class="glass-pill">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+            <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5" />
+          </svg>
+          教育经历
+        </a>
+      </div>
     </section>
     <div class="hr"></div>
 
-    <!-- === 全新重构：ATE 交互式系统看板（专业技能区） === -->
-    <section class="section">
+    <!-- === 1. 专业技能区（对调至首位） === -->
+    <section class="section" id="skillsSection">
       <div class="section-bg">
         <div class="glow"></div>
       </div>
@@ -2432,8 +2411,56 @@
 
     <div class="hr"></div>
 
-    <!-- === 项目经历 === -->
-    <section class="section">
+    <!-- === 2. 工作经历区（对调至第二位） === -->
+    <section class="section" id="experienceSection">
+      <div class="section-bg">
+        <div class="glow"></div>
+      </div>
+      <div class="container">
+        <div class="reveal">
+          <h2 class="section-heading">工作经历</h2>
+        </div>
+        <div class="timeline reveal" style="margin-top: 32px;">
+          <div class="timeline-line"></div>
+          <div class="exp-item">
+            <div class="exp-dot"></div>
+            <div class="exp-header">
+              <div class="exp-company">上海御渡半导体有限公司</div>
+              <div class="exp-date">2021/06 ~ 至今 (5年)</div>
+            </div>
+            <div class="exp-role">C++系统软件开发工程师 · SDK核心开发</div>
+            <ul class="exp-list">
+              <li>深度参与高端自研ATE平台(K8860)后端系统从0到1构建。</li>
+              <li>主导DSL编译器、测试流调度、DSP算法、STDF等多个核心模块研发。</li>
+              <li>推动平台测试能力迭代升级，完成数字→射频→混合信号三大业务线全场景覆盖。</li>
+              <li>负责SDK架构设计，对外提供统一接口，降低使用门槛；对内抽象硬件差异，统一驱动接口。</li>
+              <li>对接业务需求，跨部门(前端/嵌入式/FPGA/硬件)协同，实现端到端全链路闭环交付。</li>
+            </ul>
+            <div class="lq achi" style="margin-top:20px">
+              <div class="lq-bg"></div>
+              <!-- 直接使用标准的 lq-panel 玻璃底色与描边 -->
+              <div class="lq-panel">
+
+                <!-- 统一使用 Geist 极客风的 bl 标题样式 -->
+                <div class="bl">核心业绩</div>
+                <!-- 统一使用标准 exp-list 列表与圆点符号 -->
+                <ul class="exp-list">
+                  <li><strong>效率提升：</strong>自研 DSL 编译器 + 流调度引擎，配置错误 100% 编译期拦截，缩短新产品接入周期</li>
+                  <li><strong>稳定保障：</strong>研发 STDF 数据记录系统，实现全周期测试数据可追溯，支撑量产质量分析与复盘</li>
+                  <li><strong>技术攻坚：</strong>跨领域攻坚自研 DSP 算法，频谱分析误差 ＜0.01dBm，摆脱第三方商业软件依赖</li>
+                  <li><strong>市场验证：</strong>助力 K8860 斩获长江存储、长鑫等头部企业订单，填补国产高端 ATE 测试机空白</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="hr"></div>
+
+    <!-- === 3. 项目经历 === -->
+    <section class="section" id="projectsSection">
       <div class="section-bg">
         <div class="glow"></div>
       </div>
@@ -2443,7 +2470,7 @@
         </div>
         <div class="bento reveal" style="margin-top:24px;">
           <svg id="busSvg" class="bus-svg">
-            <!-- 恢复：高密度 45° 阻抗微带网络（已百分百注入 fill="none !important"，完美阻断黑块 Bug） -->
+            <!-- 45° 阻抗微带网络（fill="none !important" 阻断黑块 Bug） -->
           </svg>
           <div class="lq">
             <div class="lq-bg"></div>
@@ -2531,8 +2558,8 @@
 
     <div class="hr"></div>
 
-    <!-- === 教育经历 === -->
-    <section class="section">
+    <!-- === 4. 教育经历 === -->
+    <section class="section" id="educationSection">
       <div class="section-bg">
         <div class="glow"></div>
       </div>
@@ -2761,10 +2788,10 @@
         ctx.strokeStyle = gridColor;
         ctx.lineWidth = 1;
         for (let i = 0; i < canvas.width; i += 20) {
-          ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, canvas.height); ctx.stroke(); // 彻底修复未声明全局变量赋值 Bug (strokeColor)
+          ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, canvas.height); ctx.stroke();
         }
         for (let j = 0; j < canvas.height; j += 15) {
-          ctx.beginPath(); ctx.moveTo(0, j); ctx.lineTo(canvas.width, j); ctx.stroke(); // 彻底修复未声明全局变量赋值 Bug (strokeColor)
+          ctx.beginPath(); ctx.moveTo(0, j); ctx.lineTo(canvas.width, j); ctx.stroke();
         }
 
         ctx.beginPath();
@@ -3003,7 +3030,7 @@
         viaRing.setAttribute('r', '4'); viaRing.setAttribute('class', 'via-annular-ring');
 
         var viaHole = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-        viaHole.setAttribute('cx', viaX.toFixed(1)); viaHole.setAttribute('cy', viaY.toFixed(1));
+        viaHole.setAttribute('cx', viaX.toFixed(1)); viaY.setAttribute('cy', viaY.toFixed(1));
         viaHole.setAttribute('r', '1.8'); viaHole.setAttribute('class', 'via-hole');
 
         svg.appendChild(viaRing);
