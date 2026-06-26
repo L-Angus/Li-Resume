@@ -2685,20 +2685,39 @@
       }
     });
 
-    // === 高保真静态 PDF 副本一键静默打印/下载双轨分立引擎 ===
+    // === 高保真静态 PDF 副本一键静默打印（采用 300ms 异步调度解决线程阻塞） ===
     const printBtn = document.getElementById('printBtn');
     if (printBtn) {
       printBtn.addEventListener('click', () => {
-        const iframe = document.getElementById('pdfPrintIframe');
-        if (iframe) {
-          try {
-            iframe.contentWindow.focus();
-            iframe.contentWindow.print();
-          } catch (e) {
-            // 沙箱阻断降级提示
-            alert("由于当前环境的安全沙箱限制，一键静默打印已被拦截。请直接点击旁边的「下载」按钮获取高保真离线 PDF，双击打开即可完美拉起系统打印！");
-          }
+
+        // 1. 立即弹出大眼传感器的液态玻璃气泡（让浏览器第一时间重绘 DOM）
+        const eyeBubble = document.getElementById('eyeBubble');
+        if (eyeBubble) {
+          eyeBubble.textContent = "找我要，我给你啊！";
+          eyeBubble.classList.add('visible');
         }
+
+        // 2. 延迟 300 毫秒后，再异步拉起会阻塞主线程的打印面板
+        // 这 300 毫秒对人类感官毫无影响，但足够浏览器将“找我要”气泡优雅地渲染出来
+        setTimeout(() => {
+          const iframe = document.getElementById('pdfPrintIframe');
+          if (iframe) {
+            try {
+              iframe.contentWindow.focus();
+              iframe.contentWindow.print();
+            } catch (e) {
+              alert("由于当前环境的安全沙箱限制，一键静默打印已被拦截。请直接点击旁边的「下载」按钮获取高保真离线 PDF！");
+            }
+          }
+
+          // 3. 打印面板拉起后，设定 3 秒后将气泡自动优雅收回
+          setTimeout(() => {
+            if (eyeBubble) {
+              eyeBubble.classList.remove('visible');
+            }
+          }, 3000);
+
+        }, 300); // 300ms 极客延迟控制
       });
     }
 
@@ -3144,7 +3163,7 @@
 
       // 各类情境的台词话语池
       const phrases = {
-        welcome: "您好！欢迎来到李顺东的简历空间 🌟",
+        welcome: "您好！欢迎来到我的简历空间，祝你每天功德满满~ 🌟",
         click: [
           "哎呀，别戳我的眼睛！🫣",
           "疼疼疼...不要乱点啦！",
