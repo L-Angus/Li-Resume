@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>李顺东 - C++ 软件开发工程师</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background: #e8ecf1;
+      color: #1f2a3a;
+      line-height: 1.7;
+      padding: 40px 20px;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 30px rgba(0,0,0,.12);
+      overflow: hidden;
+    }
+    /* ── Header ── */
+    .header {
+      background: linear-gradient(135deg, #1a2a4a 0%, #2c4a7c 100%);
+      color: #fff;
+      padding: 44px 50px 36px;
+    }
+    .header h1 {
+      font-size: 36px;
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+    .header .title {
+      font-size: 18px;
+      opacity: .9;
+      margin-top: 4px;
+      font-weight: 400;
+    }
+    .header .contact {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-top: 16px;
+      font-size: 14px;
+      opacity: .85;
+    }
+    .header .contact span:first-child { margin-left: 0; }
+    /* ── Profile ── */
+    .profile {
+      background: #f4f7fb;
+      padding: 18px 50px;
+      font-size: 14px;
+      color: #2a3a55;
+      line-height: 1.8;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .profile strong { color: #1a2a4a; }
+    /* ── Body ── */
+    .body { padding: 36px 50px 44px; }
+    .section { margin-bottom: 32px; }
+    .section:last-child { margin-bottom: 0; }
+    .section-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #1a2a4a;
+      border-left: 4px solid #2c4a7c;
+      padding-left: 14px;
+      margin-bottom: 16px;
+    }
+    /* ── Skills (area-based) ── */
+    .skill-areas {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 24px;
+    }
+    .skill-area {
+      background: #f7f9fc;
+      border-radius: 8px;
+      padding: 12px 16px;
+    }
+    .skill-area .area-title {
+      font-weight: 700;
+      color: #2c4a7c;
+      font-size: 13px;
+      margin-bottom: 4px;
+      letter-spacing: .5px;
+    }
+    .skill-area .area-body {
+      font-size: 13px;
+      color: #3a4a5a;
+      line-height: 1.6;
+    }
+    /* ── Work / Projects ── */
+    .entry { margin-bottom: 24px; }
+    .entry:last-child { margin-bottom: 0; }
+    .entry-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+    }
+    .entry-header h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1a2a4a;
+    }
+    .entry-header .meta {
+      font-size: 13px;
+      color: #6b7a8f;
+      white-space: nowrap;
+    }
+    .entry-sub {
+      font-size: 14px;
+      color: #2c4a7c;
+      font-weight: 600;
+      margin: 2px 0 8px;
+    }
+    .entry ul {
+      list-style: none;
+      padding: 0;
+    }
+    .entry ul li {
+      position: relative;
+      padding-left: 16px;
+      margin-bottom: 5px;
+      font-size: 14px;
+    }
+    .entry ul li::before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      color: #2c4a7c;
+    }
+    .entry p.desc {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 8px;
+    }
+    .entry p.achv {
+      font-size: 14px;
+      color: #1a2a4a;
+      margin-top: 4px;
+    }
+    .entry p.achv strong { color: #2c4a7c; }
+    /* ── Tags ── */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 6px 0 10px;
+    }
+    .tag {
+      background: #e8edf5;
+      color: #2c4a7c;
+      font-size: 12px;
+      padding: 2px 10px;
+      border-radius: 10px;
+    }
+    /* ── Education ── */
+    .pub-list {
+      list-style: none;
+      padding: 0;
+      font-size: 14px;
+    }
+    .pub-list li {
+      margin-bottom: 5px;
+      padding-left: 18px;
+      position: relative;
+    }
+    .pub-list li::before {
+      content: "📄";
+      position: absolute;
+      left: -2px;
+      font-size: 12px;
+    }
+    .award-list {
+      list-style: none;
+      padding: 0;
+      font-size: 14px;
+    }
+    .award-list li {
+      position: relative;
+      padding-left: 16px;
+      margin-bottom: 3px;
+    }
+    .award-list li::before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      color: #2c4a7c;
+    }
+    /* ── Print ── */
+    @media print {
+      body { background: #fff; padding: 0; }
+      .container { box-shadow: none; border-radius: 0; }
+    }
+    @media (max-width: 640px) {
+      .header { padding: 28px 20px; }
+      .header h1 { font-size: 26px; }
+      .profile { padding: 14px 20px; }
+      .body { padding: 24px 20px; }
+      .skill-areas { grid-template-columns: 1fr; }
+      .entry-header { flex-direction: column; }
+      .entry-header .meta { white-space: normal; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- ===== HEADER ===== -->
+  <div class="header">
+    <h1>李顺东</h1>
+    <div class="title">C++ 软件开发工程师</div>
+    <div class="contact">
+      <span>📧 lia734605@gmail.com</span>
+      <span>📱 16605114386</span>
+      <span>🌐 英语 CET-6 · 可流畅阅读英文技术文档与协议规范</span>
+    </div>
+  </div>
+
+  <!-- ===== PROFILE ===== -->
+  <div class="profile">
+    <strong>5 年 ATE 行业 C++ 后端系统开发经验</strong>，深度参与国产高端 ATE 测试平台从 0 到 1 构建。
+    主导<strong>ATPL 编译器、多 DUT 并行调度引擎、高精度 DSP 信号分析系统、STDF 数据记录系统</strong>等核心模块研发，
+    覆盖语言层 → 调度层 → 算法层 → 数据层全链路，助力平台斩获头部存储/芯片企业订单，填补国产高端 ATE 测试机空白。
+  </div>
+
+  <!-- ===== BODY ===== -->
+  <div class="body">
+
+    <!-- 核心技术领域（改造后） -->
+    <div class="section">
+      <div class="section-title">核心技术领域</div>
+      <div class="skill-areas">
+        <div class="skill-area">
+          <div class="area-title">🔷 编译技术与 DSL</div>
+          <div class="area-body">
+            ANTLR4 · 词法/语法/语义分析 · AST 遍历 · 领域特定语言设计与实现
+          </div>
+        </div>
+        <div class="skill-area">
+          <div class="area-title">🔷 DSP 信号分析</div>
+          <div class="area-body">
+            FFT / 加窗 / 频谱分析 · SNR/SINAD/THD/DNL/INL · dBV/dBm/dBW 单位转换 · 相干增益与 ENBW 补偿
+          </div>
+        </div>
+        <div class="skill-area">
+          <div class="area-title">🔷 半导体协议与数据</div>
+          <div class="area-body">
+            STDFv4 协议栈（25+ Record 类型）· 二进制序列化 · SEMI 行业标准 · 生产数据追溯
+          </div>
+        </div>
+        <div class="skill-area">
+          <div class="area-title">🔷 C++ 系统与架构</div>
+          <div class="area-body">
+            C++11/14/17 · 并发与无锁编程 · PImpl/CRTP/RAII · 对象池 · SDK 分层设计 · 高性能组件
+          </div>
+        </div>
+        <div class="skill-area">
+          <div class="area-title">🔷 工程工具链</div>
+          <div class="area-body">
+            CMake · Git · GDB · Catch2 · Boost · ZMQ · MsgPack · EventBus · RPC
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 工作经历 -->
+    <div class="section">
+      <div class="section-title">工作经历</div>
+      <div class="entry">
+        <div class="entry-header">
+          <h3>上海御渡半导体有限公司</h3>
+          <span class="meta">2021.06 — 至今 · 5 年</span>
+        </div>
+        <div class="entry-sub">C++ 系统软件开发（SDK 方向）</div>
+        <p class="desc">
+          作为初始成员参与高端自研 ATE 平台（K8860/ATEStudio）后端系统从零搭建，先后主导编译器、调度引擎、DSP 算法、STDF 数据系统、SDK 架构设计五大核心模块，支撑数字 / 射频 / 混合信号三大业务线全场景覆盖。
+        </p>
+        <div class="tags">
+          <span class="tag">ATPL 编译器</span>
+          <span class="tag">并发调度引擎</span>
+          <span class="tag">DSP 分析系统</span>
+          <span class="tag">STDF 数据协议</span>
+          <span class="tag">SDK 架构设计</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 项目经历 -->
+    <div class="section">
+      <div class="section-title">项目经历 — K8860 通用型 SoC 封装测试平台（ATEStudio）</div>
+      <p class="desc" style="margin-bottom:14px;">
+        对标 Advantest / Teradyne，覆盖数字、射频、混合信号三大领域，填补国产高端 ATE 测试机空白。
+        后端系统初始成员，主导以下核心模块设计与开发：
+      </p>
+
+      <div class="entry">
+        <div class="entry-header">
+          <h3>1. ATPL 领域特定语言编译器</h3>
+          <span class="meta">语言层</span>
+        </div>
+        <ul>
+          <li>基于 ANTLR4 实现词法→语法→语义三阶段分析，配置错误 <strong>100% 编译期拦截</strong>，精确定位到文件名/行号/列号。</li>
+          <li>将 Flow/Pin/Level/Pattern/Timing 等 ATE 领域概念抽象为语言关键字，替代 C++ 硬编码，新业务接入无需修改调度代码。</li>
+          <li>基于 Listener 模式实现配置-执行分离，流程修改<strong>"零编译"即时生效</strong>，硬件芯片损坏风险降低 90%。</li>
+        </ul>
+        <p class="achv"><strong>成果：</strong>测试人员仅写配置即可完成流程调整，新产品接入周期大幅缩短。</p>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <h3>2. 多 DUT 并行测试流调度引擎</h3>
+          <span class="meta">调度层</span>
+        </div>
+        <ul>
+          <li>基于 DFS 构建静态拓扑关系，完成依赖分析、分支遍历与循环检测，将配置转换为可执行任务图。</li>
+          <li>设计任务状态机（INIT→READY→RUNNING→FINISHED），支持主流程/子流程/Loop 多级调度、分支路由、动态任务重排。</li>
+          <li>基于反射机制动态加载测试组件 + 监听回调统一挂载断点/暂停/恢复/停止/结果上报，调度内核与业务逻辑解耦。</li>
+        </ul>
+        <p class="achv"><strong>成果：</strong>支撑多 DUT 量产复杂流程稳定运行，实现多场景统一调度。</p>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <h3>3. SDK 架构分层与模块化设计</h3>
+          <span class="meta">接口层</span>
+        </div>
+        <ul>
+          <li>设计 RPC 通信层 → SDK 接口层 → Impl 实现层 → 硬件抽象层四层架构，上位业务与下位硬件解耦。</li>
+          <li>运用 PImpl / CRTP 等现代 C++ 技法构建通用业务框架，支撑数字/射频/混合多业务接入；链式 SDK 接口支持用户二次开发。</li>
+          <li>上位业务逻辑交叉编译为 .so 库，动态注册至下位 RPC 服务驱动硬件执行，形成"前端触发 → SDK 调度 → 用例执行 → 硬件驱动"闭环。</li>
+        </ul>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <h3>4. 高精度 DSP 信号分析系统</h3>
+          <span class="meta">算法层</span>
+        </div>
+        <ul>
+          <li>主导 DSP 从公式理论向工程化落地，构建时域采样→加窗预处理→FFT→频谱分析→指标计算完整处理流水线。</li>
+          <li>引入相干增益（Coherent Gain）与等效噪声带宽（ENBW）补偿模型，解决非相干采样频率泄露问题。</li>
+          <li>提供 dBV/dBm/dBW/Watt 单位转换、SNR/SINAD/THD/DNL/INL 等标准化接口，频谱分析精度 <strong>&lt; 0.01 dBm</strong>（对比频谱分析仪 / VSA89600）。</li>
+        </ul>
+        <p class="achv"><strong>成果：</strong>填补平台信号分析能力空白，打破对第三方商业软件依赖，节省昂贵授权成本。</p>
+      </div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <h3>5. 异步 STDF 数据记录系统</h3>
+          <span class="meta">数据层</span>
+        </div>
+        <ul>
+          <li>完整实现 STDFv4 协议 25+ Record 类型，基于模板实现零成本抽象的 DataType 体系（U1/U2/U4/R4/Cn/Bn），支持动态长度计算与二进制序列化。</li>
+          <li>基于生产者-消费者模式 + Atomic/Mutex/CV + 状态机实现线程安全，主线程零阻塞；设计 ObjectPool 模板类消除内存碎片。</li>
+          <li>队列背压监控 + 超时强制清理 + 状态机兜底熔断机制，杜绝脏数据写入与系统雪崩。</li>
+        </ul>
+        <p class="achv"><strong>成果：</strong>支撑 <strong>7×24h 零故障运行</strong>千万级记录写入，保障量产数据完整性。</p>
+      </div>
+
+      <div class="entry" style="margin-bottom:0;">
+        <div class="entry-header">
+          <h3>6. 高性能 CSV 解析库（辅助组件）</h3>
+          <span class="meta">配置层</span>
+        </div>
+        <ul>
+          <li>std::string_view 全链路零拷贝 + atomic::fetch_add 无锁任务分发模型，多线程动态负载均衡。</li>
+          <li>策略模式封装同步/异步解析策略，1000 万行 CSV 异步解析<strong>仅需 1.9s</strong>，纳入平台核心基础组件。</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 教育经历 -->
+    <div class="section">
+      <div class="section-title">教育经历</div>
+
+      <div class="entry">
+        <div class="entry-header">
+          <h3>上海工程技术大学</h3>
+          <span class="meta">2018.09 — 2021.04</span>
+        </div>
+        <div class="entry-sub">智能感知与控制 · 硕士</div>
+        <p style="font-size:14px;font-weight:600;margin:8px 0 4px;">📄 论文发表</p>
+        <ul class="pub-list">
+          <li>
+            <em>Multiple ant colony optimization using both novel LSTM network and adaptive Tanimoto communication strategy</em>
+            <span style="color:#888;"> — 多蚁群+LSTM 自适应优化算法</span>, Applied Intelligence (Q2).
+          </li>
+          <li>
+            <em>Co-evolutionary Multi-Colony Ant Colony Optimization Based on Adaptive Guidance Mechanism and Its Application</em>
+            <span style="color:#888;"> — 自适应引导协同进化蚁群算法</span>, Arabian Journal of Science (Q4).
+          </li>
+          <li>
+            <em>结合 ABC 算法动态分级的双蚁态蚁群算法</em>, CSCD.
+          </li>
+        </ul>
+        <p style="font-size:14px;font-weight:600;margin:10px 0 4px;">🏆 获奖</p>
+        <ul class="award-list">
+          <li>一等奖学金（2018-2019）</li>
+          <li>二等奖学金（2019-2020）</li>
+          <li>"互联网+" 创新创业大赛 二等奖（2019）</li>
+          <li>"兆易创新杯" 商业计划书 二等奖（2019）</li>
+        </ul>
+      </div>
+
+      <div class="entry" style="margin-top:14px;margin-bottom:0;">
+        <div class="entry-header">
+          <h3>南京航空航天大学金城学院</h3>
+          <span class="meta">2013.09 — 2015.06</span>
+        </div>
+        <div class="entry-sub">自动化 · 本科</div>
+      </div>
+    </div>
+
+  </div><!-- /body -->
+</div><!-- /container -->
+</body>
+</html>
