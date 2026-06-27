@@ -3423,7 +3423,7 @@
           }
         }
       });
-    }, { threshold: .12 });
+    }, { threshold: 0.01 });
     document.querySelectorAll('.reveal,.bento,.edu-grid,.scroll-wrap').forEach(el => observer.observe(el));
 
     // === 眼睛传感器多路交互交互逻辑 (首次欢迎+定时漫游+悬停/点击高频触发) ===
