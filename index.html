@@ -798,7 +798,7 @@
 
     .bl {
       font-family: 'Geist Mono', monospace;
-      font-size: 11px;
+      font-size: 15px;
       font-weight: 600;
       letter-spacing: .05em;
       color: var(--accent);
@@ -823,10 +823,10 @@
     }
 
     .br {
-      margin-top: 12px;
+      margin-top: auto;
       padding-top: 12px;
       border-top: 1px solid var(--nav-border);
-      font-size: 12px;
+      font-size: 13px;
       color: var(--green-text);
       font-weight: 500
     }
@@ -918,6 +918,53 @@
       stroke: var(--pcb-watermark);
       stroke-width: 0.5;
       opacity: 0.6;
+    }
+
+    /* === ATE CHAMBER OVERVIEW SPECIAL EFFECTS === */
+    .overview-item {
+      border-left: 2px solid rgba(255, 107, 43, 0.15);
+      padding-left: 16px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      z-index: 2;
+    }
+    .overview-item:hover {
+      border-left-color: var(--accent);
+      padding-left: 20px;
+      background: linear-gradient(90deg, rgba(255, 107, 43, 0.03) 0%, transparent 100%);
+    }
+    .dark-mode .overview-item:hover {
+      background: linear-gradient(90deg, rgba(255, 107, 43, 0.05) 0%, transparent 100%);
+    }
+    @keyframes waveScrollLeft {
+      from { stroke-dashoffset: 0; }
+      to { stroke-dashoffset: 240; }
+    }
+    @keyframes waveScrollRight {
+      from { stroke-dashoffset: 0; }
+      to { stroke-dashoffset: -320; }
+    }
+    .signal-wave-1 {
+      stroke-dasharray: 8, 4;
+      animation: waveScrollLeft 12s linear infinite;
+    }
+    .signal-wave-2 {
+      stroke-dasharray: 6, 6;
+      animation: waveScrollRight 16s linear infinite;
+    }
+    @keyframes probeRingPulse {
+      0% { r: 1.5; opacity: 1; }
+      100% { r: 7; opacity: 0; }
+    }
+    .probe-ring {
+      animation: probeRingPulse 2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+    }
+    @keyframes probePathScroll {
+      to { stroke-dashoffset: -10; }
+    }
+    .probe-path {
+      stroke-dasharray: 2, 2;
+      animation: probePathScroll 3s linear infinite;
     }
 
     /* === INTERACTIVE SCROLL === */
@@ -1217,12 +1264,22 @@
     .bento .lq {
       opacity: 0;
       transform: translateY(30px) scale(.96);
-      transition: opacity .6s cubic-bezier(.16, 1, .3, 1), transform .6s cubic-bezier(.16, 1, .3, 1), background .4s
+      transition: opacity .6s cubic-bezier(.16, 1, .3, 1), transform .6s cubic-bezier(.16, 1, .3, 1), background .4s;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
     }
 
     .bento .lq.visible {
       opacity: 1;
       transform: translateY(0) scale(1)
+    }
+
+    .bento .lq-panel {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      width: 100%;
     }
 
     .edu-grid .lq {
@@ -1973,7 +2030,7 @@
       .bl {
         color: #000 !important;
         font-weight: 700 !important;
-        font-size: 13px !important;
+        font-size: 15px !important;
       }
 
       .br {
@@ -2655,8 +2712,80 @@
       </div>
       <div class="container">
         <div class="reveal">
-          <h2 class="section-heading">项目经历<br>K8860 ATEStudio 核心模块</h2>
+          <h2 class="section-heading">项目经历</h2>
         </div>
+        
+        <!-- 项目标题与元信息行 -->
+        <div class="reveal" style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 12px; margin-top: 16px; margin-bottom: 20px; border-bottom: 1px solid var(--nav-border); padding-bottom: 8px;">
+          <h3 style="font-size: 18px; color: var(--accent); font-weight: 600; margin: 0;">K8860 通用型 SoC 封装测试平台（ATEStudio）</h3>
+          <span style="font-size: 13px; color: var(--muted); font-family: 'Geist Mono', monospace; font-weight: 500;">初始成员 · 核心开发 · 模块负责人 | 2021/06 - 至今</span>
+        </div>
+        
+        <!-- 新增的项目总览面板（扁平无卡片，高端 ATE 示波信号波与探针交互特效） -->
+        <div class="reveal" style="margin-top: 24px; margin-bottom: 32px; display: flex; align-items: center; justify-content: space-between; gap: 40px; flex-wrap: wrap; padding: 0 4px; position: relative;">
+          
+          <!-- 背景：示波器信号测试网格与流动波形 (Oscilloscope grid and flowing waves) -->
+          <div style="position: absolute; inset: 0; pointer-events: none; opacity: 0.06; overflow: hidden; z-index: 0;">
+            <svg width="100%" height="100%" viewBox="0 0 600 100" preserveAspectRatio="none">
+              <path d="M0,20 L600,20 M0,40 L600,40 M0,60 L600,60 M0,80 L600,80" stroke="var(--accent)" stroke-width="0.3" stroke-dasharray="2,5" />
+              <path class="signal-wave-1" d="M0,50 Q60,15 120,50 T240,50 T360,50 T480,50 T600,50" fill="none" stroke="var(--accent)" stroke-width="1.2" />
+              <path class="signal-wave-2" d="M0,50 Q80,75 160,50 T320,50 T480,50 T600,50" fill="none" stroke="#00adb5" stroke-width="1" />
+            </svg>
+          </div>
+
+          <!-- 左侧/正文：平台总览 -->
+          <div style="flex: 1; min-width: 280px; display: flex; flex-direction: column; gap: 20px; font-size: 15px; line-height: 1.85; position: relative; z-index: 2;">
+            <div class="overview-item">
+              <strong style="color: var(--accent); font-size: 17px; display: inline-block; margin-bottom: 6px; font-weight: 600;">项目背景</strong>
+              <p style="margin: 0; color: var(--text);">
+                K8860 是公司为突破技术封锁、推动国产化替代而自研的通用型 SoC 测试平台，对标 Advantest / Teradyne，填补国产高端 ATE 测试机空白，包含<strong>数字</strong>、<strong>射频</strong>、<strong>混合信号</strong>三大专项，实现全领域测试一站式覆盖。
+              </p>
+            </div>
+            <div class="overview-item">
+              <strong style="color: var(--accent); font-size: 17px; display: inline-block; margin-bottom: 6px; font-weight: 600;">职责贡献</strong>
+              <p style="margin: 0; color: var(--text);">
+                作为项目初始成员，主导后端系统（ATEStudio）多个核心模块的设计开发，覆盖语言层、调度层、接口层、算法层、数据层以及配置层。
+              </p>
+            </div>
+          </div>
+
+          <!-- 右侧/视觉：晶圆芯片测试微缩图 (SoC Silicon Wafer SVG, 直接漂浮于背景) -->
+          <div style="flex-shrink: 0; display: flex; align-items: center; justify-content: center; margin: 0 auto; background: var(--glass-bg); border: 1.5px solid var(--nav-border); border-radius: 50%; padding: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.12); position: relative; z-index: 2;">
+            <svg width="120" height="120" viewBox="0 0 100 100" style="pointer-events: none;">
+              <!-- 晶圆外圈 -->
+              <circle cx="50" cy="50" r="48" fill="none" stroke="var(--accent)" stroke-width="0.8" stroke-dasharray="2,2" opacity="0.6" />
+              <circle cx="50" cy="50" r="45" fill="none" stroke="var(--accent)" stroke-width="0.6" opacity="0.9" />
+              <!-- 晶圆缺角切边 (Wafer Flat) -->
+              <line x1="18" y1="90" x2="82" y2="90" stroke="var(--accent)" stroke-width="0.9" opacity="0.9" />
+              <!-- 晶格网格 (Dice Layout) -->
+              <path d="M 15,20 L 85,20 M 10,35 L 90,35 M 5,50 L 95,50 M 10,65 L 90,65 M 15,80 L 85,80" stroke="rgba(255,107,43,0.2)" stroke-width="0.5" />
+              <path d="M 20,15 L 20,85 M 35,10 L 35,90 M 50,5 L 50,95 M 65,10 L 65,90 M 80,15 L 80,85" stroke="rgba(255,107,43,0.2)" stroke-width="0.5" />
+              <!-- 三大专项芯片微缩激活点 (DGT/RF/MIX) -->
+              <rect x="35" y="35" width="15" height="15" fill="rgba(255,107,43,0.12)" stroke="var(--accent)" stroke-width="0.8" />
+              <rect x="50" y="35" width="15" height="15" fill="rgba(0,173,181,0.12)" stroke="#00adb5" stroke-width="0.8" />
+              <rect x="35" y="50" width="15" height="15" fill="rgba(39,201,63,0.12)" stroke="#27c93f" stroke-width="0.8" />
+              
+              <!-- 探针连线 (带流动特效) -->
+              <line class="probe-path" x1="42.5" y1="42.5" x2="57.5" y2="42.5" stroke="var(--accent)" stroke-width="0.4" />
+              <line class="probe-path" x1="42.5" y1="42.5" x2="42.5" y2="57.5" stroke="var(--accent)" stroke-width="0.4" />
+
+              <!-- 探针测试点及扩散波纹 (Active Probing Dots & Ripple Rings) -->
+              <!-- Probe 1 (DGT) -->
+              <circle cx="42.5" cy="42.5" r="1.5" fill="var(--accent)" />
+              <circle class="probe-ring" cx="42.5" cy="42.5" r="1.5" fill="none" stroke="var(--accent)" stroke-width="0.4" />
+
+              <!-- Probe 2 (RF) -->
+              <circle cx="57.5" cy="42.5" r="1.5" fill="#00adb5" />
+              <circle class="probe-ring" cx="57.5" cy="42.5" r="1.5" fill="none" stroke="#00adb5" stroke-width="0.4" style="animation-delay: 0.6s;" />
+
+              <!-- Probe 3 (MIX) -->
+              <circle cx="42.5" cy="57.5" r="1.5" fill="#27c93f" />
+              <circle class="probe-ring" cx="42.5" cy="57.5" r="1.5" fill="none" stroke="#27c93f" stroke-width="0.4" style="animation-delay: 1.2s;" />
+            </svg>
+          </div>
+          
+        </div>
+
         <div class="bento reveal" style="margin-top:24px;">
           <svg id="busSvg" class="bus-svg">
             <!-- 45° 阻抗微带网络（fill="none !important" 阻断黑块 Bug） -->
@@ -2664,81 +2793,80 @@
           <div class="lq">
             <div class="lq-bg"></div>
             <div class="lq-panel">
-              <div class="bl">语言层 | ATPL DSL编译器</div>
-              <ul style="font-size:14px;color:var(--muted);line-height:1.7;padding-left:0;list-style:none">
-                <li style="padding-left:16px;position:relative;margin-bottom:4px">
-                  基于ANTLR4自研ATPL领域语言，将测试流程从C++硬编码解耦为声明式配置</li>
-                <li style="padding-left:16px;position:relative;margin-bottom:4px">词法→语法→语义三阶段分析，类型推导+值域校验，编译期拦截配置错误</li>
-                <li style="padding-left:16px;position:relative;margin-bottom:4px">ATE语法配置颗粒度细(引脚/电平/时序)，配置错误可能误测损坏芯片
-                </li>
+              <div class="bl">语言层 | ATPL 领域特定语言编译器</div>
+              <p style="font-size:13px;color:var(--muted);line-height:1.7;margin:6px 0 8px"><strong>ATPL</strong>（Automated Test Programming Language）是一套ATE领域专用语言及编译器，用于统一描述测试流程与配置。</p>
+              <ul style="font-size:13px;color:var(--muted);line-height:1.7;padding-left:0;list-style:none">
+                <li style="padding-left:16px;position:relative;margin-bottom:4px">基于 <strong>ANTLR4</strong> 自研 <strong>DSL 语法</strong>，以自然语言声明式配置代替C++硬编码。</li>
+                <li style="padding-left:16px;position:relative;margin-bottom:4px">实现词法→语法→语义三阶段分析，配置错误<strong>编译期拦截</strong>，精确定位错误位置和类型。</li>
+                <li style="padding-left:16px;position:relative;margin-bottom:4px">设计 <strong>PORT（RETURN/GOTO）流程跳转机制</strong>，基于返回码实现条件分支与循环控制。</li>
+                <li style="padding-left:16px;position:relative;margin-bottom:4px">实现「配置-执行」分离，<strong>动态加载立即生效</strong>，新业务接入无需修改核心调度代码。</li>
               </ul>
-              <div class="br">硬件损坏风险降低90%，测试人员无需掌握C++</div>
+              <div class="br" style="display: flex; flex-direction: column; gap: 4px;">
+                <strong>成果：</strong>
+                <span style="padding-left: 12px;">• <strong>效率提升</strong>：配置驱动替代硬编码，缩短新品接入周期</span>
+                <span style="padding-left: 12px;">• <strong>调试优化</strong>：配置变更即时生效，提升调试效率</span>
+                <span style="padding-left: 12px;">• <strong>安全防护</strong>：编译期拦截配置错误，避免运行时误配风险</span>
+              </div>
             </div>
           </div>
           <div class="lq">
             <div class="lq-bg"></div>
             <div class="lq-panel">
               <div class="bl">调度层 | 多DUT并行测试流调度引擎</div>
-              <ul style="font-size:14px;color:var(--muted);line-height:1.7;padding-left:0;list-style:none">
-                <li style="padding-left:16px;position:relative;margin-bottom:4px">将ATPL测试流转化为有向图，驱动多DUT并行测试执行</li>
-                <li style="padding-left:16px;position:relative;margin-bottom:4px">
-                  DFS构图+三色环检测，状态机分发任务，result_map+pushResult实时归并</li>
-                <li style="padding-left:16px;position:relative;margin-bottom:4px">子流程嵌套+GOTO致拓扑复杂，多DUT并行需平衡吞吐与一致性</li>
+              <ul style="font-size:13px;color:var(--muted);line-height:1.7;padding-left:0;list-style:none">
+                <li style="padding-left:16px;position:relative;margin-bottom:4px">基于 <strong>DFS 构建静态拓扑关系</strong>，完成依赖分析、分支遍历与循环检测，将配置转换为可执行<strong>任务图</strong>。</li>
+                <li style="padding-left:16px;position:relative;margin-bottom:4px">设计<strong>任务状态机</strong>（INIT→READY→RUNNING→FINISHED），支持主流程/子流程/Loop 多级调度、分支路由、<strong>动态任务重排</strong>。</li>
+                <li style="padding-left:16px;position:relative;margin-bottom:4px">基于<strong>反射机制</strong>动态加载测试组件 + 监听回调统一挂载断点/暂停/恢复/停止/结果上报，<strong>调度内核与业务逻辑解耦</strong>。</li>
               </ul>
-              <div class="br">支撑多DUT量产测试稳定运行，多场景统一调度</div>
+              <div class="br"><strong>成果：</strong>支撑多 DUT 量产复杂流程稳定运行，实现多场景统一调度。</div>
             </div>
           </div>
           <div class="lq">
             <div class="lq-bg"></div>
             <div class="lq-panel">
               <div class="bl">接口层 | SDK架构分层和模块化设计</div>
-              <ul style="font-size:14px;color:var(--muted);line-height:1.7;padding-left:0;list-style:none">
-                <li style="padding-left:16px;position:relative;margin-bottom:4px">四层架构(RPC→SDK→Impl→HAL)解耦前端与底层硬件</li>
-                <li style="padding-left:16px;position:relative;margin-bottom:4px">
-                  ZMQ+MsgPack通信，PImpl隔离，反射工厂动态加载，libhv统一传输</li>
-                <li style="padding-left:16px;position:relative;margin-bottom:4px">多硬件类型(DGT/RF/MIX)接口不一致，抽象层需兼顾通用性与实时性
-                </li>
+              <ul style="font-size:13px;color:var(--muted);line-height:1.7;padding-left:0;list-style:none">
+                <li style="padding-left:16px;position:relative;margin-bottom:4px">设计 <strong>RPC通信 → SDK接口 → Impl实现 → 硬件抽象层</strong> 四层架构，统一兼容并隔离了数字（DGT）、射频（RF）、混合信号（MIX）异构硬件接口的差异性，实现上位业务与底层硬件解耦。</li>
+                <li style="padding-left:16px;position:relative;margin-bottom:4px">运用 <strong>PImpl / CRTP</strong> 等现代 C++ 技法构建通用业务框架，支撑多业务接入；<strong>链式 SDK 接口</strong>支持用户二次开发。</li>
+                <li style="padding-left:16px;position:relative;margin-bottom:4px">上位业务逻辑交叉编译为 <strong>.so 库</strong>，动态注册至下位 RPC 服务驱动硬件执行，形成<strong>“前端触发 → SDK 调度 → 用例执行 → 硬件驱动”闭环</strong>。</li>
               </ul>
-              <div class="br">形成"前端触发→SDK调度→用例执行→硬件驱动"完整链路</div>
+              <div class="br"><strong>成果：</strong>形成“前端触发 → SDK 调度 → 用例执行 → 硬件驱动”完整链路。</div>
             </div>
           </div>
           <div class="lq">
             <div class="lq-bg"></div>
             <div class="lq-panel">
               <div class="bl">算法层 | 高精度DSP信号分析系统</div>
-              <ul style="font-size:14px;color:var(--muted);line-height:1.7;padding-left:0;list-style:none">
-                <li style="padding-left:16px;position:relative;margin-bottom:4px">自研FFT信号分析系统，实现射频/混合信号测试能力</li>
-                <li style="padding-left:16px;position:relative;margin-bottom:4px">
-                  CG/ENBW补偿频率泄露，FFT→频谱→SNR/THD/SFDR/SND全链路，多量纲输出</li>
-                <li style="padding-left:16px;position:relative;margin-bottom:4px">频谱泄露需精确数学补偿，精度对标Keysight VSA商业软件</li>
+              <ul style="font-size:13px;color:var(--muted);line-height:1.7;padding-left:0;list-style:none">
+                <li style="padding-left:16px;position:relative;margin-bottom:4px">主导 DSP 从公式理论向工程化落地，构建<strong>时域采样→加窗预处理→FFT→频谱分析→指标计算</strong>完整处理流水线。</li>
+                <li style="padding-left:16px;position:relative;margin-bottom:4px">引入<strong>相干增益</strong>（Coherent Gain）与<strong>等效噪声带宽</strong>（ENBW）补偿模型，解决非相干采样频率泄露问题。</li>
+                <li style="padding-left:16px;position:relative;margin-bottom:4px">提供标准转换接口，频谱分析精度 <strong>&lt; 0.01 dBm</strong>（对比频谱分析仪 / VSA89600）。</li>
               </ul>
-              <div class="br">打破第三方商业软件依赖，自研方案满足量产精度要求</div>
+              <div class="br"><strong>成果：</strong>填补平台信号分析能力空白，打破对第三方商业软件依赖，节省昂贵授权成本。</div>
             </div>
           </div>
           <div class="lq">
             <div class="lq-bg"></div>
             <div class="lq-panel">
               <div class="bl">数据层 | 异步STDF数据记录系统</div>
-              <ul style="font-size:14px;color:var(--muted);line-height:1.7;padding-left:0;list-style:none">
-                <li style="padding-left:16px;position:relative;margin-bottom:4px">实现STDFv4协议，提供测试数据全周期追溯</li>
-                <li style="padding-left:16px;position:relative;margin-bottom:4px">异步Worker
-                  zero-block写盘，ObjectPool复用+原子状态机+CAS+熔断机制</li>
-                <li style="padding-left:16px;position:relative;margin-bottom:4px">高吞吐不阻塞测试线程，千万级数据完整性保证与异常恢复</li>
+              <ul style="font-size:13px;color:var(--muted);line-height:1.7;padding-left:0;list-style:none">
+                <li style="padding-left:16px;position:relative;margin-bottom:4px">完整实现 <strong>STDFv4 协议 25+ Record 类型</strong>，基于模板实现零成本抽象的 DataType 体系，支持二进制序列化。</li>
+                <li style="padding-left:16px;position:relative;margin-bottom:4px">基于<strong>生产者-消费者模式</strong> + <strong>Atomic/Mutex/CV</strong> + 状态机实现线程安全异步写盘，主线程零阻塞。</li>
+                <li style="padding-left:16px;position:relative;margin-bottom:4px">队列<strong>背压监控</strong> + 超时强制清理 + <strong>熔断机制</strong>，杜绝脏数据写入与系统雪崩。</li>
               </ul>
-              <div class="br">7×24h零故障运行，千万级记录写入无丢失</div>
+              <div class="br"><strong>成果：</strong>支撑 <strong>7×24h 零故障运行</strong>千万级记录写入，保障量产数据完整性。</div>
             </div>
           </div>
           <div class="lq">
             <div class="lq-bg"></div>
             <div class="lq-panel">
               <div class="bl">配置层 | 高性能CSV解析库</div>
-              <ul style="font-size:14px;color:var(--muted);line-height:1.7;padding-left:0;list-style:none">
-                <li style="padding-left:16px;position:relative;margin-bottom:4px">高性能CSV引擎，支撑量产配置快速加载</li>
-                <li style="padding-left:16px;position:relative;margin-bottom:4px">string_view零拷贝+atomic取号机并行+策略模式切换解析
-                </li>
-                <li style="padding-left:16px;position:relative;margin-bottom:4px">千万行秒级加载，多核行边界对齐与无锁线程安全</li>
+              <ul style="font-size:13px;color:var(--muted);line-height:1.7;padding-left:0;list-style:none">
+                <li style="padding-left:16px;position:relative;margin-bottom:4px"><strong>std::string_view 全链路零拷贝</strong> + <strong>atomic 无锁任务分发</strong>模型，多线程动态负载均衡。</li>
+                <li style="padding-left:16px;position:relative;margin-bottom:4px">策略模式封装同步/异步解析策略，1000 万行 CSV 异步解析<strong>仅需 1.9s</strong>，纳入平台核心基础组件。</li>
+                <li style="padding-left:16px;position:relative;margin-bottom:4px"><strong>千万行秒级加载</strong>，多核<strong>行边界对齐</strong>与<strong>无锁线程安全</strong>。</li>
               </ul>
-              <div class="br">异步解析吞吐量较同步提升数倍，千万行级CSV秒级加载</div>
+              <div class="br"><strong>成果：</strong>异步解析吞吐量较同步提升数倍，千万行级 CSV 秒级加载。</div>
             </div>
           </div>
         </div>
