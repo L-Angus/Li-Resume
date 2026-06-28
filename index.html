@@ -391,7 +391,7 @@
     }
 
     .section {
-      padding: 80px 0;
+      padding: 48px 0;
       position: relative
     }
 
@@ -531,8 +531,8 @@
     .hero {
       display: flex;
       flex-direction: column;
-      padding-top: 100px;
-      padding-bottom: 60px;
+      padding-top: 80px;
+      padding-bottom: 40px;
       overflow: hidden;
       position: relative;
       align-items: center
@@ -1836,7 +1836,7 @@
       }
 
       .section {
-        padding: 56px 0
+        padding: 36px 0
       }
 
       .container {
@@ -2721,15 +2721,54 @@
           <span style="font-size: 13px; color: var(--muted); font-family: 'Geist Mono', monospace; font-weight: 500;">初始成员 · 核心开发 · 模块负责人 | 2021/06 - 至今</span>
         </div>
         
-        <!-- 新增的项目总览面板（扁平无卡片，高端 ATE 示波信号波与探针交互特效） -->
+        <!-- 新增的项目总览面板（扁平无卡片，极简高端 ATE 平台总览，背景铺设金色 PCB 走线） -->
         <div class="reveal" style="margin-top: 24px; margin-bottom: 32px; display: flex; align-items: center; justify-content: space-between; gap: 40px; flex-wrap: wrap; padding: 0 4px; position: relative;">
-          
-          <!-- 背景：示波器信号测试网格与流动波形 (Oscilloscope grid and flowing waves) -->
-          <div style="position: absolute; inset: 0; pointer-events: none; opacity: 0.06; overflow: hidden; z-index: 0;">
-            <svg width="100%" height="100%" viewBox="0 0 600 100" preserveAspectRatio="none">
-              <path d="M0,20 L600,20 M0,40 L600,40 M0,60 L600,60 M0,80 L600,80" stroke="var(--accent)" stroke-width="0.3" stroke-dasharray="2,5" />
-              <path class="signal-wave-1" d="M0,50 Q60,15 120,50 T240,50 T360,50 T480,50 T600,50" fill="none" stroke="var(--accent)" stroke-width="1.2" />
-              <path class="signal-wave-2" d="M0,50 Q80,75 160,50 T320,50 T480,50 T600,50" fill="none" stroke="#00adb5" stroke-width="1" />
+          <!-- 背景：无规则扩散的纯金色 PCB 走线 (Irregular Gold PCB Trace Diffusion) -->
+          <div style="position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 0;">
+            <svg width="100%" height="100%" viewBox="0 0 600 120" preserveAspectRatio="none">
+              <defs>
+                <!-- 黄金渐变定义，与芯片电镀引脚黄金色系一致 -->
+                <linearGradient id="bg-gold-trace-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#d9b456" />
+                  <stop offset="50%" stop-color="#ba8f36" />
+                  <stop offset="100%" stop-color="#936d1b" />
+                </linearGradient>
+              </defs>
+              <!-- 走线 A：从芯片底座方向向左上方无规则延伸 -->
+              <path d="M 480,50 L 410,50 L 380,20 L 260,20 L 230,50 L 150,50 L 120,20 L 40,20" fill="none" stroke="url(#bg-gold-trace-grad)" stroke-width="0.75" opacity="0.22" />
+              <!-- 走线 B：从右下方向左侧延伸的另一条平行分支 -->
+              <path d="M 520,90 L 450,90 L 420,60 L 320,60 L 290,90 L 180,90 L 160,70 L 90,70" fill="none" stroke="url(#bg-gold-trace-grad)" stroke-width="0.55" opacity="0.18" stroke-dasharray="3,3" />
+              <!-- 走线 C：从右上方向左下延伸 -->
+              <path d="M 460,15 L 430,45 L 350,45 L 320,75 L 210,75 L 190,55 L 70,55" fill="none" stroke="url(#bg-gold-trace-grad)" stroke-width="0.65" opacity="0.20" />
+              <!-- 走线 D：一条极细的底层微弱金线 -->
+              <path d="M 330,105 L 250,105 L 230,85 L 110,85 L 90,105 L 20,105" fill="none" stroke="url(#bg-gold-trace-grad)" stroke-width="0.5" opacity="0.14" />
+
+              <!-- 左侧新增走线 E：在“项目背景”文字最左侧区域进行黄金排线 -->
+              <path d="M 10,15 L 60,15 L 80,35 L 140,35 L 160,15 L 220,15" fill="none" stroke="url(#bg-gold-trace-grad)" stroke-width="0.65" opacity="0.22" />
+              <!-- 左侧新增走线 F：在“职责贡献”文字最左侧区域平行走线 -->
+              <path d="M 15,105 L 70,105 L 90,85 L 150,85 L 170,105 L 240,105" fill="none" stroke="url(#bg-gold-trace-grad)" stroke-width="0.65" opacity="0.22" />
+              
+              <!-- 左侧边缘双轨总线 (Dual Vertical Border Bus) - 精密契合左侧立柱线 -->
+              <path d="M 8,0 L 8,30 L 18,40 L 18,80 L 8,90 L 8,120" fill="none" stroke="url(#bg-gold-trace-grad)" stroke-width="0.75" opacity="0.24" />
+              <path d="M 13,0 L 13,27 L 23,37 L 23,83 L 13,93 L 13,120" fill="none" stroke="url(#bg-gold-trace-grad)" stroke-width="0.55" opacity="0.18" stroke-dasharray="2,2" />
+
+              <!-- PCB 散落过孔与测试焊盘 (Vias & Pads) -->
+              <!-- 节点1 -->
+              <circle cx="380" cy="20" r="1.8" fill="none" stroke="url(#bg-gold-trace-grad)" stroke-width="0.5" opacity="0.14" />
+              <circle cx="380" cy="20" r="0.8" fill="url(#bg-gold-trace-grad)" opacity="0.14" />
+              <!-- 节点2 -->
+              <circle cx="150" cy="50" r="1.8" fill="none" stroke="url(#bg-gold-trace-grad)" stroke-width="0.5" opacity="0.14" />
+              <circle cx="150" cy="50" r="0.8" fill="url(#bg-gold-trace-grad)" opacity="0.14" />
+              <!-- 节点3 -->
+              <circle cx="320" cy="60" r="1.8" fill="none" stroke="url(#bg-gold-trace-grad)" stroke-width="0.5" opacity="0.12" />
+              <!-- 节点4 -->
+              <circle cx="210" cy="75" r="1.8" fill="none" stroke="url(#bg-gold-trace-grad)" stroke-width="0.5" opacity="0.12" />
+              <circle cx="210" cy="75" r="0.8" fill="url(#bg-gold-trace-grad)" opacity="0.12" />
+              <!-- 左侧新增过孔节点 -->
+              <circle cx="60" cy="15" r="1.8" fill="none" stroke="url(#bg-gold-trace-grad)" stroke-width="0.5" opacity="0.14" />
+              <circle cx="60" cy="15" r="0.8" fill="url(#bg-gold-trace-grad)" opacity="0.14" />
+              <circle cx="90" cy="85" r="1.8" fill="none" stroke="url(#bg-gold-trace-grad)" stroke-width="0.5" opacity="0.12" />
+              <circle cx="90" cy="85" r="0.8" fill="url(#bg-gold-trace-grad)" opacity="0.12" />
             </svg>
           </div>
 
@@ -2749,38 +2788,262 @@
             </div>
           </div>
 
-          <!-- 右侧/视觉：晶圆芯片测试微缩图 (SoC Silicon Wafer SVG, 直接漂浮于背景) -->
-          <div style="flex-shrink: 0; display: flex; align-items: center; justify-content: center; margin: 0 auto; background: var(--glass-bg); border: 1.5px solid var(--nav-border); border-radius: 50%; padding: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.12); position: relative; z-index: 2;">
-            <svg width="120" height="120" viewBox="0 0 100 100" style="pointer-events: none;">
-              <!-- 晶圆外圈 -->
-              <circle cx="50" cy="50" r="48" fill="none" stroke="var(--accent)" stroke-width="0.8" stroke-dasharray="2,2" opacity="0.6" />
-              <circle cx="50" cy="50" r="45" fill="none" stroke="var(--accent)" stroke-width="0.6" opacity="0.9" />
-              <!-- 晶圆缺角切边 (Wafer Flat) -->
-              <line x1="18" y1="90" x2="82" y2="90" stroke="var(--accent)" stroke-width="0.9" opacity="0.9" />
-              <!-- 晶格网格 (Dice Layout) -->
-              <path d="M 15,20 L 85,20 M 10,35 L 90,35 M 5,50 L 95,50 M 10,65 L 90,65 M 15,80 L 85,80" stroke="rgba(255,107,43,0.2)" stroke-width="0.5" />
-              <path d="M 20,15 L 20,85 M 35,10 L 35,90 M 50,5 L 50,95 M 65,10 L 65,90 M 80,15 L 80,85" stroke="rgba(255,107,43,0.2)" stroke-width="0.5" />
-              <!-- 三大专项芯片微缩激活点 (DGT/RF/MIX) -->
-              <rect x="35" y="35" width="15" height="15" fill="rgba(255,107,43,0.12)" stroke="var(--accent)" stroke-width="0.8" />
-              <rect x="50" y="35" width="15" height="15" fill="rgba(0,173,181,0.12)" stroke="#00adb5" stroke-width="0.8" />
-              <rect x="35" y="50" width="15" height="15" fill="rgba(39,201,63,0.12)" stroke="#27c93f" stroke-width="0.8" />
-              
-              <!-- 探针连线 (带流动特效) -->
-              <line class="probe-path" x1="42.5" y1="42.5" x2="57.5" y2="42.5" stroke="var(--accent)" stroke-width="0.4" />
-              <line class="probe-path" x1="42.5" y1="42.5" x2="42.5" y2="57.5" stroke="var(--accent)" stroke-width="0.4" />
+          <!-- 右侧/视觉：SoC芯片测试微缩图 (SoC Chip Package SVG, 直接漂浮于背景) -->
+          <div style="flex-shrink: 0; display: flex; align-items: center; justify-content: center; margin: 0 auto; position: relative; z-index: 2;">
+            <svg id="chipSvg" width="200" height="200" viewBox="0 0 100 100" style="pointer-events: none;">
+              <style>
+                /* 浅色/默认模式下的 3D 芯片质感样式（黄金与黄铜） */
+                .chip-3d-group {
+                  filter: url(#chip-shadow-3d-light);
+                  transition: filter 0.3s ease;
+                }
+                .chip-side-left {
+                  fill: url(#metal-side-left-grad) !important; /* 黄铜拉丝侧面 1 */
+                  transition: fill 0.3s;
+                }
+                .chip-side-right {
+                  fill: url(#metal-side-right-grad) !important; /* 黄铜拉丝侧面 2 */
+                  transition: fill 0.3s;
+                }
+                .chip-face-top {
+                  fill: url(#metal-top-grad) !important; /* 电镀抛光黄金顶盖 */
+                  transition: fill 0.3s;
+                }
+                .chip-pins {
+                  stroke: url(#gold-pin-grad) !important; /* 电镀黄铜金引脚 */
+                  transition: stroke 0.3s;
+                }
+                .chip-die-border {
+                  stroke: url(#gold-die-grad) !important; /* 镀金硅片外框 */
+                  transition: stroke 0.3s;
+                }
+                .chip-trace-line {
+                  stroke: url(#gold-pin-grad) !important; /* 黄金电镀走线纹路 */
+                  stroke-width: 0.68px; /* 稍微加粗纹路，使其更清晰 */
+                  opacity: 0.95; /* 调高不透明度，使表面纹路深且明显 */
+                  transition: stroke 0.3s, opacity 0.3s;
+                }
+                .chip-side-left-shade {
+                  fill: rgba(255, 230, 163, 0.04); /* 微弱的金色金属反光，替代纯白 */
+                  transition: fill 0.3s;
+                }
+                .chip-side-right-shade {
+                  fill: rgba(0, 0, 0, 0.08); /* 金属折射阴影 */
+                  transition: fill 0.3s;
+                }
+                .chip-face-top-specular {
+                  fill: rgba(255, 230, 163, 0.06); /* 黄金镜面折射，替代纯白 */
+                  transition: fill 0.3s;
+                }
+                .chip-line-top-highlight {
+                  stroke: #ffe6a3 !important; /* 修复上边沿泛白问题，改用温暖耀眼的电镀黄金高光线 */
+                  stroke-width: 0.9px;
+                  transition: stroke 0.3s, stroke-width 0.3s;
+                }
+                .chip-line-top-shadow {
+                  stroke: rgba(150, 110, 40, 0.35); /* 黄金倒角折影 */
+                  transition: stroke 0.3s;
+                }
+                .chip-line-corner {
+                  stroke: #ffd078 !important; /* 修复主转角泛白问题，改用暖金色折射光线 */
+                  stroke-width: 0.9px;
+                  transition: stroke 0.3s, stroke-width 0.3s;
+                }
+                .chip-line-bottom-edge {
+                  stroke: rgba(120, 95, 30, 0.28);
+                  transition: stroke 0.3s;
+                }
 
-              <!-- 探针测试点及扩散波纹 (Active Probing Dots & Ripple Rings) -->
-              <!-- Probe 1 (DGT) -->
-              <circle cx="42.5" cy="42.5" r="1.5" fill="var(--accent)" />
-              <circle class="probe-ring" cx="42.5" cy="42.5" r="1.5" fill="none" stroke="var(--accent)" stroke-width="0.4" />
+                /* 深色模式下的 3D 霓虹芯片质感增强样式 */
+                :root[data-theme="dark"] .chip-3d-group {
+                  filter: url(#chip-shadow-3d-dark);
+                }
+                :root[data-theme="dark"] .chip-side-left {
+                  fill: var(--glass-bg) !important;
+                }
+                :root[data-theme="dark"] .chip-side-right {
+                  fill: var(--glass-bg) !important;
+                }
+                :root[data-theme="dark"] .chip-face-top {
+                  fill: var(--glass-bg) !important;
+                }
+                :root[data-theme="dark"] .chip-pins {
+                  stroke: var(--accent) !important; /* 恢复为深色下的活力橙色 */
+                }
+                :root[data-theme="dark"] .chip-die-border {
+                  stroke: var(--accent) !important;
+                }
+                :root[data-theme="dark"] .chip-trace-line {
+                  stroke: var(--accent) !important;
+                  opacity: 0.35;
+                }
+                :root[data-theme="dark"] .chip-side-left-shade {
+                  fill: rgba(255, 107, 43, 0.04);
+                }
+                :root[data-theme="dark"] .chip-side-right-shade {
+                  fill: rgba(0, 0, 0, 0.15);
+                }
+                :root[data-theme="dark"] .chip-face-top-specular {
+                  fill: rgba(255, 255, 255, 0.02);
+                }
+                :root[data-theme="dark"] .chip-line-top-highlight {
+                  stroke: rgba(255, 107, 43, 0.72);
+                  stroke-width: 1.1px;
+                }
+                :root[data-theme="dark"] .chip-line-top-shadow {
+                  stroke: rgba(255, 107, 43, 0.28);
+                }
+                :root[data-theme="dark"] .chip-line-corner {
+                  stroke: rgba(255, 107, 43, 0.65);
+                  stroke-width: 1.1px;
+                }
+                :root[data-theme="dark"] .chip-line-bottom-edge {
+                  stroke: rgba(255, 107, 43, 0.35);
+                }
+              </style>
 
-              <!-- Probe 2 (RF) -->
-              <circle cx="57.5" cy="42.5" r="1.5" fill="#00adb5" />
-              <circle class="probe-ring" cx="57.5" cy="42.5" r="1.5" fill="none" stroke="#00adb5" stroke-width="0.4" style="animation-delay: 0.6s;" />
+              <defs>
+                <!-- 真实金属质感渐变定义 - 浅色模式专用 (黄金与黄铜色系) -->
+                <!-- 1. 顶面抛光黄金盖板渐变 (带有异向多重高光节点) -->
+                <linearGradient id="metal-top-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#fff6d0" />
+                  <stop offset="20%" stop-color="#f3d078" />
+                  <stop offset="42%" stop-color="#c89f3c" />
+                  <stop offset="68%" stop-color="#fcf2c5" />
+                  <stop offset="88%" stop-color="#dcae4d" />
+                  <stop offset="100%" stop-color="#a37a22" />
+                </linearGradient>
+                <!-- 2. 左侧厚度面黄铜金属渐变 -->
+                <linearGradient id="metal-side-left-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#e2be68" />
+                  <stop offset="50%" stop-color="#b58c35" />
+                  <stop offset="100%" stop-color="#83621d" />
+                </linearGradient>
+                <!-- 3. 右侧厚度面黄铜金属渐变 -->
+                <linearGradient id="metal-side-right-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#b58c35" />
+                  <stop offset="50%" stop-color="#83621d" />
+                  <stop offset="100%" stop-color="#5c430e" />
+                </linearGradient>
+                <!-- 4. 经典电镀黄金/黄铜引脚渐变 -->
+                <linearGradient id="gold-pin-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#ffe6a3" />
+                  <stop offset="25%" stop-color="#e5bc5c" />
+                  <stop offset="50%" stop-color="#b38827" />
+                  <stop offset="75%" stop-color="#f7df9e" />
+                  <stop offset="100%" stop-color="#876214" />
+                </linearGradient>
+                <!-- 5. 硅核黄金边框渐变 -->
+                <linearGradient id="gold-die-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#ffe6a3" />
+                  <stop offset="50%" stop-color="#b38827" />
+                  <stop offset="100%" stop-color="#876214" />
+                </linearGradient>
 
-              <!-- Probe 3 (MIX) -->
-              <circle cx="42.5" cy="57.5" r="1.5" fill="#27c93f" />
-              <circle class="probe-ring" cx="42.5" cy="57.5" r="1.5" fill="none" stroke="#27c93f" stroke-width="0.4" style="animation-delay: 1.2s;" />
+                <!-- 3D 悬浮投影滤镜 - 浅色模式 -->
+                <filter id="chip-shadow-3d-light" x="-25%" y="-25%" width="150%" height="150%">
+                  <feDropShadow dx="0" dy="6" stdDeviation="4" flood-color="rgba(0,0,0,0.35)" />
+                </filter>
+                <!-- 3D 悬浮投影滤镜 - 深色模式 (琥珀橙霓虹发光) -->
+                <filter id="chip-shadow-3d-dark" x="-30%" y="-30%" width="160%" height="160%">
+                  <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="var(--accent, #ff6b2b)" flood-opacity="0.38" />
+                  <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="var(--accent, #ff6b2b)" flood-opacity="0.2" />
+                </filter>
+              </defs>
+
+              <!-- 外围芯片引脚 (Pins) - 采用 3D 等距投影方向延伸 -->
+              <g class="chip-pins" stroke="var(--accent)" stroke-width="1.2" stroke-linecap="round" opacity="0.8">
+                <!-- Top-Left edge pins (extending down-left) -->
+                <line x1="16" y1="46.55" x2="8" y2="51.15" />
+                <line x1="23" y1="42.525" x2="15" y2="47.125" />
+                <line x1="30" y1="38.5" x2="22" y2="43.1" />
+                <line x1="37" y1="34.475" x2="29" y2="39.075" />
+                <line x1="44" y1="30.45" x2="36" y2="35.05" />
+
+                <!-- Bottom-Left edge pins (extending up-left) -->
+                <line x1="16" y1="53.45" x2="8" y2="48.85" />
+                <line x1="23" y1="57.475" x2="15" y2="52.875" />
+                <line x1="30" y1="61.5" x2="22" y2="56.9" />
+                <line x1="37" y1="65.525" x2="29" y2="60.925" />
+                <line x1="44" y1="69.55" x2="36" y2="64.95" />
+
+                <!-- Top-Right edge pins (extending down-right) -->
+                <line x1="56" y1="30.45" x2="64" y2="35.05" />
+                <line x1="63" y1="34.475" x2="71" y2="39.075" />
+                <line x1="70" y1="38.5" x2="78" y2="43.1" />
+                <line x1="77" y1="42.525" x2="85" y2="47.125" />
+                <line x1="84" y1="46.55" x2="92" y2="51.15" />
+
+                <!-- Bottom-Right edge pins (extending up-right) -->
+                <line x1="84" y1="53.45" x2="92" y2="48.85" />
+                <line x1="77" y1="57.475" x2="85" y2="52.875" />
+                <line x1="70" y1="61.5" x2="78" y2="56.9" />
+                <line x1="63" y1="65.525" x2="71" y2="60.925" />
+                <line x1="56" y1="69.55" x2="64" y2="64.95" />
+              </g>
+
+              <!-- 3D 芯片主体模块 (含动态投影滤镜) -->
+              <g class="chip-3d-group">
+                <!-- Left Side 厚度面 -->
+                <polygon class="chip-side-left" points="10,50 50,73 50,81 10,58" fill="var(--glass-bg)" />
+                <polygon class="chip-side-left-shade" points="10,50 50,73 50,81 10,58" fill="none" />
+
+                <!-- Right Side 厚度面 -->
+                <polygon class="chip-side-right" points="50,73 90,50 90,58 50,81" fill="var(--glass-bg)" />
+                <polygon class="chip-side-right-shade" points="50,73 90,50 90,58 50,81" fill="none" />
+
+                <!-- Top Face 基底面 -->
+                <polygon class="chip-face-top" points="10,50 50,27 90,50 50,73" fill="var(--glass-bg)" />
+                <polygon class="chip-face-top-specular" points="10,50 50,27 90,50 50,73" fill="none" />
+
+                <!-- 顶面 3D 边缘棱线 -->
+                <polyline class="chip-line-top-highlight" points="10,50 50,27 90,50" fill="none" />
+                <polyline class="chip-line-top-shadow" points="10,50 50,73 90,50" fill="none" />
+                <!-- 垂直转角迎风面切棱线 -->
+                <line class="chip-line-corner" x1="50" y1="73" x2="50" y2="81" fill="none" />
+                <!-- 悬浮底部边线 -->
+                <polyline class="chip-line-bottom-edge" points="10,58 50,81 90,58" fill="none" />
+
+                <!-- 黄金阶梯式芯片外环金属圈 (Beveled Steps) -->
+                <polygon points="14,50 50,29.3 86,50 50,70.7" fill="none" stroke="url(#gold-pin-grad)" stroke-width="1.2" opacity="0.8" />
+                <polygon points="18,50 50,31.6 82,50 50,68.4" fill="none" stroke="url(#gold-pin-grad)" stroke-width="0.8" opacity="0.6" />
+
+                <!-- 高集成度芯片引出走线 (High-Density Gold Trace Lines) -->
+                <!-- Left-Top Traces -->
+                <path class="chip-trace-line" d="M 43,48.3 L 38,45.4 L 26,45.4 L 20,42" fill="none" />
+                <path class="chip-trace-line" d="M 44.5,47.4 L 40,44.8 L 29,44.8 L 24,41.9" fill="none" />
+                <path class="chip-trace-line" d="M 46,46.5 L 42,44.2 L 32,44.2 L 28,41.9" fill="none" />
+                <!-- Left-Bottom Traces -->
+                <path class="chip-trace-line" d="M 43,51.7 L 38,54.6 L 26,54.6 L 20,58" fill="none" />
+                <path class="chip-trace-line" d="M 44.5,52.6 L 40,55.2 L 29,55.2 L 24,58.1" fill="none" />
+                <path class="chip-trace-line" d="M 46,53.5 L 42,55.8 L 32,55.8 L 28,58.1" fill="none" />
+                <!-- Right-Top Traces -->
+                <path class="chip-trace-line" d="M 57,48.3 L 62,45.4 L 74,45.4 L 80,42" fill="none" />
+                <path class="chip-trace-line" d="M 55.5,47.4 L 60,44.8 L 71,44.8 L 76,41.9" fill="none" />
+                <path class="chip-trace-line" d="M 54,46.5 L 58,44.2 L 68,44.2 L 72,41.9" fill="none" />
+                <!-- Right-Bottom Traces -->
+                <path class="chip-trace-line" d="M 57,51.7 L 62,54.6 L 74,54.6 L 80,58" fill="none" />
+                <path class="chip-trace-line" d="M 55.5,52.6 L 60,55.2 L 71,55.2 L 76,58.1" fill="none" />
+                <path class="chip-trace-line" d="M 54,53.5 L 58,55.8 L 68,55.8 L 72,58.1" fill="none" />
+                <!-- Top Central Traces -->
+                <path class="chip-trace-line" d="M 48.5,44.8 L 48.5,36.5 L 45,34.5 L 45,30" fill="none" />
+                <path class="chip-trace-line" d="M 50,44.5 L 50,37.5 L 50,30" fill="none" />
+                <path class="chip-trace-line" d="M 51.5,44.8 L 51.5,36.5 L 55,34.5 L 55,30" fill="none" />
+                <!-- Bottom Central Traces -->
+                <path class="chip-trace-line" d="M 48.5,55.2 L 48.5,63.5 L 45,65.5 L 45,70" fill="none" />
+                <path class="chip-trace-line" d="M 50,55.5 L 50,62.5 L 50,70" fill="none" />
+                <path class="chip-trace-line" d="M 51.5,55.2 L 51.5,63.5 L 55,65.5 L 55,70" fill="none" />
+
+                <!-- 硅片内核区域 (Silicon Die 外边框) -->
+                <polygon class="chip-die-border" points="40,50 50,44.25 60,50 50,55.75" fill="url(#metal-top-grad)" stroke="url(#gold-pin-grad)" stroke-width="0.8" />
+                <!-- 硅片微型网格电路块 (Microcircuits) -->
+                <polygon points="43,50 50,46 57,50 50,54" fill="none" stroke="url(#gold-pin-grad)" stroke-width="0.6" opacity="0.7" />
+                <line x1="43" y1="50" x2="57" y2="50" stroke="url(#gold-pin-grad)" stroke-width="0.4" opacity="0.6" />
+                <line x1="50" y1="46" x2="50" y2="54" stroke="url(#gold-pin-grad)" stroke-width="0.4" opacity="0.6" />
+                <line x1="46.5" y1="48" x2="53.5" y2="52" stroke="url(#gold-pin-grad)" stroke-width="0.3" opacity="0.5" />
+                <line x1="46.5" y1="52" x2="53.5" y2="48" stroke="url(#gold-pin-grad)" stroke-width="0.3" opacity="0.5" />
+              </g>
+
             </svg>
           </div>
           
@@ -3520,6 +3783,88 @@
         rc.setAttribute('fill', 'var(--bus-joint-bg)'); rc.setAttribute('stroke', 'var(--accent)'); rc.setAttribute('stroke-width', '1');
         svg.appendChild(rc);
       });
+
+      // ==========================================
+      // [F] SoC 芯片引脚与 Bento PCB 全局互连走线 (Chip-to-Bento Interconnect)
+      // ==========================================
+      var chip = document.getElementById('chipSvg');
+      if (chip) {
+        var chipRect = chip.getBoundingClientRect();
+        
+        // 计算芯片底部在 bento 坐标系下的坐标
+        // 对应芯片 viewBox 里的三个主要引脚引出点
+        var p1_x = chipRect.left - bR.left + chipRect.width * 0.5;
+        var p1_y = chipRect.top - bR.top + chipRect.height * 0.81;
+
+        var p2_x = chipRect.left - bR.left + chipRect.width * 0.36;
+        var p2_y = chipRect.top - bR.top + chipRect.height * 0.65;
+
+        var p3_x = chipRect.left - bR.left + chipRect.width * 0.64;
+        var p3_y = chipRect.top - bR.top + chipRect.height * 0.65;
+
+        // 绘制三条互连走线
+        var chipTraces = [];
+
+        // 1. 中间走线：从芯片底角 (p1_x, p1_y) 出来，下行到 y = -10 (出芯片)，然后折向 vCenter，下行沿 vCenter 中央走线通道贯穿
+        var turnY1 = -10;
+        var diagEndY1 = turnY1 + Math.abs(p1_x - vCenter);
+        var path1 = 'M ' + p1_x.toFixed(1) + ' ' + p1_y.toFixed(1)
+          + ' L ' + p1_x.toFixed(1) + ' ' + turnY1.toFixed(1)
+          + ' L ' + vCenter.toFixed(1) + ' ' + diagEndY1.toFixed(1)
+          + ' L ' + vCenter.toFixed(1) + ' ' + h.toFixed(1);
+        chipTraces.push({ d: path1, flow: true });
+
+        // 2. 左侧走线：从芯片左下引脚 (p2_x, p2_y) 出来，下行到 y = -15，然后折向 vCenter - 6 纵向通道，下行至卡片2高度分流连入卡片右侧边缘
+        var turnY2 = -15;
+        var targetCorridorX2 = vCenter - 6;
+        var diagEndY2 = turnY2 + Math.abs(p2_x - targetCorridorX2);
+        var dx2 = targetCorridorX2 - r[2].r;
+        var branchStartY2 = r[2].cy - dx2;
+        var path2 = 'M ' + p2_x.toFixed(1) + ' ' + p2_y.toFixed(1)
+          + ' L ' + p2_x.toFixed(1) + ' ' + turnY2.toFixed(1)
+          + ' L ' + targetCorridorX2.toFixed(1) + ' ' + diagEndY2.toFixed(1)
+          + ' L ' + targetCorridorX2.toFixed(1) + ' ' + branchStartY2.toFixed(1)
+          + ' L ' + r[2].r.toFixed(1) + ' ' + r[2].cy.toFixed(1);
+        chipTraces.push({ d: path2, flow: false });
+
+        // 3. 右侧走线：从芯片右下引脚 (p3_x, p3_y) 出来，下行到 y = -15，然后折向 vCenter + 6 纵向通道，下行至卡片3高度分流连入卡片左侧边缘
+        var turnY3 = -15;
+        var targetCorridorX3 = vCenter + 6;
+        var diagEndY3 = turnY3 + Math.abs(p3_x - targetCorridorX3);
+        var dx3 = r[3].l - targetCorridorX3;
+        var branchStartY3 = r[3].cy - dx3;
+        var path3 = 'M ' + p3_x.toFixed(1) + ' ' + p3_y.toFixed(1)
+          + ' L ' + p3_x.toFixed(1) + ' ' + turnY3.toFixed(1)
+          + ' L ' + targetCorridorX3.toFixed(1) + ' ' + diagEndY3.toFixed(1)
+          + ' L ' + targetCorridorX3.toFixed(1) + ' ' + branchStartY3.toFixed(1)
+          + ' L ' + r[3].l.toFixed(1) + ' ' + r[3].cy.toFixed(1);
+        chipTraces.push({ d: path3, flow: false });
+
+        chipTraces.forEach(function (trace) {
+          // 基础暗线
+          var p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+          p.setAttribute('d', trace.d);
+          p.setAttribute('class', 'trace-main');
+          p.setAttribute('fill', 'none');
+          svg.appendChild(p);
+
+          // 氛围发光
+          var pg = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+          pg.setAttribute('d', trace.d);
+          pg.setAttribute('class', 'trace-glow');
+          pg.setAttribute('fill', 'none');
+          svg.appendChild(pg);
+
+          // 动态流星
+          if (trace.flow) {
+            var pf = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            pf.setAttribute('d', trace.d);
+            pf.setAttribute('class', 'trace-flow');
+            pf.setAttribute('fill', 'none');
+            svg.appendChild(pf);
+          }
+        });
+      }
     }
 
     // 首次和防异步抖动重绘，确保高密度全局图层无错位
