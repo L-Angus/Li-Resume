@@ -39,7 +39,8 @@
       --glass-hover-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.8), inset 0 3px 8px rgba(255, 255, 255, 0.35), inset 0 -1.5px 0 rgba(0, 0, 0, 0.12), 0 12px 36px rgba(45, 41, 37, 0.16);
 
       /* 导航栏 */
-      --nav-bg: rgba(237, 231, 224, .72);
+      --nav-bg-rgb: 237, 231, 224;
+      --nav-bg: rgba(var(--nav-bg-rgb), .72);
       --nav-border: rgb(0 0 0 / .06);
 
       /* 写实卷轴核心配方 (浅色：经典檀木与金丝绫边) */
@@ -125,7 +126,8 @@
         --glass-shadow: rgba(0, 0, 0, 0.7);
         --glass-hover-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.25), inset 0 3px 8px rgba(255, 107, 43, 0.15), 0 12px 40px rgba(255, 107, 43, 0.18);
 
-        --nav-bg: rgba(10, 8, 7, 0.85);
+        --nav-bg-rgb: 10, 8, 7;
+        --nav-bg: rgba(var(--nav-bg-rgb), 0.85);
         --nav-border: rgba(255, 107, 43, 0.1);
 
         /* 写实卷轴核心配方 */
@@ -215,7 +217,8 @@
       --glass-inset-bottom: rgba(0, 0, 0, 0.06);
       --glass-shadow: rgba(45, 41, 37, 0.08);
       --glass-hover-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.8), inset 0 3px 8px rgba(255, 255, 255, 0.35), inset 0 -1.5px 0 rgba(0, 0, 0, 0.12), 0 12px 36px rgba(45, 41, 37, 0.16);
-      --nav-bg: rgba(237, 231, 224, .72);
+      --nav-bg-rgb: 237, 231, 224;
+      --nav-bg: rgba(var(--nav-bg-rgb), .72);
       --nav-border: rgb(0 0 0 / .06);
       --side-accent-l: linear-gradient(90deg, rgb(155, 123, 100, 0.5), rgb(155, 123, 100, 0.65));
       --side-accent-l-outer: linear-gradient(90deg, rgb(155, 123, 100, 0.55), rgb(155, 123, 100, 0.7));
@@ -292,7 +295,8 @@
       --glass-inset-bottom: rgba(0, 0, 0, 0.7);
       --glass-shadow: rgba(0, 0, 0, 0.7);
       --glass-hover-shadow: inset 0 1.5px 0 rgba(255, 255, 255, 0.25), inset 0 3px 8px rgba(255, 107, 43, 0.15), 0 12px 40px rgba(255, 107, 43, 0.18);
-      --nav-bg: rgba(10, 8, 7, 0.85);
+      --nav-bg-rgb: 10, 8, 7;
+      --nav-bg: rgba(var(--nav-bg-rgb), 0.85);
       --nav-border: rgba(255, 107, 43, 0.1);
       --side-accent-l: linear-gradient(90deg, rgba(255, 107, 43, 0.25), rgba(255, 107, 43, 0.45));
       --side-accent-l-outer: linear-gradient(90deg, rgba(255, 107, 43, 0.3), rgba(255, 107, 43, 0.5));
@@ -521,6 +525,10 @@
       box-shadow: inset 0 1px 0 var(--glass-inset-top), 0 2px 8px var(--glass-shadow);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
+    }
+
+    .theme-toggle-btn svg {
+      pointer-events: none;
     }
 
     .theme-toggle-btn:hover {
@@ -798,7 +806,6 @@
     .bento {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      grid-auto-rows: 1fr;
       gap: 16px;
       position: relative;
       z-index: 1;
@@ -823,6 +830,29 @@
       color: var(--accent);
       margin-bottom: 10px
     }
+
+    .lq-tag {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      font-family: 'Geist Mono', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: rgba(255, 107, 43, 0.08);
+      color: var(--accent);
+      border: 1px solid rgba(255, 107, 43, 0.18);
+      pointer-events: none;
+    }
+
+    :root[data-theme="light"] .lq-tag {
+      background: rgba(181, 140, 53, 0.06);
+      color: #b58c35;
+      border-color: rgba(181, 140, 53, 0.18);
+    }
+
+
 
     .bd {
       font-size: 13.5px;
@@ -1774,6 +1804,7 @@
     .glass-pill svg {
       color: var(--accent);
       flex-shrink: 0;
+      pointer-events: none;
     }
 
     /* 点赞徽章专属动效 */
@@ -1804,7 +1835,8 @@
       justify-content: center;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.4s cubic-bezier(.16, 1, .3, 1);
+      visibility: hidden;
+      transition: opacity 0.4s cubic-bezier(.16, 1, .3, 1), visibility 0.4s cubic-bezier(.16, 1, .3, 1);
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px);
     }
@@ -1812,6 +1844,7 @@
     .contact-modal.visible {
       opacity: 1;
       pointer-events: auto;
+      visibility: visible;
     }
 
     .contact-modal-content {
@@ -2406,8 +2439,8 @@
   </nav>
 
   <!-- 用于静默打印静态 PDF 简历文件的隐形网关 Frame -->
-  <iframe id="pdfPrintIframe" src="李顺东_C++系统软件开发工程师.pdf"
-    style="position:absolute; width:0; height:0; border:0;"></iframe>
+  <iframe id="pdfPrintIframe" src="about:blank"
+    style="position:absolute; width:0; height:0; border:0; pointer-events:none; visibility:hidden;" tabindex="-1"></iframe>
 
   <main>
     <section class="hero">
@@ -2537,6 +2570,7 @@
           </span>
         </div>
       </div>
+    </div>
 
       <div style="position:relative;max-width:920px;margin:32px auto 0;padding:0;width:100%">
         <!-- 拟物写实级弹性卷轴 -->
@@ -3246,118 +3280,164 @@
           <div class="lq">
             <div class="lq-bg"></div>
             <div class="lq-panel">
-              <div class="bl">语言层 | ATPL领域特定语言编译器</div>
-              <p style="font-size:13px;color:var(--muted);line-height:1.7;margin:6px 0 8px">
-                ATEStudio的领域专用语言及编译器，用于统一描述测试流程与硬件参数配置。
+              <div class="bl" style="padding-right: 65px;">语言层 | ATPL领域特定语言编译器</div>
+              <span class="lq-tag">独立开发</span>
+              <p style="font-size:13px;color:var(--text);line-height:1.7;margin:6px 0 8px">
+                自研ATEStudio的领域专用语言及编译器，用于统一描述测试流程与硬件参数配置。
               </p>
-              <ul style="font-size:13px;color:var(--muted);line-height:1.7;padding-left:0;list-style:none">
-                <li style="padding-left:16px;position:relative;margin-bottom:4px">基于 <strong>ANTLR4</strong> 自研
-                  <strong>DSL 语法</strong>，以自然语言声明式配置代替C++硬编码。
+              <ul style="font-size:13px;color:var(--text);line-height:1.7;padding-left:0;list-style:none">
+                <li style="padding-left:16px;position:relative;margin-bottom:4px">
+                  基于ANTLR4自研DSL语法，以自然语言声明式配置代替C++硬编码。
                 </li>
                 <li style="padding-left:16px;position:relative;margin-bottom:4px">
-                  实现词法→语法→语义三阶段分析，配置错误<strong>编译期拦截</strong>，精确定位错误位置和类型。</li>
+                  实现词法→语法→语义三阶段分析，配置错误编译期拦截，精确定位错误位置和类型。
+                </li>
                 <li style="padding-left:16px;position:relative;margin-bottom:4px">设计
-                  <strong>PORT（RETURN/GOTO）流程跳转机制</strong>，基于返回码实现条件分支与循环控制。
+                  PORT（RETURN/GOTO）流程跳转机制，基于返回码实现条件分支与循环控制。</li>
+                <li style="padding-left:16px;position:relative;margin-bottom:4px">实现「配置-执行」分离，动态加载立即生效，新业务接入无需修改核心调度代码。
                 </li>
-                <li style="padding-left:16px;position:relative;margin-bottom:4px">
-                  实现「配置-执行」分离，<strong>动态加载立即生效</strong>，新业务接入无需修改核心调度代码。</li>
               </ul>
               <div class="br" style="display: flex; flex-direction: column; gap: 4px;">
                 <strong>成果：</strong>
-                <span style="padding-left: 12px;">• <strong>效率提升</strong>：配置驱动替代硬编码，缩短新品接入周期</span>
-                <span style="padding-left: 12px;">• <strong>调试优化</strong>：配置变更即时生效，提升调试效率</span>
-                <span style="padding-left: 12px;">• <strong>安全防护</strong>：编译期拦截配置错误，避免运行时误配风险</span>
+                <span style="padding-left: 12px;">• 效率提升：配置驱动替代硬编码，缩短新品接入周期</span>
+                <span style="padding-left: 12px;">• 调试优化：配置变更即时生效，提升调试效率</span>
+                <span style="padding-left: 12px;">• 安全防护：编译期拦截配置错误，避免运行时误配风险</span>
               </div>
             </div>
           </div>
           <div class="lq">
             <div class="lq-bg"></div>
             <div class="lq-panel">
-              <div class="bl">调度层 | 多DUT并行测试流调度引擎</div>
-              <p style="font-size:13px;color:var(--muted);line-height:1.7;margin:6px 0 8px">
-                ATEStudio的核心调度引擎，基于ATPL解析数据，驱动多DUT并行测试执行和调度。
+              <div class="bl" style="padding-right: 65px;">调度层 | 多DUT并行测试流调度引擎</div>
+              <span class="lq-tag">独立开发</span>
+              <p style="font-size:13px;color:var(--text);line-height:1.7;margin:6px 0 8px">
+                自研ATEStudio的核心调度引擎，基于ATPL解析数据，驱动多DUT并行测试执行和调度。
               </p>
-              <ul style="font-size:13px;color:var(--muted);line-height:1.7;padding-left:0;list-style:none">
-                <li style="padding-left:16px;position:relative;margin-bottom:4px">
-                  基于<strong>DFS构建父子依赖关系</strong>，完成环路检测与合法性校验，输出可执行<strong>任务图</strong>。</li>
-                <li style="padding-left:16px;position:relative;margin-bottom:4px">
-                  基于状态机与依赖驱动机制完成任务分发，利用反射工厂实现测试插件热加载。
-                <li style="padding-left:16px;position:relative;margin-bottom:4px">
-                  设计Port分支路由机制，各DUT按结果驱动GOTO流程跳转/RETURN结果回传。</li>
-                <li style="padding-left:16px;position:relative;margin-bottom:4px">
-                  支持循环语义，循环调度与主调度器解耦，结果经调度器栈中转归并。</li>
+              <ul style="font-size:13px;color:var(--text);line-height:1.7;padding-left:0;list-style:none">
+                <li style="padding-left:16px;position:relative;margin-bottom:4px">基于 DFS 构建父子依赖关系，完成环路检测与合法性校验，输出可执行任务图。
+                </li>
+                <li style="padding-left:16px;position:relative;margin-bottom:4px">基于状态机与依赖驱动机制完成任务分发，利用反射工厂实现测试插件热加载。
+                </li>
+                <li style="padding-left:16px;position:relative;margin-bottom:4px">设计 Port 分支路由机制，各 DUT 按结果驱动 GOTO
+                  流程跳转/RETURN 结果回传。</li>
+                <li style="padding-left:16px;position:relative;margin-bottom:4px">支持循环语义，循环调度与主调度器解耦，结果经调度器栈中转归并。</li>
                 <li style="padding-left:16px;position:relative;margin-bottom:4px">
                   设计监听器机制，调度器专注流程控制，附加功能（断点/上报/分Bin）外部扩展。</li>
               </ul>
               <div class="br" style="display: flex; flex-direction: column; gap: 4px;">
                 <strong>成果：</strong>
-                <span style="padding-left: 12px;">• <strong>调度能力</strong>：复杂流程稳定执行，支持多DUT多场景统一调度</span>
-                <span style="padding-left: 12px;">• <strong>扩展优化</strong>：测试插件热加载，新增业务测试场景无需修改调度核心</span>
-                <span style="padding-left: 12px;">• <strong>性能安全</strong>：静态构图+动态执行分离，流程错误前置拦截，运行效率显著提升</span>
+                <span style="padding-left: 12px;">• 调度能力：复杂流程稳定执行，支持多DUT多场景统一调度</span>
+                <span style="padding-left: 12px;">• 扩展优化：测试插件热加载，新增业务测试场景无需修改调度核心</span>
+                <span style="padding-left: 12px;">• 性能安全：静态构图+动态执行分离，流程错误前置拦截，运行效率显著提升</span>
               </div>
             </div>
           </div>
           <div class="lq">
             <div class="lq-bg"></div>
             <div class="lq-panel">
-              <div class="bl">接口层 | SDK架构分层和模块化设计</div>
-              <ul style="font-size:13px;color:var(--muted);line-height:1.7;padding-left:0;list-style:none">
-                <li style="padding-left:16px;position:relative;margin-bottom:4px">设计 <strong>RPC通信 → SDK接口 → Impl实现 →
-                    硬件抽象层</strong> 四层架构，统一兼容并隔离了数字（DGT）、射频（RF）、混合信号（MIX）异构硬件接口的差异性，实现上位业务与底层硬件解耦。</li>
-                <li style="padding-left:16px;position:relative;margin-bottom:4px">运用 <strong>PImpl / CRTP</strong> 等现代
-                  C++ 技法构建通用业务框架，支撑多业务接入；<strong>链式 SDK 接口</strong>支持用户二次开发。</li>
-                <li style="padding-left:16px;position:relative;margin-bottom:4px">上位业务逻辑交叉编译为 <strong>.so
-                    库</strong>，动态注册至下位 RPC 服务驱动硬件执行，形成<strong>“前端触发 → SDK 调度 → 用例执行 → 硬件驱动”闭环</strong>。</li>
-              </ul>
-              <div class="br"><strong>成果：</strong>形成“前端触发 → SDK 调度 → 用例执行 → 硬件驱动”完整链路。</div>
-            </div>
-          </div>
-          <div class="lq">
-            <div class="lq-bg"></div>
-            <div class="lq-panel">
-              <div class="bl">算法层 | 高精度DSP信号分析系统</div>
-              <ul style="font-size:13px;color:var(--muted);line-height:1.7;padding-left:0;list-style:none">
-                <li style="padding-left:16px;position:relative;margin-bottom:4px">主导 DSP
-                  从公式理论向工程化落地，构建<strong>时域采样→加窗预处理→FFT→频谱分析→指标计算</strong>完整处理流水线。</li>
-                <li style="padding-left:16px;position:relative;margin-bottom:4px">引入<strong>相干增益</strong>（Coherent
-                  Gain）与<strong>等效噪声带宽</strong>（ENBW）补偿模型，解决非相干采样频率泄露问题。</li>
-                <li style="padding-left:16px;position:relative;margin-bottom:4px">提供标准转换接口，频谱分析精度 <strong>&lt; 0.01
-                    dBm</strong>（对比频谱分析仪 / VSA89600）。</li>
-              </ul>
-              <div class="br"><strong>成果：</strong>填补平台信号分析能力空白，打破对第三方商业软件依赖，节省昂贵授权成本。</div>
-            </div>
-          </div>
-          <div class="lq">
-            <div class="lq-bg"></div>
-            <div class="lq-panel">
-              <div class="bl">数据层 | 异步STDF数据记录系统</div>
-              <ul style="font-size:13px;color:var(--muted);line-height:1.7;padding-left:0;list-style:none">
-                <li style="padding-left:16px;position:relative;margin-bottom:4px">完整实现 <strong>STDFv4 协议 25+ Record
-                    类型</strong>，基于模板实现零成本抽象的 DataType 体系，支持二进制序列化。</li>
-                <li style="padding-left:16px;position:relative;margin-bottom:4px">基于<strong>生产者-消费者模式</strong> +
-                  <strong>Atomic/Mutex/CV</strong> + 状态机实现线程安全异步写盘，主线程零阻塞。
-                </li>
-                <li style="padding-left:16px;position:relative;margin-bottom:4px">队列<strong>背压监控</strong> + 超时强制清理 +
-                  <strong>熔断机制</strong>，杜绝脏数据写入与系统雪崩。
-                </li>
-              </ul>
-              <div class="br"><strong>成果：</strong>支撑 <strong>7×24h 零故障运行</strong>千万级记录写入，保障量产数据完整性。</div>
-            </div>
-          </div>
-          <div class="lq">
-            <div class="lq-bg"></div>
-            <div class="lq-panel">
-              <div class="bl">配置层 | 高性能CSV解析库</div>
-              <ul style="font-size:13px;color:var(--muted);line-height:1.7;padding-left:0;list-style:none">
-                <li style="padding-left:16px;position:relative;margin-bottom:4px"><strong>std::string_view
-                    全链路零拷贝</strong> + <strong>atomic 无锁任务分发</strong>模型，多线程动态负载均衡。</li>
-                <li style="padding-left:16px;position:relative;margin-bottom:4px">策略模式封装同步/异步解析策略，1000 万行 CSV
-                  异步解析<strong>仅需 1.9s</strong>，纳入平台核心基础组件。</li>
+              <div class="bl" style="padding-right: 65px;">接口层 | SDK架构分层和模块化设计</div>
+              <span class="lq-tag">独立开发</span>
+              <p style="font-size:13px;color:var(--text);line-height:1.7;margin:6px 0 8px">
+                作为ATEStudio中间层，主导SDK架构分层与模块化设计，拉通上下游端到端链路闭环。
+              </p>
+              <ul style="font-size:13px;color:var(--text);line-height:1.7;padding-left:0;list-style:none">
                 <li style="padding-left:16px;position:relative;margin-bottom:4px">
-                  <strong>千万行秒级加载</strong>，多核<strong>行边界对齐</strong>与<strong>无锁线程安全</strong>。
+                  作为中间层，采用四层分层架构（RPC→接口层→实现层→硬件抽象层），实现上位业务与下位硬件解耦。</li>
+                <li style="padding-left:16px;position:relative;margin-bottom:4px">作为后端，提供 RPC 方法，承接前端 UI
+                  调度指令，路由执行链路并回传结果。</li>
+                <li style="padding-left:16px;position:relative;margin-bottom:4px">作为
+                  SDK，主导业务模块链式调用接口开发，支持用户二次开发测试多种业务场景。</li>
+                <li style="padding-left:16px;position:relative;margin-bottom:4px">作为上位机，封装上位业务逻辑交叉编译为 .so 库，动态注入下位 RPC
+                  服务，实现自主可控的硬件驱动。</li>
+              </ul>
+              <div class="br" style="display: flex; flex-direction: column; gap: 4px;">
+                <strong>成果：</strong>
+                <span style="padding-left: 12px;">• 开发效率：链式调用与反射机制支撑用户二次开发，降低业务接入成本</span>
+                <span style="padding-left: 12px;">• 业务覆盖：支撑数字/射频/混合多业务接入，复用同一套SDK框架</span>
+                <span style="padding-left: 12px;">• 端到端闭环：形成"前端触发→SDK调度→用例执行→接口调用→硬件驱动"完整链路闭环</span>
+              </div>
+            </div>
+          </div>
+          <div class="lq">
+            <div class="lq-bg"></div>
+            <div class="lq-panel">
+              <div class="bl" style="padding-right: 65px;">算法层 | 高精度DSP信号分析系统</div>
+              <span class="lq-tag">独立开发</span>
+              <p style="font-size:13px;color:var(--text);line-height:1.7;margin:6px 0 8px">
+                自研ATEStudio的DSP信号分析系统，服务于射频、MIX专项ADC数据的分析和处理。
+              </p>
+              <ul style="font-size:13px;color:var(--text);line-height:1.7;padding-left:0;list-style:none">
+                <li style="padding-left:16px;position:relative;margin-bottom:4px">从理论调研到工程化落地，实现多种 DSP
+                  算法，构建数据采集→加窗处理→FFT转换→频谱分析→指标计算完整 Pipeline。</li>
+                <li style="padding-left:16px;position:relative;margin-bottom:4px">实现 5 种窗函数（矩形/汉宁/汉明/布莱克曼/平顶），有效抑制频谱泄露。
+                </li>
+                <li style="padding-left:16px;position:relative;margin-bottom:4px">基于 FFTW 实现 FFT 引擎，引入 Coherent
+                  Gain+ENBW 补偿模型，精度误差控制在 0.01dBm 以内。</li>
+                <li style="padding-left:16px;position:relative;margin-bottom:4px">基于动态直方图法，实现 DNL/INL 分析，覆盖高精/高速 ADC
+                  线性度测试。</li>
+                <li style="padding-left:16px;position:relative;margin-bottom:4px">实现 SNR/SND/THD/SFDR
+                  指标计算，支持结构化输出功率分解结果。</li>
+              </ul>
+              <div class="br" style="display: flex; flex-direction: column; gap: 4px;">
+                <strong>成果：</strong>
+                <span style="padding-left: 12px;">• 效率提升：填补测试平台信号分析能力空白，提高产品自动化效率</span>
+                <span style="padding-left: 12px;">• 精度优化：频谱分析精度 < 0.01dBm（对比频谱分析仪/VSA89600）</span>
+                    <span style="padding-left: 12px;">• 成本节约：降低第三方商业软件依赖，节省昂贵授权成本</span>
+              </div>
+            </div>
+          </div>
+          <div class="lq">
+            <div class="lq-bg"></div>
+            <div class="lq-panel">
+              <div class="bl" style="padding-right: 65px;">数据层 | 异步STDF数据记录系统</div>
+              <span class="lq-tag">独立开发</span>
+              <p style="font-size:13px;color:var(--text);line-height:1.7;margin:6px 0 8px">
+                自研ATEStudio的数据记录系统，可生成通用标准STDF文件，支持跨平台数据分析与芯片良率评估。
+              </p>
+              <ul style="font-size:13px;color:var(--text);line-height:1.7;padding-left:0;list-style:none">
+                <li style="padding-left:16px;position:relative;margin-bottom:4px">基于 STDF 协议规范，实现 17
+                  种记录类型与二进制序列化接口，覆盖测试全生命周期。</li>
+                <li style="padding-left:16px;position:relative;margin-bottom:4px">采用生产者-消费者模式，主线程生成记录，工作线程异步写入，实现测试与 IO
+                  解耦。</li>
+                <li style="padding-left:16px;position:relative;margin-bottom:4px">设计对象池管理 Record 对象，减少高频场景内存分配开销。</li>
+                <li style="padding-left:16px;position:relative;margin-bottom:4px">设计背压监控机制，实时监测队列积压，超过阈值触发告警，防止内存溢出。
+                </li>
+                <li style="padding-left:16px;position:relative;margin-bottom:4px">设计熔断机制，支持正常完成、异常停止、超时强制停止，保障系统稳定性。
                 </li>
               </ul>
-              <div class="br"><strong>成果：</strong>异步解析吞吐量较同步提升数倍，千万行级 CSV 秒级加载。</div>
+              <div class="br" style="display: flex; flex-direction: column; gap: 4px;">
+                <strong>成果：</strong>
+                <span style="padding-left: 12px;">• 跨平台性：生成行业标准格式STDF文件，支撑下游良率分析。</span>
+                <span style="padding-left: 12px;">• 效率保障：异步写入与主流程解耦，兼顾数据完整性与测试效率。</span>
+                <span style="padding-left: 12px;">• 运行保障：支撑7×24h零故障运行与千万级记录写入，保障量产数据完整可追溯。</span>
+              </div>
+            </div>
+          </div>
+          <div class="lq">
+            <div class="lq-bg"></div>
+            <div class="lq-panel">
+              <div class="bl" style="padding-right: 65px;">配置层 | 高性能CSV解析库</div>
+              <span class="lq-tag">独立开发</span>
+              <p style="font-size:13px;color:var(--text);line-height:1.7;margin:6px 0 8px">
+                自研轻量级高性能CSV解析组件，支撑ATEStudio核心业务模块的配置解析。
+              </p>
+              <ul style="font-size:13px;color:var(--text);line-height:1.7;padding-left:0;list-style:none">
+                <li style="padding-left:16px;position:relative;margin-bottom:4px">策略模式封装同步/异步解析策略，支持运行时动态切换，业务层按需接入。
+                </li>
+                <li style="padding-left:16px;position:relative;margin-bottom:4px">采用 std::string_view
+                  实现全链路零拷贝，减少堆内存分配开销。</li>
+                <li style="padding-left:16px;position:relative;margin-bottom:4px">基于 atomic
+                  实现无锁"取号机"任务分发模型，充分发挥多核性能，实现动态负载均衡。</li>
+                <li style="padding-left:16px;position:relative;margin-bottom:4px">结合 RAII + 智能指针统一管理文件 IO，保障资源异常安全、无泄漏。
+                </li>
+                <li style="padding-left:16px;position:relative;margin-bottom:4px">设计回调机制，支持业务逻辑自定义扩展，适配多样化配置解析需求。</li>
+              </ul>
+              <div class="br" style="display: flex; flex-direction: column; gap: 4px;">
+                <strong>成果：</strong>
+                <span style="padding-left: 12px;">• 解析高效：异步模式充分利用多核并行性能，1000w行解析1.9s。</span>
+                <span style="padding-left: 12px;">• 轻量复用：轻量化设计，零第三方库依赖，控制打包体积与部署成本。</span>
+                <span style="padding-left: 12px;">• 平台价值：纳入平台基础组件，支撑ATEStudio多个核心业务配置解析。</span>
+              </div>
             </div>
           </div>
         </div>
@@ -3611,7 +3691,7 @@
     window.addEventListener('scroll', () => {
       nav.classList.toggle('scrolled', window.scrollY > 10);
       const opacity = .75 + Math.min(window.scrollY / window.innerHeight, 0.15);
-      nav.style.background = `rgba(var(--nav-bg), ${opacity})`;
+      nav.style.background = `rgba(var(--nav-bg-rgb), ${opacity})`;
     }, { passive: true });
 
     const twText = "你真正拥有的，只有当下！";
@@ -4181,16 +4261,31 @@
         }, 3000); // 3秒后气泡收起
       }
 
-      // 2. 鼠标视线追踪
-      function trackEyeMovement(clientX, clientY) {
-        if (isHoveringContainer) return; // 悬停在容器上时，保持好奇内聚瞳孔，不追踪鼠标位置
+      // 2. 鼠标视线追踪 (缓存眼球的绝对文档坐标，杜绝 mousemove 下的高频 getBoundingClientRect 导致的布局抖动)
+      let leftCenterX = 0;
+      let leftCenterY = 0;
+      let rightCenterX = 0;
+      let rightCenterY = 0;
+
+      function updateEyeCenters() {
+        if (!leftPupil || !rightPupil) return;
         const leftRect = leftPupil.parentElement.getBoundingClientRect();
         const rightRect = rightPupil.parentElement.getBoundingClientRect();
+        leftCenterX = leftRect.left + leftRect.width / 2 + window.scrollX;
+        leftCenterY = leftRect.top + leftRect.height / 2 + window.scrollY;
+        rightCenterX = rightRect.left + rightRect.width / 2 + window.scrollX;
+        rightCenterY = rightRect.top + rightRect.height / 2 + window.scrollY;
+      }
 
-        const leftCenterX = leftRect.left + leftRect.width / 2;
-        const leftCenterY = leftRect.top + leftRect.height / 2;
-        const rightCenterX = rightRect.left + rightRect.width / 2;
-        const rightCenterY = rightRect.top + rightRect.height / 2;
+      // 初始化与窗口大小变化时更新眼球坐标
+      window.addEventListener('load', updateEyeCenters);
+      window.addEventListener('resize', updateEyeCenters);
+
+      function trackEyeMovement(pageX, pageY) {
+        if (isHoveringContainer) return; // 悬停在容器上时，保持好奇内聚瞳孔，不追踪鼠标位置
+        if (!leftCenterX || !rightCenterX) {
+          updateEyeCenters(); // 兜底首次加载或未就绪状态
+        }
 
         function getOffset(cx, cy, mx, my) {
           const dx = mx - cx;
@@ -4205,8 +4300,8 @@
           };
         }
 
-        const leftOffset = getOffset(leftCenterX, leftCenterY, clientX, clientY);
-        const rightOffset = getOffset(rightCenterX, rightCenterY, clientX, clientY);
+        const leftOffset = getOffset(leftCenterX, leftCenterY, pageX, pageY);
+        const rightOffset = getOffset(rightCenterX, rightCenterY, pageX, pageY);
 
         leftPupil.style.transform = `translate(${leftOffset.x}px, ${leftOffset.y}px)`;
         rightPupil.style.transform = `translate(${rightOffset.x}px, ${rightOffset.y}px)`;
@@ -4214,7 +4309,7 @@
 
       // 3. 事件接驳
       window.addEventListener('mousemove', (e) => {
-        trackEyeMovement(e.clientX, e.clientY);
+        trackEyeMovement(e.pageX, e.pageY);
       });
 
       // 悬停事件：高频吐槽 + 斗鸡眼效果
